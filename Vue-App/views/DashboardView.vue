@@ -30,7 +30,7 @@ const dateRangeText = computed(() => {
 
 onMounted(async () => {
   // Adjust paths if you move files to public/
-  const csvResp = await fetch('/RawOwnershipReport.combined.csv');
+  const csvResp = await fetch('/RawOwnershipReport.example.csv');
   const csvText = await csvResp.text();
   const mapResp = await fetch('/author_mappings.json');
   const mappingJson = await mapResp.json();

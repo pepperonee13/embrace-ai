@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Team1",
+    "authors": [
+      "Member 1",
+      "Member 2"
+    ],
+    "products": [
+      "Product1",
+      "Product2",
+      "Product3",
+      "Product4",
+      "Product5",
+      "Product6"
+    ]
+  },
+  {
+    "name": "Team2",
+    "authors": [
+      "Member3",
+      "Member4",
+      "Member5",
+      "Member6"
+    ],
+    "products": [
+      "Product7",
+      "Product8",
+      "Product9",
+      "Product10"
+    ]
+  }
+]

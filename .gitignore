@@ -1,0 +1,14 @@
+**/*.csv
+**/*.json
+**/*.xlsx
+
+!config.json
+!warnings.json
+!RawOwnershipReport.example.csv
+!Vue-App/RawOwnershipReport.example.csv
+!Vue-App/author_mappings.json
+!Vue-App/team_mappings.json
+
+node_modules
+report/warningsDB
+report/index.json

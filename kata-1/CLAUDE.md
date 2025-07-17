@@ -2,205 +2,138 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Overview
 
-TimeToActDocumentAI is a modern C# implementation of the TimeToAct DocumentAI specification for parsing structured business documents into JSON format suitable for AI assistants. It converts documents like contracts and procedures into structured JSON while preserving semantic meaning.
-
-## Technology Stack
-
-- **.NET 8** with latest C# language features
-- **System.Text.Json** for high-performance JSON serialization
-- **xUnit** for unit testing
-- **Records** for immutable data structures
-- **Nullable reference types** for better null safety
-
-## Common Development Commands
-
-```bash
-# Build the solution
-dotnet build TimeToActDocumentAI.sln
-
-# Run unit tests
-dotnet test TimeToActDocumentAI.Tests
-
-# Run example application
-dotnet run --project TimeToActDocumentAI.Example
-
-# Build for release
-dotnet build TimeToActDocumentAI.sln --configuration Release
-
-# Run specific test
-dotnet test TimeToActDocumentAI.Tests --filter "TestMethodName"
-```
-
-## Architecture Overview
-
-### Core Components
-
-1. **Models** (`TimeToActDocumentAI.Models/`):
-   - `ContentNode`: Base record for all content types
-   - `Block`: Main container for structured content with optional head and numbering
-   - `ListBlock`: Ordered or unordered lists with hierarchical support
-   - `Dictionary`: Key-value pairs with configurable separators
-   - `TextContent`: Plain text content
-
-2. **Parsing Pipeline** (`TimeToActDocumentAI.Parsing/`):
-   - `Lexer`: Tokenizes input text into structured tokens
-   - `DocumentParser`: Converts tokens into document structure
-   - `Token`: Represents parsed elements with position information
-
-3. **Serialization**:
-   - `DocumentAI`: Main API class with parsing and JSON conversion
-   - `ContentNodeJsonConverter`: Custom JSON converter for polymorphic content
-
-### Key Design Patterns
-
-- **Immutable Data Structures**: Uses records for thread-safe, immutable content
-- **Polymorphic Serialization**: Proper JSON handling of different content types
-- **Clean Architecture**: Clear separation between lexing, parsing, and serialization
-- **Modern C# Features**: Pattern matching, nullable reference types, latest language features
-
-## Document Format Support
-
-The parser handles these content types:
-
-### Plain Text
-```
-First paragraph.
-Second paragraph.
-```
-
-### Headed Blocks
-```
-<head>Section Title</head>
-Content goes here.
-```
-
-### Dictionaries
-```
-<dict sep=":">
-Key1: Value1
-Key2: Value2
-</dict>
-```
-
-### Lists
-```
-<list kind=".">
-1. First item
-2. Second item
-2.1. Sub-item
-</list>
-```
-
-### Nested Blocks
-```
-<head>Main Section</head>
-<block>
-<head>Subsection</head>
-Content
-</block>
-```
-
-## Testing Strategy
-
-### Unit Tests (`TimeToActDocumentAI.Tests/`)
-- **Coverage**: All major parsing scenarios and edge cases
-- **Structure**: Comprehensive test suite in `DocumentAITests.cs`
-- **Validation**: Tests parsing, serialization, and round-trip JSON conversion
-
-### Example Application (`TimeToActDocumentAI.Example/`)
-- **Purpose**: Demonstrates real-world usage patterns
-- **Content**: Contract and procedure document examples
-- **Usage**: Run to see parsing results and JSON output
-
-## Development Patterns
-
-### C# Modern Features
-- **Records**: Immutable data structures for reliability
-- **Nullable Reference Types**: Explicit null handling
-- **Pattern Matching**: Clean conditional logic
-- **Latest C# Language Version**: Uses cutting-edge language features
-
-### Error Handling
-- Comprehensive validation during parsing
-- Clear error messages with position information
-- Graceful handling of malformed input
-
-### Performance Considerations
-- **System.Text.Json**: High-performance JSON serialization
-- **Immutable Structures**: Thread-safe operations
-- **Efficient Parsing**: Single-pass lexing and parsing
-
-## JSON Output Format
-
-Produces JSON conforming to TimeToAct DocumentAI specification:
-
-```json
-{
-  "kind": "block",
-  "head": "Document Title",
-  "body": [
-    "Plain text content",
-    {
-      "kind": "dict",
-      "items": {
-        "key1": "value1",
-        "key2": "value2"
-      }
-    },
-    {
-      "kind": "list",
-      "items": [
-        {
-          "kind": "block",
-          "number": "1.",
-          "body": ["List item content"]
-        }
-      ]
-    }
-  ]
-}
-```
+This repository contains two implementations of the TimeToAct DocumentAI specification - a structured document parser that converts business documents into JSON format suitable for AI assistants. Both implementations follow the same specification defined in `spec.md`.
 
 ## Project Structure
 
-```
-TimeToActDocumentAI/
-├── Models/
-│   ├── ContentNode.cs      # Base content type
-│   ├── Block.cs           # Main document container
-│   ├── ListBlock.cs       # List structures
-│   └── Dictionary.cs      # Key-value pairs
-├── Parsing/
-│   ├── Token.cs           # Token definitions
-│   ├── Lexer.cs           # Lexical analyzer
-│   └── DocumentParser.cs  # Document parser
-└── DocumentAI.cs          # Main API class
+The repository contains two separate implementations:
 
-TimeToActDocumentAI.Tests/
-└── DocumentAITests.cs     # Comprehensive unit tests
+- **C# Implementation** (`csharp/`): Modern .NET 8 implementation with comprehensive testing
+- **F# Implementation** (`fsharp/`): Functional programming approach with domain-driven design
 
-TimeToActDocumentAI.Example/
-└── Program.cs             # Example usage
-```
+### C# Implementation (`csharp/`)
+- `TimeToActDocumentAI/` - Core library with Models, Parsing, and main DocumentAI class
+- `TimeToActDocumentAI.Tests/` - XUnit test suite
+- `TimeToActDocumentAI.Example/` - Example usage application
 
-## Usage Examples
+### F# Implementation (`fsharp/`)
+- `TimeToActParser/` - Core library with Types, DocumentParser, JsonSerializer modules
+- `TimeToActParser.Tests/` - XUnit test suite with spec-based tests
 
-### Basic Parsing
-```csharp
-var document = DocumentAI.ParseDocument(input);
-var json = DocumentAI.ToJson(document);
-```
+## Common Development Tasks
 
-### Contract Processing
-```csharp
-var contract = DocumentAI.ParseDocument(contractText);
-// Process structured contract data
+### Building and Testing
+
+**C# Implementation:**
+```bash
+# Build the solution
+dotnet build csharp/TimeToActDocumentAI.sln
+
+# Run all tests
+dotnet test csharp/TimeToActDocumentAI.Tests
+
+# Run the example application
+dotnet run --project csharp/TimeToActDocumentAI.Example
 ```
 
-### Procedure Documentation
-```csharp
-var procedure = DocumentAI.ParseDocument(procedureText);
-// Convert to JSON for AI processing
+**F# Implementation:**
+```bash
+# Build the solution
+dotnet build fsharp/TimeToActParser.sln
+
+# Run all tests
+dotnet test fsharp/TimeToActParser.Tests
+
+# Run the main application
+dotnet run --project fsharp/TimeToActParser
 ```
+
+### Running Individual Tests
+
+**C# Tests:**
+```bash
+# Run specific test method
+dotnet test csharp/TimeToActDocumentAI.Tests --filter "TestMethodName"
+
+# Run tests with verbose output
+dotnet test csharp/TimeToActDocumentAI.Tests --verbosity normal
+```
+
+**F# Tests:**
+```bash
+# Run specific test
+dotnet test fsharp/TimeToActParser.Tests --filter "TestMethodName"
+```
+
+## Architecture and Design
+
+### C# Implementation Architecture
+- **Models**: Records-based immutable data structures (Block, ListBlock, Dictionary, ContentNode)
+- **Parsing**: Lexer tokenizes input, DocumentParser builds structure
+- **Serialization**: Custom JsonConverter handles polymorphic ContentNode types
+- **Design**: Modern C# features (records, nullable reference types, pattern matching)
+
+### F# Implementation Architecture
+- **Types**: Discriminated unions for ContentNode, domain-specific value objects
+- **DocumentParser**: Functional parsing with active patterns
+- **JsonSerializer**: JSON conversion respecting the specification format
+- **Design**: Domain-driven design with functional programming principles
+
+### Key Domain Types
+
+Both implementations support the same core content types:
+- **Block**: Main container with optional head, number, and body content
+- **ListBlock**: Ordered (numbered) or bulleted lists
+- **Dictionary**: Key-value pairs with configurable separators
+- **Text**: Plain text content
+
+### Document Format
+
+The parser handles structured documents with these elements:
+- `<head>Title</head>` - Document/section headers
+- `<block>...</block>` - Nested content blocks
+- `<list kind=".">` or `<list kind="*">` - Ordered or bulleted lists
+- `<dict sep=":">` - Key-value dictionaries with custom separators
+
+## Testing Strategy
+
+Both implementations follow the specification in `spec.md` which serves as both documentation and test cases. The spec provides input/output pairs that define expected behavior.
+
+### Test Structure
+- **Specification Tests**: Direct implementation of examples from `spec.md`
+- **Edge Cases**: Empty documents, nested structures, complex mixed content
+- **JSON Serialization**: Round-trip testing for data integrity
+
+## Technology Stack
+
+- **.NET 8**: Both implementations target .NET 8.0
+- **Testing**: XUnit framework for both C# and F# tests
+- **JSON**: System.Text.Json for serialization in C#, custom implementation in F#
+- **C# Features**: Records, nullable reference types, pattern matching, implicit usings
+- **F# Features**: Discriminated unions, active patterns, type providers, functional composition
+
+## Development Guidelines
+
+### Code Quality
+- Follow TDD principles as specified in global CLAUDE.md
+- Maintain immutable data structures where possible
+- Use appropriate language idioms (C# records, F# discriminated unions)
+- Ensure comprehensive test coverage for all specification examples
+
+### When Working with Tests
+- Always run full test suite before making changes
+- New features should include corresponding test cases
+- Follow the specification examples in `spec.md` for expected behavior
+- Use descriptive test names that reflect the specification being tested
+
+## Specification Compliance
+
+Both implementations must conform to the TimeToAct DocumentAI specification in `spec.md`. The specification includes:
+- Input/output examples for all supported document formats
+- JSON structure requirements
+- Parsing rules for nested content
+- Handling of edge cases and empty content
+
+Any changes to parsing logic should be validated against the complete specification test suite.

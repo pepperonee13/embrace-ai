@@ -1,4 +1,4 @@
-module TimeToActParser.TddParser
+module TimeToActParser.DocumentParser
 
 open System
 open System.Text.RegularExpressions

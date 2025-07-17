@@ -1,4 +1,4 @@
-﻿open TimeToActParser.TddParser
+﻿open TimeToActParser.DocumentParser
 open TimeToActParser.JsonSerializer
 
 [<EntryPoint>]

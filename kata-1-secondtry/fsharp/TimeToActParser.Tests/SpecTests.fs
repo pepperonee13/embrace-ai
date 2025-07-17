@@ -1,7 +1,7 @@
 module TimeToActParser.Tests.SpecTests
 
 open Xunit
-open TimeToActParser.TddParser
+open TimeToActParser.DocumentParser
 open TimeToActParser.Types
 open TimeToActParser.JsonSerializer
 

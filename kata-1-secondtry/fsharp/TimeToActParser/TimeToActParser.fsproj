@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <Compile Include="Types.fs" />
-    <Compile Include="TddParser.fs" />
+    <Compile Include="DocumentParser.fs" />
     <Compile Include="JsonSerializer.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

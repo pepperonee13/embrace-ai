@@ -70,14 +70,23 @@ let parseListItem (line: string) (kind: ListKind) =
         else
             None
 
+// Helper function to finalize current item
+let finalizeCurrentItem (currentItem: Block option) (acc: Block list) =
+    match currentItem with
+    | Some item -> acc @ [item]
+    | None -> acc
+
+// Helper function to start new item
+let startNewItem (currentItem: Block option) (acc: Block list) (marker: ListMarker) (head: DocumentHead) =
+    let newItem = { Number = Some marker; Head = Some head; Body = [] }
+    let updatedAcc = finalizeCurrentItem currentItem acc
+    (updatedAcc, Some newItem)
+
 let rec parseList (lines: string list) (kind: ListKind) : ListBlock * string list =
     let rec processListLines (lines: string list) (acc: Block list) (currentItem: Block option) =
         match lines with
         | [] -> 
-            let finalItems = 
-                match currentItem with
-                | Some item -> acc @ [item]
-                | None -> acc
+            let finalItems = finalizeCurrentItem currentItem acc
             let listBlock : ListBlock = { Kind = kind; Items = finalItems }
             (listBlock, [])
         | line :: rest ->
@@ -85,21 +94,14 @@ let rec parseList (lines: string list) (kind: ListKind) : ListBlock * string lis
             if String.IsNullOrWhiteSpace(trimmed) then
                 processListLines rest acc currentItem
             elif trimmed = "</list>" then
-                let finalItems = 
-                    match currentItem with
-                    | Some item -> acc @ [item]
-                    | None -> acc
+                let finalItems = finalizeCurrentItem currentItem acc
                 let listBlock : ListBlock = { Kind = kind; Items = finalItems }
                 (listBlock, rest)
             else
                 match parseListItem trimmed kind with
                 | Some (marker, head) ->
-                    let newItem = { Number = Some marker; Head = Some head; Body = [] }
-                    let updatedAcc = 
-                        match currentItem with
-                        | Some item -> acc @ [item]
-                        | None -> acc
-                    processListLines rest updatedAcc (Some newItem)
+                    let (updatedAcc, newItem) = startNewItem currentItem acc marker head
+                    processListLines rest updatedAcc newItem
                 | None ->
                     match currentItem with
                     | Some item ->

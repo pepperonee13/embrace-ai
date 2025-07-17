@@ -4,12 +4,30 @@ open System
 open System.Text.RegularExpressions
 open TimeToActParser.Types
 
+// Common regex pattern helper
+let tryMatchRegex (pattern: string) (input: string) =
+    let match' = Regex.Match(input, pattern)
+    if match'.Success then Some match' else None
+
 // Dictionary parsing domain operations
 let parseDictSeparator (line: string) =
     let pattern = @"<dict\s+sep=""([^""]+)""\s*>"
-    let match' = Regex.Match(line, pattern)
-    if match'.Success then
-        Some (Separator.create match'.Groups.[1].Value)
+    match tryMatchRegex pattern line with
+    | Some match' -> Some (Separator.create match'.Groups.[1].Value)
+    | None -> None
+
+// Helper function to create dictionary from accumulated items
+let createDictionary (separator: Separator) (acc: Map<string, string>) =
+    { Separator = separator; Items = acc }
+
+// Helper function to parse key-value pair
+let parseKeyValuePair (line: string) (separator: Separator) =
+    let separatorValue = Separator.value separator
+    let parts = line.Split([|separatorValue|], 2, StringSplitOptions.None)
+    if parts.Length = 2 then
+        let key = parts.[0].Trim()
+        let value = parts.[1].Trim()
+        Some (key, value)
     else
         None
 
@@ -17,23 +35,20 @@ let rec parseDictionary (lines: string list) (separator: Separator) : Dictionary
     let rec processDictLines (lines: string list) (acc: Map<string, string>) =
         match lines with
         | [] -> 
-            let dict : Dictionary = { Separator = separator; Items = acc }
+            let dict = createDictionary separator acc
             (dict, [])
         | line :: rest ->
             let trimmed = line.Trim()
             if String.IsNullOrWhiteSpace(trimmed) then
                 processDictLines rest acc
             elif trimmed = "</dict>" then
-                let dict : Dictionary = { Separator = separator; Items = acc }
+                let dict = createDictionary separator acc
                 (dict, rest)
             else
-                let separatorValue = Separator.value separator
-                let parts = trimmed.Split([|separatorValue|], 2, StringSplitOptions.None)
-                if parts.Length = 2 then
-                    let key = parts.[0].Trim()
-                    let value = parts.[1].Trim()
+                match parseKeyValuePair trimmed separator with
+                | Some (key, value) ->
                     processDictLines rest (acc.Add(key, value))
-                else
+                | None ->
                     processDictLines rest acc
     
     processDictLines lines Map.empty
@@ -41,27 +56,25 @@ let rec parseDictionary (lines: string list) (separator: Separator) : Dictionary
 // List parsing domain operations
 let parseListKind (line: string) =
     let pattern = @"<list\s+kind=""([^""]+)""\s*>"
-    let match' = Regex.Match(line, pattern)
-    if match'.Success then
+    match tryMatchRegex pattern line with
+    | Some match' ->
         match match'.Groups.[1].Value with
         | "." -> Some Ordered
         | "*" -> Some Bulleted
         | _ -> None
-    else
-        None
+    | None -> None
 
 let parseListItem (line: string) (kind: ListKind) =
     let trimmed = line.Trim()
     match kind with
     | Ordered ->
         let pattern = @"^(\d+(?:\.\d+)*\.)\s*(.*)"
-        let match' = Regex.Match(trimmed, pattern)
-        if match'.Success then
+        match tryMatchRegex pattern trimmed with
+        | Some match' ->
             let marker = ListMarker.create match'.Groups.[1].Value
             let head = DocumentHead.create match'.Groups.[2].Value
             Some (marker, head)
-        else
-            None
+        | None -> None
     | Bulleted ->
         if trimmed.StartsWith("•") then
             let marker = ListMarker.create "•"
@@ -69,6 +82,10 @@ let parseListItem (line: string) (kind: ListKind) =
             Some (marker, head)
         else
             None
+
+// Helper function to append content to block body
+let appendToBody (block: Block) (content: ContentNode) =
+    { block with Body = block.Body @ [content] }
 
 // Helper function to finalize current item
 let finalizeCurrentItem (currentItem: Block option) (acc: Block list) =
@@ -109,11 +126,11 @@ let rec parseList (lines: string list) (kind: ListKind) : ListBlock * string lis
                             match parseDictSeparator trimmed with
                             | Some separator ->
                                 let (dict, remaining) = parseDictionary rest separator
-                                let updatedItem = { item with Body = item.Body @ [Dictionary dict] }
+                                let updatedItem = appendToBody item (Dictionary dict)
                                 processListLines remaining acc (Some updatedItem)
                             | None -> processListLines rest acc (Some item)
                         else
-                            let updatedItem = { item with Body = item.Body @ [Text trimmed] }
+                            let updatedItem = appendToBody item (Text trimmed)
                             processListLines rest acc (Some updatedItem)
                     | None ->
                         processListLines rest acc None
@@ -164,17 +181,17 @@ let rec parseLines (lines: string list) : Block * string list =
                 processLines rest { acc with Head = Some head }
             | BlockStart ->
                 let (nestedBlock, remaining) = parseLines rest
-                processLines remaining { acc with Body = acc.Body @ [Block nestedBlock] }
+                processLines remaining (appendToBody acc (Block nestedBlock))
             | BlockEnd ->
                 (acc, rest)
             | DictStart separator ->
                 let (dict, remaining) = parseDictionary rest separator
-                processLines remaining { acc with Body = acc.Body @ [Dictionary dict] }
+                processLines remaining (appendToBody acc (Dictionary dict))
             | ListStart kind ->
                 let (list, remaining) = parseList rest kind
-                processLines remaining { acc with Body = acc.Body @ [ListBlock list] }
+                processLines remaining (appendToBody acc (ListBlock list))
             | TextContent text ->
-                processLines rest { acc with Body = acc.Body @ [Text text] }
+                processLines rest (appendToBody acc (Text text))
     
     processLines lines { Number = None; Head = None; Body = [] }
 

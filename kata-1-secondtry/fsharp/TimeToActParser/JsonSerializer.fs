@@ -11,14 +11,15 @@ let rec private serializeContentNode (node: ContentNode) =
     | Dictionary dict -> serializeDictionary dict
 
 and private serializeBlock (block: Block) =
-    let mutable properties = [("kind", JsonSerializer.Serialize(block.Kind))]
+    let mutable properties = [("kind", JsonSerializer.Serialize("block"))]
     
     match block.Number with
-    | Some number -> properties <- properties @ [("number", JsonSerializer.Serialize(number))]
+    | Some (OrderedList number) -> properties <- properties @ [("number", JsonSerializer.Serialize(number))]
+    | Some (BulletedList marker) -> properties <- properties @ [("number", JsonSerializer.Serialize(marker))]
     | None -> ()
     
     match block.Head with
-    | Some head -> properties <- properties @ [("head", JsonSerializer.Serialize(head))]
+    | Some head -> properties <- properties @ [("head", JsonSerializer.Serialize(DocumentHead.value head))]
     | None -> ()
     
     if not block.Body.IsEmpty then
@@ -30,7 +31,7 @@ and private serializeBlock (block: Block) =
 
 and private serializeListBlock (listBlock: ListBlock) =
     let itemsJson = listBlock.Items |> List.map serializeBlock |> fun items -> "[" + String.concat "," items + "]"
-    sprintf "{\"kind\":\"%s\",\"items\":%s}" listBlock.Kind itemsJson
+    sprintf "{\"kind\":\"list\",\"items\":%s}" itemsJson
 
 and private serializeDictionary (dict: Dictionary) =
     let itemsJson = 
@@ -40,7 +41,7 @@ and private serializeDictionary (dict: Dictionary) =
         |> String.concat ","
         |> fun items -> "{" + items + "}"
     
-    sprintf "{\"kind\":\"%s\",\"items\":%s}" dict.Kind itemsJson
+    sprintf "{\"kind\":\"dict\",\"items\":%s}" itemsJson
 
 let toJson (block: Block) =
     serializeBlock block

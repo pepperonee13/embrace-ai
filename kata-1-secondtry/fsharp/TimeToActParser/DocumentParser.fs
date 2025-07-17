@@ -4,30 +4,31 @@ open System
 open System.Text.RegularExpressions
 open TimeToActParser.Types
 
-// Step 3: Add dictionary parsing
+// Dictionary parsing domain operations
 let parseDictSeparator (line: string) =
     let pattern = @"<dict\s+sep=""([^""]+)""\s*>"
     let match' = Regex.Match(line, pattern)
     if match'.Success then
-        Some match'.Groups.[1].Value
+        Some (Separator.create match'.Groups.[1].Value)
     else
         None
 
-let rec parseDictionary (lines: string list) (separator: string) : Dictionary * string list =
+let rec parseDictionary (lines: string list) (separator: Separator) : Dictionary * string list =
     let rec processDictLines (lines: string list) (acc: Map<string, string>) =
         match lines with
         | [] -> 
-            let dict : Dictionary = { Kind = "dict"; Items = acc }
+            let dict : Dictionary = { Separator = separator; Items = acc }
             (dict, [])
         | line :: rest ->
             let trimmed = line.Trim()
             if String.IsNullOrWhiteSpace(trimmed) then
                 processDictLines rest acc
             elif trimmed = "</dict>" then
-                let dict : Dictionary = { Kind = "dict"; Items = acc }
+                let dict : Dictionary = { Separator = separator; Items = acc }
                 (dict, rest)
             else
-                let parts = trimmed.Split([|separator|], 2, StringSplitOptions.None)
+                let separatorValue = Separator.value separator
+                let parts = trimmed.Split([|separatorValue|], 2, StringSplitOptions.None)
                 if parts.Length = 2 then
                     let key = parts.[0].Trim()
                     let value = parts.[1].Trim()
@@ -37,33 +38,39 @@ let rec parseDictionary (lines: string list) (separator: string) : Dictionary * 
     
     processDictLines lines Map.empty
 
-// Step 4: Add list parsing
+// List parsing domain operations
 let parseListKind (line: string) =
     let pattern = @"<list\s+kind=""([^""]+)""\s*>"
     let match' = Regex.Match(line, pattern)
     if match'.Success then
-        Some match'.Groups.[1].Value
+        match match'.Groups.[1].Value with
+        | "." -> Some Ordered
+        | "*" -> Some Bulleted
+        | _ -> None
     else
         None
 
-let parseListItem (line: string) (kind: string) =
+let parseListItem (line: string) (kind: ListKind) =
     let trimmed = line.Trim()
     match kind with
-    | "." ->
+    | Ordered ->
         let pattern = @"^(\d+(?:\.\d+)*\.)\s*(.*)"
         let match' = Regex.Match(trimmed, pattern)
         if match'.Success then
-            Some (match'.Groups.[1].Value, match'.Groups.[2].Value)
+            let marker = ListMarker.create match'.Groups.[1].Value
+            let head = DocumentHead.create match'.Groups.[2].Value
+            Some (marker, head)
         else
             None
-    | "*" ->
+    | Bulleted ->
         if trimmed.StartsWith("•") then
-            Some ("•", trimmed.Substring(1).Trim())
+            let marker = ListMarker.create "•"
+            let head = DocumentHead.create (trimmed.Substring(1).Trim())
+            Some (marker, head)
         else
             None
-    | _ -> None
 
-let rec parseList (lines: string list) (kind: string) : ListBlock * string list =
+let rec parseList (lines: string list) (kind: ListKind) : ListBlock * string list =
     let rec processListLines (lines: string list) (acc: Block list) (currentItem: Block option) =
         match lines with
         | [] -> 
@@ -71,7 +78,7 @@ let rec parseList (lines: string list) (kind: string) : ListBlock * string list 
                 match currentItem with
                 | Some item -> acc @ [item]
                 | None -> acc
-            let listBlock : ListBlock = { Kind = "list"; Items = finalItems }
+            let listBlock : ListBlock = { Kind = kind; Items = finalItems }
             (listBlock, [])
         | line :: rest ->
             let trimmed = line.Trim()
@@ -82,12 +89,12 @@ let rec parseList (lines: string list) (kind: string) : ListBlock * string list 
                     match currentItem with
                     | Some item -> acc @ [item]
                     | None -> acc
-                let listBlock : ListBlock = { Kind = "list"; Items = finalItems }
+                let listBlock : ListBlock = { Kind = kind; Items = finalItems }
                 (listBlock, rest)
             else
                 match parseListItem trimmed kind with
-                | Some (number, head) ->
-                    let newItem = { Kind = "block"; Number = Some number; Head = Some head; Body = [] }
+                | Some (marker, head) ->
+                    let newItem = { Number = Some marker; Head = Some head; Body = [] }
                     let updatedAcc = 
                         match currentItem with
                         | Some item -> acc @ [item]
@@ -111,6 +118,7 @@ let rec parseList (lines: string list) (kind: string) : ListBlock * string list 
     
     processListLines lines [] None
 
+// Block parsing domain operations
 let rec parseLines (lines: string list) : Block * string list =
     let rec processLines (lines: string list) (acc: Block) =
         match lines with
@@ -121,7 +129,8 @@ let rec parseLines (lines: string list) : Block * string list =
                 processLines rest acc
             elif trimmed.StartsWith("<head>") && trimmed.EndsWith("</head>") then
                 let headContent = trimmed.Substring(6, trimmed.Length - 13)
-                processLines rest { acc with Head = Some headContent }
+                let head = DocumentHead.create headContent
+                processLines rest { acc with Head = Some head }
             elif trimmed = "<block>" then
                 let (nestedBlock, remaining) = parseLines rest
                 processLines remaining { acc with Body = acc.Body @ [Block nestedBlock] }
@@ -142,11 +151,11 @@ let rec parseLines (lines: string list) : Block * string list =
             else
                 processLines rest { acc with Body = acc.Body @ [Text trimmed] }
     
-    processLines lines { Kind = "block"; Number = None; Head = None; Body = [] }
+    processLines lines { Number = None; Head = None; Body = [] }
 
 let parseDocument (input: string) =
     if String.IsNullOrWhiteSpace(input) then
-        { Kind = "block"; Number = None; Head = None; Body = [] }
+        { Number = None; Head = None; Body = [] }
     else
         let lines = input.Split([|'\n'|], StringSplitOptions.None)
                     |> Array.map (fun s -> s.Trim())

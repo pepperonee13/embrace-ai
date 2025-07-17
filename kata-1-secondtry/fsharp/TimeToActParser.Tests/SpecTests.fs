@@ -3,6 +3,7 @@ module TimeToActParser.Tests.SpecTests
 open Xunit
 open TimeToActParser.DocumentParser
 open TimeToActParser.Types
+open TimeToActParser.Types.TestHelpers
 open TimeToActParser.JsonSerializer
 
 // Test cases from spec.md following TDD principles
@@ -12,9 +13,9 @@ let ``Empty text results in empty document block`` () =
     let input = ""
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
-    Assert.Equal(None, result.Number)
-    Assert.Equal(None, result.Head)
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(None, numberToString result.Number)
+    Assert.Equal(None, headToString result.Head)
     Assert.Equal(0, result.Body.Length)
 
 [<Fact>]
@@ -22,7 +23,7 @@ let ``Plain text goes into block body - two paragraphs`` () =
     let input = "First paragraph.\nSecond paragraph."
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(2, result.Body.Length)
     
     match result.Body.[0] with
@@ -38,8 +39,8 @@ let ``Head tag goes into block head`` () =
     let input = "<head>Test Document</head>\nContent"
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
-    Assert.Equal(Some "Test Document", result.Head)
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(Some "Test Document", headToString result.Head)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
@@ -57,8 +58,8 @@ Here is a little story
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
-    Assert.Equal(Some "AI Coding Kata", result.Head)
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(Some "AI Coding Kata", headToString result.Head)
     Assert.Equal(2, result.Body.Length)
     
     match result.Body.[0] with
@@ -67,8 +68,8 @@ Here is a little story
     
     match result.Body.[1] with
     | Block nestedBlock ->
-        Assert.Equal("block", nestedBlock.Kind)
-        Assert.Equal(Some "Preface", nestedBlock.Head)
+        Assert.Equal("block", getBlockKind nestedBlock)
+        Assert.Equal(Some "Preface", headToString nestedBlock.Head)
         Assert.Equal(1, nestedBlock.Body.Length)
         
         match nestedBlock.Body.[0] with
@@ -86,12 +87,12 @@ Key Three: Value Three
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
     | Dictionary dict ->
-        Assert.Equal("dict", dict.Kind)
+        Assert.Equal("dict", getDictKind dict)
         Assert.Equal(3, dict.Items.Count)
         Assert.Equal("Value One", dict.Items.["Key One"])
         Assert.Equal("Value Two", dict.Items.["Key Two"])
@@ -107,12 +108,12 @@ Kata Number -
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
     | Dictionary dict ->
-        Assert.Equal("dict", dict.Kind)
+        Assert.Equal("dict", getDictKind dict)
         Assert.Equal(2, dict.Items.Count)
         Assert.Equal("AI Coding - for TAT", dict.Items.["Title"])
         Assert.Equal("", dict.Items.["Kata Number"])
@@ -127,23 +128,23 @@ let ``Ordered list with dots`` () =
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
     | ListBlock listBlock ->
-        Assert.Equal("list", listBlock.Kind)
+        Assert.Equal("list", getListKind listBlock)
         Assert.Equal(2, listBlock.Items.Length)
         
         let firstItem = listBlock.Items.[0]
-        Assert.Equal("block", firstItem.Kind)
-        Assert.Equal(Some "1.", firstItem.Number)
-        Assert.Equal(Some "First", firstItem.Head)
+        Assert.Equal("block", getBlockKind firstItem)
+        Assert.Equal(Some "1.", numberToString firstItem.Number)
+        Assert.Equal(Some "First", headToString firstItem.Head)
         
         let secondItem = listBlock.Items.[1]
-        Assert.Equal("block", secondItem.Kind)
-        Assert.Equal(Some "2.", secondItem.Number)
-        Assert.Equal(Some "Second", secondItem.Head)
+        Assert.Equal("block", getBlockKind secondItem)
+        Assert.Equal(Some "2.", numberToString secondItem.Number)
+        Assert.Equal(Some "Second", headToString secondItem.Head)
     | _ -> Assert.True(false, "Expected list block")
 
 [<Fact>]
@@ -156,28 +157,28 @@ let ``Bulleted list with asterisks`` () =
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
     | ListBlock listBlock ->
-        Assert.Equal("list", listBlock.Kind)
+        Assert.Equal("list", getListKind listBlock)
         Assert.Equal(3, listBlock.Items.Length)
         
         let firstItem = listBlock.Items.[0]
-        Assert.Equal("block", firstItem.Kind)
-        Assert.Equal(Some "•", firstItem.Number)
-        Assert.Equal(Some "First", firstItem.Head)
+        Assert.Equal("block", getBlockKind firstItem)
+        Assert.Equal(Some "•", numberToString firstItem.Number)
+        Assert.Equal(Some "First", headToString firstItem.Head)
         
         let secondItem = listBlock.Items.[1]
-        Assert.Equal("block", secondItem.Kind)
-        Assert.Equal(Some "•", secondItem.Number)
-        Assert.Equal(Some "Second", secondItem.Head)
+        Assert.Equal("block", getBlockKind secondItem)
+        Assert.Equal(Some "•", numberToString secondItem.Number)
+        Assert.Equal(Some "Second", headToString secondItem.Head)
         
         let thirdItem = listBlock.Items.[2]
-        Assert.Equal("block", thirdItem.Kind)
-        Assert.Equal(Some "•", thirdItem.Number)
-        Assert.Equal(Some "Third", thirdItem.Head)
+        Assert.Equal("block", getBlockKind thirdItem)
+        Assert.Equal(Some "•", numberToString thirdItem.Number)
+        Assert.Equal(Some "Third", headToString thirdItem.Head)
     | _ -> Assert.True(false, "Expected list block")
 
 [<Fact>]
@@ -191,29 +192,29 @@ let ``Nested lists with subitems`` () =
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
     | ListBlock listBlock ->
-        Assert.Equal("list", listBlock.Kind)
+        Assert.Equal("list", getListKind listBlock)
         Assert.Equal(4, listBlock.Items.Length)
         
         let firstItem = listBlock.Items.[0]
-        Assert.Equal(Some "1.", firstItem.Number)
-        Assert.Equal(Some "First", firstItem.Head)
+        Assert.Equal(Some "1.", numberToString firstItem.Number)
+        Assert.Equal(Some "First", headToString firstItem.Head)
         
         let secondItem = listBlock.Items.[1]
-        Assert.Equal(Some "2.", secondItem.Number)
-        Assert.Equal(Some "Second", secondItem.Head)
+        Assert.Equal(Some "2.", numberToString secondItem.Number)
+        Assert.Equal(Some "Second", headToString secondItem.Head)
         
         let subitem1 = listBlock.Items.[2]
-        Assert.Equal(Some "2.1.", subitem1.Number)
-        Assert.Equal(Some "Subitem 1", subitem1.Head)
+        Assert.Equal(Some "2.1.", numberToString subitem1.Number)
+        Assert.Equal(Some "Subitem 1", headToString subitem1.Head)
         
         let subitem2 = listBlock.Items.[3]
-        Assert.Equal(Some "2.2.", subitem2.Number)
-        Assert.Equal(Some "Subitem 2", subitem2.Head)
+        Assert.Equal(Some "2.2.", numberToString subitem2.Number)
+        Assert.Equal(Some "Subitem 2", headToString subitem2.Head)
     | _ -> Assert.True(false, "Expected list block")
 
 [<Fact>]
@@ -231,17 +232,17 @@ Another Key: Another Value
     
     let result = parseDocument input
     
-    Assert.Equal("block", result.Kind)
+    Assert.Equal("block", getBlockKind result)
     Assert.Equal(1, result.Body.Length)
     
     match result.Body.[0] with
     | ListBlock listBlock ->
-        Assert.Equal("list", listBlock.Kind)
+        Assert.Equal("list", getListKind listBlock)
         Assert.Equal(2, listBlock.Items.Length)
         
         let firstItem = listBlock.Items.[0]
-        Assert.Equal(Some "1.", firstItem.Number)
-        Assert.Equal(Some "First", firstItem.Head)
+        Assert.Equal(Some "1.", numberToString firstItem.Number)
+        Assert.Equal(Some "First", headToString firstItem.Head)
         Assert.Equal(1, firstItem.Body.Length)
         
         match firstItem.Body.[0] with
@@ -249,8 +250,8 @@ Another Key: Another Value
         | _ -> Assert.True(false, "Expected text in first item body")
         
         let secondItem = listBlock.Items.[1]
-        Assert.Equal(Some "2.", secondItem.Number)
-        Assert.Equal(Some "Second", secondItem.Head)
+        Assert.Equal(Some "2.", numberToString secondItem.Number)
+        Assert.Equal(Some "Second", headToString secondItem.Head)
         Assert.Equal(2, secondItem.Body.Length)
         
         match secondItem.Body.[0] with
@@ -259,7 +260,7 @@ Another Key: Another Value
         
         match secondItem.Body.[1] with
         | Dictionary dict ->
-            Assert.Equal("dict", dict.Kind)
+            Assert.Equal("dict", getDictKind dict)
             Assert.Equal(2, dict.Items.Count)
             Assert.Equal("Value", dict.Items.["Key"])
             Assert.Equal("Another Value", dict.Items.["Another Key"])

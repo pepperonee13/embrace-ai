@@ -1,236 +1,123 @@
-# TimeToAct DocumentAI - C# Implementation
+# TimeToAct DocumentAI
 
-A modern C# implementation of the TimeToAct DocumentAI specification for parsing structured business documents into JSON format suitable for AI assistants.
+Two reference implementations of the TimeToAct DocumentAI specification for parsing structured business documents into JSON format suitable for AI assistants.
 
-## Features
+## Overview
 
-- **Modern C# (.NET 8)**: Built with the latest C# features including records, pattern matching, and nullable reference types
-- **Structured Document Parsing**: Converts business documents (contracts, procedures, etc.) into structured JSON
-- **Flexible Content Types**: Supports text, nested blocks, dictionaries, and lists
-- **JSON Serialization**: Full round-trip JSON serialization support
-- **Comprehensive Testing**: Unit tests covering all major functionality
-- **Clean Architecture**: Separation of concerns with lexical analysis, parsing, and serialization layers
+This repository contains two complete implementations of the same specification:
+
+- **[C# Implementation](csharp/)**: Modern .NET 8 implementation with comprehensive object-oriented design
+- **[F# Implementation](fsharp/)**: Functional programming approach with domain-driven design
+
+Both implementations follow the same [DocumentAI specification](spec.md) and produce identical JSON output.
+
+## What is TimeToAct DocumentAI?
+
+TimeToAct DocumentAI provides a simple, structured document format for describing business documents like contracts, procedures, or any structured content. It converts human-readable structured text into JSON format that can be easily consumed by AI assistants.
+
+## Key Features
+
+- **Structured Document Parsing**: Converts business documents into structured JSON
+- **Flexible Content Types**: Supports text, nested blocks, dictionaries, and lists  
+- **Two Language Implementations**: Choose between C# (OOP) or F# (functional) approaches
+- **Comprehensive Testing**: Both implementations include full test suites
+- **Specification-Driven**: Development follows the detailed specification in [spec.md](spec.md)
 
 ## Quick Start
 
-### Basic Usage
+Choose your preferred implementation:
 
-```csharp
-using TimeToActDocumentAI;
+- **[C# Implementation](csharp/)** - Object-oriented approach with modern C# features
+- **[F# Implementation](fsharp/)** - Functional programming with domain-driven design
 
-// Parse a document
-var input = """
-    <head>Software License Agreement</head>
-    This agreement is entered into on the date last signed below.
-    
-    <dict sep=":">
-    Licensor: TechCorp Inc.
-    Licensee: ClientCo Ltd.
-    </dict>
-    """;
+### Example Input
 
-var document = DocumentAI.ParseDocument(input);
-var json = DocumentAI.ToJson(document);
-Console.WriteLine(json);
 ```
+<head>Software License Agreement</head>
+This agreement is entered into on the date last signed below.
 
-### Document Structure
-
-The parser supports these main content types:
-
-#### 1. Plain Text
-```
-First paragraph.
-Second paragraph.
-```
-
-#### 2. Headed Blocks
-```
-<head>Section Title</head>
-Content goes here.
-```
-
-#### 3. Dictionaries
-```
 <dict sep=":">
-Key1: Value1
-Key2: Value2
+Licensor: TechCorp Inc.
+Licensee: ClientCo Ltd.
 </dict>
-```
 
-#### 4. Lists
-```
 <list kind=".">
-1. First item
-2. Second item
-2.1. Sub-item
+1. Grant of License
+2. Restrictions
+3. Termination
 </list>
 ```
 
-#### 5. Nested Blocks
-```
-<head>Main Section</head>
-Introduction text
-<block>
-<head>Subsection</head>
-Detailed content
-</block>
-```
-
-## Architecture
-
-### Core Components
-
-1. **Models** (`TimeToActDocumentAI.Models`):
-   - `ContentNode`: Base class for all content types
-   - `Block`: Container for structured content with optional head and numbering
-   - `ListBlock`: Ordered or unordered lists
-   - `Dictionary`: Key-value pairs with configurable separators
-   - `TextContent`: Plain text content
-
-2. **Parsing** (`TimeToActDocumentAI.Parsing`):
-   - `Lexer`: Tokenizes input text into structured tokens
-   - `DocumentParser`: Converts tokens into document structure
-   - `Token`: Represents parsed elements with position information
-
-3. **Serialization**:
-   - `DocumentAI`: Main API class with parsing and JSON conversion
-   - `ContentNodeJsonConverter`: Custom JSON converter for polymorphic content
-
-### Key Design Decisions
-
-- **Records over Classes**: Immutable data structures for better reliability
-- **Nullable Reference Types**: Explicit handling of null values
-- **System.Text.Json**: Modern, high-performance JSON serialization
-- **Polymorphic Serialization**: Proper handling of different content types in JSON
-
-## Examples
-
-### Contract Document
-```csharp
-var contract = """
-    <head>Service Agreement</head>
-    This agreement defines the terms of service.
-    
-    <dict sep=":">
-    Client: Acme Corp
-    Provider: Tech Solutions Inc.
-    Effective Date: 2024-01-01
-    </dict>
-    
-    <list kind=".">
-    1. Service Scope
-    The provider will deliver the following services:
-    <list kind="*">
-    • Web development
-    • System maintenance
-    • Technical support
-    </list>
-    
-    2. Payment Terms
-    Payment is due within 30 days of invoice.
-    </list>
-    """;
-
-var result = DocumentAI.ParseDocument(contract);
-```
-
-### Procedure Document
-```csharp
-var procedure = """
-    <head>Incident Response Procedure</head>
-    Follow these steps when an incident occurs:
-    
-    <list kind=".">
-    1. Immediate Response
-    <dict sep="-">
-    Timeline - Within 15 minutes
-    Responsible - On-call engineer
-    </dict>
-    
-    2. Assessment Phase
-    Evaluate the severity and impact.
-    
-    3. Resolution
-    Implement fixes and monitor results.
-    </list>
-    """;
-
-var result = DocumentAI.ParseDocument(procedure);
-```
-
-## Testing
-
-Run the unit tests:
-
-```bash
-dotnet test TimeToActDocumentAI.Tests
-```
-
-Run the example application:
-
-```bash
-dotnet run --project TimeToActDocumentAI.Example
-```
-
-## Project Structure
-
-```
-TimeToActDocumentAI/
-├── Models/
-│   ├── ContentNode.cs      # Base content type
-│   ├── Block.cs           # Main document container
-│   ├── ListBlock.cs       # List structures
-│   └── Dictionary.cs      # Key-value pairs
-├── Parsing/
-│   ├── Token.cs           # Token definitions
-│   ├── Lexer.cs           # Lexical analyzer
-│   └── DocumentParser.cs  # Document parser
-└── DocumentAI.cs          # Main API class
-
-TimeToActDocumentAI.Tests/
-└── DocumentAITests.cs     # Comprehensive unit tests
-
-TimeToActDocumentAI.Example/
-└── Program.cs             # Example usage
-```
-
-## JSON Output Format
-
-The parser produces JSON that matches the TimeToAct DocumentAI specification:
+### Expected JSON Output
 
 ```json
 {
   "kind": "block",
-  "head": "Document Title",
+  "head": "Software License Agreement",
   "body": [
-    "Plain text content",
+    "This agreement is entered into on the date last signed below.",
     {
       "kind": "dict",
       "items": {
-        "key1": "value1",
-        "key2": "value2"
+        "Licensor": "TechCorp Inc.",
+        "Licensee": "ClientCo Ltd."
       }
     },
     {
       "kind": "list",
       "items": [
-        {
-          "kind": "block",
-          "number": "1.",
-          "body": ["List item content"]
-        }
+        { "kind": "block", "number": "1.", "head": "Grant of License" },
+        { "kind": "block", "number": "2.", "head": "Restrictions" },
+        { "kind": "block", "number": "3.", "head": "Termination" }
       ]
     }
   ]
 }
 ```
 
+## Supported Document Elements
+
+Both implementations support the complete specification defined in [spec.md](spec.md):
+
+- **Plain Text**: Simple paragraphs and content
+- **Headed Blocks**: `<head>Title</head>` for section headers
+- **Nested Blocks**: `<block>...</block>` for hierarchical content
+- **Dictionaries**: `<dict sep=":">` for key-value pairs with configurable separators
+- **Lists**: `<list kind=".">` for ordered lists, `<list kind="*">` for bulleted lists
+- **Mixed Content**: Complex documents with nested structures
+
+## Getting Started
+
+1. **Read the specification**: Start with [spec.md](spec.md) to understand the document format
+2. **Choose your implementation**: 
+   - For C#: See [csharp/README.md](csharp/README.md)
+   - For F#: See [fsharp/README.md](fsharp/README.md)
+3. **Run the examples**: Both implementations include working examples
+4. **Run the tests**: Both implementations have comprehensive test suites based on the specification
+
+## Implementation Details
+
+Each implementation follows the same specification but uses different programming paradigms:
+
+- **C# Implementation**: Object-oriented design with modern C# features (records, nullable reference types)
+- **F# Implementation**: Functional programming with discriminated unions and domain-driven design
+
+Both produce identical JSON output and pass the same specification-based test suite.
+
 ## Requirements
 
 - .NET 8.0 or later
-- System.Text.Json (included in .NET 8)
+- Both implementations use standard .NET libraries
+
+## Contributing
+
+When making changes to either implementation:
+
+1. Follow the [specification](spec.md) exactly
+2. Ensure all tests pass
+3. Both implementations should produce identical output
+4. Add tests for new features using examples from the specification
 
 ## License
 
-This implementation is provided as a reference implementation of the TimeToAct DocumentAI specification.
+These implementations are provided as reference implementations of the TimeToAct DocumentAI specification.

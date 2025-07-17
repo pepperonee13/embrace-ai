@@ -118,38 +118,61 @@ let rec parseList (lines: string list) (kind: ListKind) : ListBlock * string lis
     
     processListLines lines [] None
 
-// Block parsing domain operations
+// Active patterns for line parsing optimization
+let (|EmptyLine|_|) (line: string) =
+    if String.IsNullOrWhiteSpace(line.Trim()) then Some () else None
+
+let (|HeadTag|_|) (line: string) =
+    let trimmed = line.Trim()
+    if trimmed.StartsWith("<head>") && trimmed.EndsWith("</head>") then
+        Some (trimmed.Substring(6, trimmed.Length - 13))
+    else None
+
+let (|BlockStart|_|) (line: string) =
+    if line.Trim() = "<block>" then Some () else None
+
+let (|BlockEnd|_|) (line: string) =
+    if line.Trim() = "</block>" then Some () else None
+
+let (|DictStart|_|) (line: string) =
+    let trimmed = line.Trim()
+    if trimmed.StartsWith("<dict") then
+        parseDictSeparator trimmed
+    else None
+
+let (|ListStart|_|) (line: string) =
+    let trimmed = line.Trim()
+    if trimmed.StartsWith("<list") then
+        parseListKind trimmed
+    else None
+
+let (|TextContent|) (line: string) = line.Trim()
+
+// Block parsing domain operations using active patterns
 let rec parseLines (lines: string list) : Block * string list =
     let rec processLines (lines: string list) (acc: Block) =
         match lines with
         | [] -> (acc, [])
         | line :: rest ->
-            let trimmed = line.Trim()
-            if String.IsNullOrWhiteSpace(trimmed) then
+            match line with
+            | EmptyLine -> 
                 processLines rest acc
-            elif trimmed.StartsWith("<head>") && trimmed.EndsWith("</head>") then
-                let headContent = trimmed.Substring(6, trimmed.Length - 13)
+            | HeadTag headContent ->
                 let head = DocumentHead.create headContent
                 processLines rest { acc with Head = Some head }
-            elif trimmed = "<block>" then
+            | BlockStart ->
                 let (nestedBlock, remaining) = parseLines rest
                 processLines remaining { acc with Body = acc.Body @ [Block nestedBlock] }
-            elif trimmed = "</block>" then
+            | BlockEnd ->
                 (acc, rest)
-            elif trimmed.StartsWith("<dict") then
-                match parseDictSeparator trimmed with
-                | Some separator ->
-                    let (dict, remaining) = parseDictionary rest separator
-                    processLines remaining { acc with Body = acc.Body @ [Dictionary dict] }
-                | None -> processLines rest acc
-            elif trimmed.StartsWith("<list") then
-                match parseListKind trimmed with
-                | Some kind ->
-                    let (list, remaining) = parseList rest kind
-                    processLines remaining { acc with Body = acc.Body @ [ListBlock list] }
-                | None -> processLines rest acc
-            else
-                processLines rest { acc with Body = acc.Body @ [Text trimmed] }
+            | DictStart separator ->
+                let (dict, remaining) = parseDictionary rest separator
+                processLines remaining { acc with Body = acc.Body @ [Dictionary dict] }
+            | ListStart kind ->
+                let (list, remaining) = parseList rest kind
+                processLines remaining { acc with Body = acc.Body @ [ListBlock list] }
+            | TextContent text ->
+                processLines rest { acc with Body = acc.Body @ [Text text] }
     
     processLines lines { Number = None; Head = None; Body = [] }
 

@@ -97,7 +97,8 @@ public class DocumentParser
     private (ListBlock listBlock, TokenStream stream) ParseList(TokenStream stream)
     {
         var tagToken = stream.Current as TagToken;
-        var kind = tagToken?.Attributes.GetValueOrDefault("kind", ".") ?? ".";
+        var kindString = tagToken?.Attributes.GetValueOrDefault("kind", ".") ?? ".";
+        var listKind = ListItemParser.ParseListKind(kindString);
         
         var currentStream = stream.Advance(); // consume <list>
         
@@ -116,7 +117,7 @@ public class DocumentParser
                     currentStream = textStream;
                     foreach (var line in lines)
                     {
-                        var listItem = ParseListItem(line, kind);
+                        var listItem = ListItemParser.TryParseListItem(line, listKind);
                         if (listItem != null)
                         {
                             // In mixed list context, disable numbered nesting to keep items flat
@@ -195,47 +196,6 @@ public class DocumentParser
         return (new ListBlock { Items = items }, currentStream);
     }
 
-    private Block? ParseListItem(string line, string kind)
-    {
-        if (string.IsNullOrWhiteSpace(line))
-            return null;
-            
-        var trimmedLine = line.Trim();
-        
-        if (kind == ".")
-        {
-            // Handle numbered lists (1., 2.1., etc.)
-            var match = Regex.Match(trimmedLine, @"^(\d+(?:\.\d+)*)\.\s*(.*)$");
-            if (match.Success)
-            {
-                var number = match.Groups[1].Value;
-                var content = match.Groups[2].Value;
-                
-                return new Block
-                {
-                    Number = number + ".",
-                    Head = string.IsNullOrEmpty(content) ? null : content
-                };
-            }
-        }
-        else if (kind == "*")
-        {
-            // Handle bullet lists
-            if (trimmedLine.StartsWith("•") || trimmedLine.StartsWith("*") || trimmedLine.StartsWith("-") || trimmedLine.StartsWith("o"))
-            {
-                var bulletChar = trimmedLine[0].ToString();
-                var content = trimmedLine.Substring(1).Trim();
-                return new Block
-                {
-                    Number = bulletChar,
-                    Head = string.IsNullOrEmpty(content) ? null : content
-                };
-            }
-        }
-        
-        // If it doesn't match the expected format, treat as continuation of previous item
-        return null;
-    }
 
     private bool ShouldNestUnderPreviousItem(Block currentItem, List<Block> existingItems)
     {

@@ -52,7 +52,7 @@ public class DocumentParser
                     break;
                     
                 case TokenType.DictStart:
-                    var (dict, dictStream) = ParseDictionary(currentStream);
+                    var (dict, dictStream) = DictionaryParser.ParseDictionary(currentStream);
                     body.Add(dict);
                     currentStream = dictStream;
                     break;
@@ -151,7 +151,7 @@ public class DocumentParser
                     break;
                     
                 case TokenType.DictStart:
-                    var (dict, dictStream) = ParseDictionary(currentStream);
+                    var (dict, dictStream) = DictionaryParser.ParseDictionary(currentStream);
                     currentStream = dictStream;
                     if (items.Count > 0)
                     {
@@ -188,49 +188,6 @@ public class DocumentParser
 
 
 
-    private (Models.Dictionary dictionary, TokenStream stream) ParseDictionary(TokenStream stream)
-    {
-        var tagToken = stream.Current as TagToken;
-        var separator = tagToken?.Attributes.GetValueOrDefault("sep", ":") ?? ":";
-        
-        var currentStream = stream.Advance(); // consume <dict>
-        
-        var items = new Dictionary<string, string>();
-        
-        while (!currentStream.IsAtEnd && currentStream.Current.Type != TokenType.DictEnd)
-        {
-            if (currentStream.Current.Type == TokenType.Text)
-            {
-                var (lines, textStream) = ParseTextLines(currentStream);
-                currentStream = textStream;
-                foreach (var line in lines)
-                {
-                    var separatorIndex = line.IndexOf(separator);
-                    if (separatorIndex >= 0)
-                    {
-                        var key = line.Substring(0, separatorIndex).Trim();
-                        var value = line.Substring(separatorIndex + separator.Length).Trim();
-                        items[key] = value;
-                    }
-                    else if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        items[line.Trim()] = string.Empty;
-                    }
-                }
-            }
-            else
-            {
-                currentStream = currentStream.Advance();
-            }
-        }
-        
-        if (currentStream.Current.Type == TokenType.DictEnd)
-        {
-            currentStream = currentStream.Advance(); // consume </dict>
-        }
-        
-        return (new Models.Dictionary { Items = items }, currentStream);
-    }
 
     private (List<string> lines, TokenStream stream) ParseTextLines(TokenStream stream)
     {

@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="TestDataLoader.fs" />
+    <Compile Include="BasicBlocksTests.fs" />
+    <Compile Include="DictionariesTests.fs" />
+    <Compile Include="ListsTests.fs" />
+    <Compile Include="ComplexScenariosTests.fs" />
     <Compile Include="SpecTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

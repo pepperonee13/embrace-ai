@@ -33,7 +33,7 @@ and ListBlock = {
 
 and Dictionary = {
     Separator: Separator
-    Items: Map<string, string>
+    Items: (string * string) list
 }
 
 // Domain operations

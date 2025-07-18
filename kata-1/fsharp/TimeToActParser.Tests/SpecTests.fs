@@ -93,10 +93,11 @@ Key Three: Value Three
     match result.Body.[0] with
     | Dictionary dict ->
         Assert.Equal("dict", getDictKind dict)
-        Assert.Equal(3, dict.Items.Count)
-        Assert.Equal("Value One", dict.Items.["Key One"])
-        Assert.Equal("Value Two", dict.Items.["Key Two"])
-        Assert.Equal("Value Three", dict.Items.["Key Three"])
+        Assert.Equal(3, dict.Items.Length)
+        let itemsMap = dict.Items |> Map.ofList
+        Assert.Equal("Value One", itemsMap.["Key One"])
+        Assert.Equal("Value Two", itemsMap.["Key Two"])
+        Assert.Equal("Value Three", itemsMap.["Key Three"])
     | _ -> Assert.True(false, "Expected dictionary")
 
 [<Fact>]
@@ -114,9 +115,10 @@ Kata Number -
     match result.Body.[0] with
     | Dictionary dict ->
         Assert.Equal("dict", getDictKind dict)
-        Assert.Equal(2, dict.Items.Count)
-        Assert.Equal("AI Coding - for TAT", dict.Items.["Title"])
-        Assert.Equal("", dict.Items.["Kata Number"])
+        Assert.Equal(2, dict.Items.Length)
+        let itemsMap = dict.Items |> Map.ofList
+        Assert.Equal("AI Coding - for TAT", itemsMap.["Title"])
+        Assert.Equal("", itemsMap.["Kata Number"])
     | _ -> Assert.True(false, "Expected dictionary")
 
 [<Fact>]
@@ -198,7 +200,7 @@ let ``Nested lists with subitems`` () =
     match result.Body.[0] with
     | ListBlock listBlock ->
         Assert.Equal("list", getListKind listBlock)
-        Assert.Equal(4, listBlock.Items.Length)
+        Assert.Equal(2, listBlock.Items.Length)
         
         let firstItem = listBlock.Items.[0]
         Assert.Equal(Some "1.", numberToString firstItem.Number)
@@ -207,14 +209,21 @@ let ``Nested lists with subitems`` () =
         let secondItem = listBlock.Items.[1]
         Assert.Equal(Some "2.", numberToString secondItem.Number)
         Assert.Equal(Some "Second", headToString secondItem.Head)
+        Assert.Equal(1, secondItem.Body.Length)
         
-        let subitem1 = listBlock.Items.[2]
-        Assert.Equal(Some "2.1.", numberToString subitem1.Number)
-        Assert.Equal(Some "Subitem 1", headToString subitem1.Head)
-        
-        let subitem2 = listBlock.Items.[3]
-        Assert.Equal(Some "2.2.", numberToString subitem2.Number)
-        Assert.Equal(Some "Subitem 2", headToString subitem2.Head)
+        match secondItem.Body.[0] with
+        | ListBlock nestedList ->
+            Assert.Equal("list", getListKind nestedList)
+            Assert.Equal(2, nestedList.Items.Length)
+            
+            let subitem1 = nestedList.Items.[0]
+            Assert.Equal(Some "2.1.", numberToString subitem1.Number)
+            Assert.Equal(Some "Subitem 1", headToString subitem1.Head)
+            
+            let subitem2 = nestedList.Items.[1]
+            Assert.Equal(Some "2.2.", numberToString subitem2.Number)
+            Assert.Equal(Some "Subitem 2", headToString subitem2.Head)
+        | _ -> Assert.True(false, "Expected nested list")
     | _ -> Assert.True(false, "Expected list block")
 
 [<Fact>]
@@ -261,8 +270,162 @@ Another Key: Another Value
         match secondItem.Body.[1] with
         | Dictionary dict ->
             Assert.Equal("dict", getDictKind dict)
-            Assert.Equal(2, dict.Items.Count)
-            Assert.Equal("Value", dict.Items.["Key"])
-            Assert.Equal("Another Value", dict.Items.["Another Key"])
+            Assert.Equal(2, dict.Items.Length)
+            let itemsMap = dict.Items |> Map.ofList
+            Assert.Equal("Value", itemsMap.["Key"])
+            Assert.Equal("Another Value", itemsMap.["Another Key"])
         | _ -> Assert.True(false, "Expected dictionary in second item body")
+    | _ -> Assert.True(false, "Expected list block")
+
+[<Fact>]
+let ``Plain text single paragraph`` () =
+    let input = "First paragraph."
+    let result = parseDocument input
+    
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(1, result.Body.Length)
+    
+    match result.Body.[0] with
+    | Text text -> Assert.Equal("First paragraph.", text)
+    | _ -> Assert.True(false, "Expected text")
+
+[<Fact>]
+let ``Nested ordered list with proper nesting`` () =
+    let input = """<list kind=".">
+1. First
+2. Second
+2.1. Subitem 1
+2.2. Subitem 2
+</list>"""
+    
+    let result = parseDocument input
+    
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(1, result.Body.Length)
+    
+    match result.Body.[0] with
+    | ListBlock listBlock ->
+        Assert.Equal("list", getListKind listBlock)
+        Assert.Equal(2, listBlock.Items.Length)
+        
+        let firstItem = listBlock.Items.[0]
+        Assert.Equal(Some "1.", numberToString firstItem.Number)
+        Assert.Equal(Some "First", headToString firstItem.Head)
+        
+        let secondItem = listBlock.Items.[1]
+        Assert.Equal(Some "2.", numberToString secondItem.Number)
+        Assert.Equal(Some "Second", headToString secondItem.Head)
+        Assert.Equal(1, secondItem.Body.Length)
+        
+        match secondItem.Body.[0] with
+        | ListBlock nestedList ->
+            Assert.Equal("list", getListKind nestedList)
+            Assert.Equal(2, nestedList.Items.Length)
+            
+            let subitem1 = nestedList.Items.[0]
+            Assert.Equal(Some "2.1.", numberToString subitem1.Number)
+            Assert.Equal(Some "Subitem 1", headToString subitem1.Head)
+            
+            let subitem2 = nestedList.Items.[1]
+            Assert.Equal(Some "2.2.", numberToString subitem2.Number)
+            Assert.Equal(Some "Subitem 2", headToString subitem2.Head)
+        | _ -> Assert.True(false, "Expected nested list")
+    | _ -> Assert.True(false, "Expected list block")
+
+[<Fact>]
+let ``Nested bulleted list with different bullet markers`` () =
+    let input = """<list kind="*">
+• First
+o Subitem
+• Second
+• Third
+</list>"""
+    
+    let result = parseDocument input
+    
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(1, result.Body.Length)
+    
+    match result.Body.[0] with
+    | ListBlock listBlock ->
+        Assert.Equal("list", getListKind listBlock)
+        Assert.Equal(3, listBlock.Items.Length)
+        
+        let firstItem = listBlock.Items.[0]
+        Assert.Equal(Some "•", numberToString firstItem.Number)
+        Assert.Equal(Some "First", headToString firstItem.Head)
+        Assert.Equal(1, firstItem.Body.Length)
+        
+        match firstItem.Body.[0] with
+        | ListBlock nestedList ->
+            Assert.Equal("list", getListKind nestedList)
+            Assert.Equal(1, nestedList.Items.Length)
+            
+            let subitem = nestedList.Items.[0]
+            Assert.Equal(Some "o", numberToString subitem.Number)
+            Assert.Equal(Some "Subitem", headToString subitem.Head)
+        | _ -> Assert.True(false, "Expected nested list")
+        
+        let secondItem = listBlock.Items.[1]
+        Assert.Equal(Some "•", numberToString secondItem.Number)
+        Assert.Equal(Some "Second", headToString secondItem.Head)
+        
+        let thirdItem = listBlock.Items.[2]
+        Assert.Equal(Some "•", numberToString thirdItem.Number)
+        Assert.Equal(Some "Third", headToString thirdItem.Head)
+    | _ -> Assert.True(false, "Expected list block")
+
+[<Fact>]
+let ``Mixed lists with different types`` () =
+    let input = """<list kind=".">
+1. Beginning
+2. Main 
+2.1. Subsection
+<list kind="*">
+* Bullet 1
+* Bullet 2
+</list>
+3. Ending
+</list>"""
+    
+    let result = parseDocument input
+    
+    Assert.Equal("block", getBlockKind result)
+    Assert.Equal(1, result.Body.Length)
+    
+    match result.Body.[0] with
+    | ListBlock listBlock ->
+        Assert.Equal("list", getListKind listBlock)
+        Assert.Equal(4, listBlock.Items.Length)
+        
+        let firstItem = listBlock.Items.[0]
+        Assert.Equal(Some "1.", numberToString firstItem.Number)
+        Assert.Equal(Some "Beginning", headToString firstItem.Head)
+        
+        let secondItem = listBlock.Items.[1]
+        Assert.Equal(Some "2.", numberToString secondItem.Number)
+        Assert.Equal(Some "Main", headToString secondItem.Head)
+        Assert.Equal(1, secondItem.Body.Length)
+        
+        match secondItem.Body.[0] with
+        | ListBlock nestedList ->
+            Assert.Equal("list", getListKind nestedList)
+            Assert.Equal(2, nestedList.Items.Length)
+            
+            let bullet1 = nestedList.Items.[0]
+            Assert.Equal(Some "*", numberToString bullet1.Number)
+            Assert.Equal(Some "Bullet 1", headToString bullet1.Head)
+            
+            let bullet2 = nestedList.Items.[1]
+            Assert.Equal(Some "*", numberToString bullet2.Number)
+            Assert.Equal(Some "Bullet 2", headToString bullet2.Head)
+        | _ -> Assert.True(false, "Expected nested list")
+        
+        let thirdItem = listBlock.Items.[2]
+        Assert.Equal(Some "2.1.", numberToString thirdItem.Number)
+        Assert.Equal(Some "Subsection", headToString thirdItem.Head)
+        
+        let fourthItem = listBlock.Items.[3]
+        Assert.Equal(Some "3.", numberToString fourthItem.Number)
+        Assert.Equal(Some "Ending", headToString fourthItem.Head)
     | _ -> Assert.True(false, "Expected list block")

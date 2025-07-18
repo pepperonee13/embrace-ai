@@ -36,7 +36,6 @@ and private serializeListBlock (listBlock: ListBlock) =
 and private serializeDictionary (dict: Dictionary) =
     let itemsJson = 
         dict.Items 
-        |> Map.toList 
         |> List.map (fun (k, v) -> sprintf "\"%s\":%s" k (JsonSerializer.Serialize(v)))
         |> String.concat ","
         |> fun items -> "{" + items + "}"

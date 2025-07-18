@@ -1,0 +1,85 @@
+{
+  "category": "Lists",
+  "description": "Tests for list functionality including ordered lists, bulleted lists, and nested lists",
+  "testCases": [
+    {
+      "name": "Simple ordered list",
+      "description": "Ordered lists use . for dot-separated numbering",
+      "input": "<list kind=\".\">\n1. First\n2. Second\n</list>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "list",
+            "items": [
+              { "kind": "block", "number": "1.", "head": "First" },
+              { "kind": "block", "number": "2.", "head": "Second" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Nested ordered list",
+      "description": "Ordered lists can have nested subitems",
+      "input": "<list kind=\".\">\n1. First\n2. Second\n2.1. Subitem 1\n2.2. Subitem 2\n</list>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "list",
+            "items": [
+              { "kind": "block", "number": "1.", "head": "First" },
+              { "kind": "block", "number": "2.", "head": "Second", "body": [
+                { "kind": "list", "items": [
+                  { "kind": "block", "number": "2.1.", "head": "Subitem 1" },
+                  { "kind": "block", "number": "2.2.", "head": "Subitem 2" }
+                ]}
+              ]}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Simple bulleted list",
+      "description": "Bulleted lists use * for bullets",
+      "input": "<list kind=\"*\">\n• First\n• Second\n• Third\n</list>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "list",
+            "items": [
+              { "kind": "block", "number": "•", "head": "First" },
+              { "kind": "block", "number": "•", "head": "Second" },
+              { "kind": "block", "number": "•", "head": "Third" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Nested bulleted list",
+      "description": "Bulleted lists can have nested subitems with different bullet types",
+      "input": "<list kind=\"*\">\n• First\no Subitem\n• Second\n• Third\n</list>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "list",
+            "items": [
+              { "kind": "block", "number": "•", "head": "First", "body": [
+                { "kind": "list", "items": [
+                  { "kind": "block", "number": "o", "head": "Subitem" }
+                ]}
+              ]},
+              { "kind": "block", "number": "•", "head": "Second" },
+              { "kind": "block", "number": "•", "head": "Third" }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

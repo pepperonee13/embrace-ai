@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace TimeToActDocumentAI.Models;
 
 public abstract record ContentNode

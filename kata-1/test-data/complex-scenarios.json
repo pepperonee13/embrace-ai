@@ -1,0 +1,58 @@
+{
+  "category": "Complex Scenarios",
+  "description": "Tests for complex scenarios including mixed lists, lists with content, and mixed content types",
+  "testCases": [
+    {
+      "name": "Mixed lists with different types",
+      "description": "Lists can be mixed with different types designated separately with tags",
+      "input": "<list kind=\".\">\n1. Beginning\n2. Main \n2.1. Subsection\n<list kind=\"*\">\n* Bullet 1\n* Bullet 2\n</list>\n3. Ending\n</list>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "list",
+            "items": [
+              { "kind": "block", "number": "1.", "head": "Beginning" },
+              { "kind": "block", "number": "2.", "head": "Main", "body": [
+                { "kind": "list", "items": [
+                  { "kind": "block", "number": "*", "head": "Bullet 1" },
+                  { "kind": "block", "number": "*", "head": "Bullet 2" }
+                ]}
+              ]},
+              { "kind": "block", "number": "2.1.", "head": "Subsection" },
+              { "kind": "block", "number": "3.", "head": "Ending" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Lists with content and dictionary",
+      "description": "Lists can have additional content including dictionaries",
+      "input": "<list kind=\".\">\n1. First\nFirst body\n2. Second\nSome more text\n<dict sep=\":\">\nKey: Value\nAnother Key: Another Value\n</dict>\n</list>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "list",
+            "items": [
+              { "kind": "block", "number": "1.", "head": "First", "body": [
+                "First body"
+              ] },
+              { "kind": "block", "number": "2.", "head": "Second", "body": [
+                "Some more text",
+                {
+                  "kind": "dict",
+                  "items": {
+                    "Key": "Value",
+                    "Another Key": "Another Value"
+                  }
+                }
+              ] }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

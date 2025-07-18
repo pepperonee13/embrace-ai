@@ -43,7 +43,7 @@ public class DocumentParser
                     
                 case TokenType.BlockEnd:
                     Advance();
-                    return block with { Head = head, Body = body };
+                    return block with { Head = head, Body = body.Count > 0 ? body : null };
                     
                 case TokenType.ListStart:
                     var listBlock = ParseList();
@@ -66,7 +66,7 @@ public class DocumentParser
             }
         }
         
-        return block with { Head = head, Body = body };
+        return block with { Head = head, Body = body.Count > 0 ? body : null };
     }
 
     private string ParseHead()
@@ -114,7 +114,19 @@ public class DocumentParser
                         var listItem = ParseListItem(line, kind);
                         if (listItem != null)
                         {
-                            items.Add(listItem);
+                            // Check if this is a nested item (like 2.1. under 2.)
+                            if (ShouldNestUnderPreviousItem(listItem, items))
+                            {
+                                var lastItemIndex = items.Count - 1;
+                                var lastItem = items[lastItemIndex];
+                                var nestedList = GetOrCreateNestedList(lastItem, out var updatedParent);
+                                nestedList.Items.Add(listItem);
+                                items[lastItemIndex] = updatedParent;
+                            }
+                            else
+                            {
+                                items.Add(listItem);
+                            }
                         }
                     }
                     break;
@@ -125,7 +137,7 @@ public class DocumentParser
                     if (items.Count > 0)
                     {
                         var lastItem = items[^1];
-                        var newBody = new List<ContentNode>(lastItem.Body) { nestedBlock };
+                        var newBody = new List<ContentNode>(lastItem.Body ?? []) { nestedBlock };
                         items[^1] = lastItem with { Body = newBody };
                     }
                     break;
@@ -135,7 +147,7 @@ public class DocumentParser
                     if (items.Count > 0)
                     {
                         var lastItem = items[^1];
-                        var newBody = new List<ContentNode>(lastItem.Body) { dict };
+                        var newBody = new List<ContentNode>(lastItem.Body ?? []) { dict };
                         items[^1] = lastItem with { Body = newBody };
                     }
                     break;
@@ -173,25 +185,81 @@ public class DocumentParser
                 return new Block
                 {
                     Number = number + ".",
-                    Body = string.IsNullOrEmpty(content) ? [] : [new TextContent(content)]
+                    Head = string.IsNullOrEmpty(content) ? null : content
                 };
             }
         }
         else if (kind == "*")
         {
             // Handle bullet lists
-            if (trimmedLine.StartsWith("•") || trimmedLine.StartsWith("*") || trimmedLine.StartsWith("-"))
+            if (trimmedLine.StartsWith("•") || trimmedLine.StartsWith("*") || trimmedLine.StartsWith("-") || trimmedLine.StartsWith("o"))
             {
+                var bulletChar = trimmedLine[0].ToString();
                 var content = trimmedLine.Substring(1).Trim();
                 return new Block
                 {
-                    Body = string.IsNullOrEmpty(content) ? [] : [new TextContent(content)]
+                    Number = bulletChar,
+                    Head = string.IsNullOrEmpty(content) ? null : content
                 };
             }
         }
         
         // If it doesn't match the expected format, treat as continuation of previous item
         return null;
+    }
+
+    private bool ShouldNestUnderPreviousItem(Block currentItem, List<Block> existingItems)
+    {
+        if (existingItems.Count == 0 || currentItem.Number == null)
+            return false;
+
+        var lastItem = existingItems[^1];
+        if (lastItem.Number == null)
+            return false;
+
+        // For numbered lists, check if current number is a sub-number of the last item
+        if (currentItem.Number.Contains('.') && lastItem.Number.Contains('.'))
+        {
+            var currentParts = currentItem.Number.TrimEnd('.').Split('.');
+            var lastParts = lastItem.Number.TrimEnd('.').Split('.');
+            
+            // Check if current item is a sub-item (e.g., 2.1 under 2, or 2.1.3 under 2.1)
+            if (currentParts.Length > lastParts.Length)
+            {
+                // Check if the prefix matches
+                for (int i = 0; i < lastParts.Length; i++)
+                {
+                    if (currentParts[i] != lastParts[i])
+                        return false;
+                }
+                return true;
+            }
+        }
+
+        // For bullet lists, check if current bullet is different from last (indicating nesting)
+        if (!currentItem.Number.Contains('.') && !lastItem.Number.Contains('.'))
+        {
+            return currentItem.Number != lastItem.Number;
+        }
+
+        return false;
+    }
+
+    private ListBlock GetOrCreateNestedList(Block parentItem, out Block updatedParent)
+    {
+        // Check if parent already has a nested list
+        if (parentItem.Body?.LastOrDefault() is ListBlock existingList)
+        {
+            updatedParent = parentItem;
+            return existingList;
+        }
+
+        // Create new nested list
+        var nestedList = new ListBlock();
+        var newBody = new List<ContentNode>(parentItem.Body ?? []) { nestedList };
+        updatedParent = parentItem with { Body = newBody };
+        
+        return nestedList;
     }
 
     private Models.Dictionary ParseDictionary()

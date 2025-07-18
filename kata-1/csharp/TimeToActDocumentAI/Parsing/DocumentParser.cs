@@ -120,15 +120,12 @@ public class DocumentParser
                         var listItem = ListItemParser.TryParseListItem(line, listKind);
                         if (listItem != null)
                         {
-                            // In mixed list context, disable numbered nesting to keep items flat
-                            // Check if this is a nested item (like 2.1. under 2.)
-                            if (!hasExplicitNestedLists && ShouldNestUnderPreviousItem(listItem, items))
+                            var nestingDecision = ListNestingStrategy.ShouldNestItem(listItem, items, hasExplicitNestedLists);
+                            if (nestingDecision.ShouldNest)
                             {
-                                var lastItemIndex = items.Count - 1;
-                                var lastItem = items[lastItemIndex];
-                                var nestedList = GetOrCreateNestedList(lastItem, out var updatedParent);
+                                var (nestedList, updatedParent) = ListNestingStrategy.GetOrCreateNestedList(nestingDecision.ParentItem!);
                                 nestedList.Items.Add(listItem);
-                                items[lastItemIndex] = updatedParent;
+                                items[nestingDecision.ParentIndex] = updatedParent;
                             }
                             else
                             {
@@ -175,7 +172,7 @@ public class DocumentParser
                     if (items.Count > 0)
                     {
                         // For mixed lists, attach to the semantically appropriate parent
-                        var targetItem = FindAppropriateParentForNestedList(items);
+                        var targetItem = ListNestingStrategy.FindAppropriateParentForNestedList(items);
                         var targetIndex = items.IndexOf(targetItem);
                         var newBody = new List<ContentNode>(targetItem.Body ?? []) { nestedListBlock };
                         items[targetIndex] = targetItem with { Body = newBody };
@@ -197,89 +194,6 @@ public class DocumentParser
     }
 
 
-    private bool ShouldNestUnderPreviousItem(Block currentItem, List<Block> existingItems)
-    {
-        if (existingItems.Count == 0 || currentItem.Number == null)
-            return false;
-
-        var lastItem = existingItems[^1];
-        if (lastItem.Number == null)
-            return false;
-
-        // For numbered lists, check if current number is a sub-number of the last item
-        if (currentItem.Number.Contains('.') && lastItem.Number.Contains('.'))
-        {
-            var currentParts = currentItem.Number.TrimEnd('.').Split('.');
-            var lastParts = lastItem.Number.TrimEnd('.').Split('.');
-            
-            // Check if current item is a sub-item (e.g., 2.1 under 2, or 2.1.3 under 2.1)
-            if (currentParts.Length > lastParts.Length)
-            {
-                // Check if the prefix matches
-                for (int i = 0; i < lastParts.Length; i++)
-                {
-                    if (currentParts[i] != lastParts[i])
-                        return false;
-                }
-                return true;
-            }
-        }
-
-        // For bullet lists, check if current bullet is different from last (indicating nesting)
-        if (!currentItem.Number.Contains('.') && !lastItem.Number.Contains('.'))
-        {
-            return currentItem.Number != lastItem.Number;
-        }
-
-        return false;
-    }
-
-    private ListBlock GetOrCreateNestedList(Block parentItem, out Block updatedParent)
-    {
-        // Check if parent already has a nested list
-        if (parentItem.Body?.LastOrDefault() is ListBlock existingList)
-        {
-            updatedParent = parentItem;
-            return existingList;
-        }
-
-        // Create new nested list
-        var nestedList = new ListBlock();
-        var newBody = new List<ContentNode>(parentItem.Body ?? []) { nestedList };
-        updatedParent = parentItem with { Body = newBody };
-        
-        return nestedList;
-    }
-
-    private Block FindAppropriateParentForNestedList(List<Block> items)
-    {
-        if (items.Count == 0)
-            return items[^1];
-
-        var lastItem = items[^1];
-        
-        // If the last item is a numbered sub-item (like 2.1.), 
-        // look for its logical parent (like 2.)
-        if (lastItem.Number != null && lastItem.Number.Contains('.'))
-        {
-            var lastParts = lastItem.Number.TrimEnd('.').Split('.');
-            if (lastParts.Length > 1)
-            {
-                // Look for a parent item (e.g., "2." for "2.1.")
-                var parentNumber = lastParts[0] + ".";
-                for (int i = items.Count - 2; i >= 0; i--)
-                {
-                    if (items[i].Number == parentNumber)
-                    {
-                        return items[i];
-                    }
-                }
-            }
-        }
-        
-        // Default to last item if no appropriate parent found
-        return lastItem;
-    }
 
 
     private (Models.Dictionary dictionary, TokenStream stream) ParseDictionary(TokenStream stream)

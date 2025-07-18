@@ -15,7 +15,7 @@ public static class DictionaryParser
     /// <returns>A tuple containing the parsed dictionary and the updated stream</returns>
     public static (Models.Dictionary dictionary, TokenStream stream) ParseDictionary(TokenStream stream)
     {
-        var separator = ExtractSeparatorFromTag(stream.Current);
+        var separator = TagTokenExtractor.ExtractDictionarySeparator(stream.Current);
         var currentStream = stream.Advance(); // consume <dict>
         
         var items = new Dictionary<string, string>();
@@ -50,19 +50,6 @@ public static class DictionaryParser
         return (new Models.Dictionary { Items = items }, currentStream);
     }
 
-    /// <summary>
-    /// Extracts the separator configuration from a dictionary tag token.
-    /// </summary>
-    /// <param name="token">The tag token containing separator configuration</param>
-    /// <returns>The separator string to use for parsing</returns>
-    private static string ExtractSeparatorFromTag(Token token)
-    {
-        if (token is TagToken tagToken)
-        {
-            return tagToken.Attributes.GetValueOrDefault("sep", ":") ?? ":";
-        }
-        return ":"; // Default separator
-    }
 
     /// <summary>
     /// Parses a single line into a key-value pair using the specified separator.

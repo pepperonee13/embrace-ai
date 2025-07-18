@@ -59,7 +59,7 @@ public class DocumentParser
                     
                 case TokenType.Text:
                     var (textLines, textStream) = TextLineParser.ParseTextLines(currentStream);
-                    body.AddRange(textLines.Select(line => new TextContent(line)));
+                    body.AddRange(ContentNodeFactory.CreateTextContentFromLines(textLines));
                     currentStream = textStream;
                     break;
                     
@@ -96,8 +96,7 @@ public class DocumentParser
 
     private (ListBlock listBlock, TokenStream stream) ParseList(TokenStream stream)
     {
-        var tagToken = stream.Current as TagToken;
-        var kindString = tagToken?.Attributes.GetValueOrDefault("kind", ".") ?? ".";
+        var kindString = TagTokenExtractor.ExtractListKind(stream.Current);
         var listKind = ListItemParser.ParseListKind(kindString);
         
         var currentStream = stream.Advance(); // consume <list>

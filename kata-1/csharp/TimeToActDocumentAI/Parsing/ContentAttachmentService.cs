@@ -22,7 +22,7 @@ public static class ContentAttachmentService
         var newItems = new List<Block>(items);
         var lastItemIndex = items.Count - 1;
         var lastItem = items[lastItemIndex];
-        var textContent = new TextContent(textLine);
+        var textContent = ContentNodeFactory.CreateTextContent(textLine);
         var newBody = new List<ContentNode>(lastItem.Body ?? []) { textContent };
         
         newItems[lastItemIndex] = lastItem with { Body = newBody };

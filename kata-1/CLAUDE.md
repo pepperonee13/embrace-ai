@@ -2,138 +2,152 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## Project Overview
 
-This repository contains two implementations of the TimeToAct DocumentAI specification - a structured document parser that converts business documents into JSON format suitable for AI assistants. Both implementations follow the same specification defined in `spec.md`.
+This repository contains three complete implementations of the TimeToAct DocumentAI specification - a structured document parsing system that converts business documents into JSON format suitable for AI assistants. The implementations are:
 
-## Project Structure
+- **C# (.NET 8)**: Object-oriented implementation with comprehensive parsing and immutable data structures
+- **F# (.NET 8)**: Functional programming approach with discriminated unions and domain-driven design  
+- **JavaScript**: Vanilla JavaScript implementation for simple parsing scenarios
 
-The repository contains two separate implementations:
+All implementations follow the same specification in `spec.md` and produce identical JSON output.
 
-- **C# Implementation** (`csharp/`): Modern .NET 8 implementation with comprehensive testing
-- **F# Implementation** (`fsharp/`): Functional programming approach with domain-driven design
+## Development Commands
 
-### C# Implementation (`csharp/`)
-- `TimeToActDocumentAI/` - Core library with Models, Parsing, and main DocumentAI class
-- `TimeToActDocumentAI.Tests/` - XUnit test suite
-- `TimeToActDocumentAI.Example/` - Example usage application
+### C# Implementation (`csharp/` directory)
 
-### F# Implementation (`fsharp/`)
-- `TimeToActParser/` - Core library with Types, DocumentParser, JsonSerializer modules
-- `TimeToActParser.Tests/` - XUnit test suite with spec-based tests
-
-## Common Development Tasks
-
-### Building and Testing
-
-**C# Implementation:**
 ```bash
 # Build the solution
-dotnet build csharp/TimeToActDocumentAI.sln
+dotnet build TimeToActDocumentAI.sln
 
 # Run all tests
-dotnet test csharp/TimeToActDocumentAI.Tests
-
-# Run the example application
-dotnet run --project csharp/TimeToActDocumentAI.Example
-```
-
-**F# Implementation:**
-```bash
-# Build the solution
-dotnet build fsharp/TimeToActParser.sln
-
-# Run all tests
-dotnet test fsharp/TimeToActParser.Tests
-
-# Run the main application
-dotnet run --project fsharp/TimeToActParser
-```
-
-### Running Individual Tests
-
-**C# Tests:**
-```bash
-# Run specific test method
-dotnet test csharp/TimeToActDocumentAI.Tests --filter "TestMethodName"
+dotnet test TimeToActDocumentAI.Tests
 
 # Run tests with verbose output
-dotnet test csharp/TimeToActDocumentAI.Tests --verbosity normal
+dotnet test TimeToActDocumentAI.Tests --verbosity normal
+
+# Run specific test method
+dotnet test TimeToActDocumentAI.Tests --filter "TestMethodName"
+
+# Run example application
+dotnet run --project TimeToActDocumentAI.Example
+
+# Build specific project
+dotnet build TimeToActDocumentAI/TimeToActDocumentAI.csproj
 ```
 
-**F# Tests:**
+### F# Implementation (`fsharp/` directory)
+
 ```bash
-# Run specific test
-dotnet test fsharp/TimeToActParser.Tests --filter "TestMethodName"
+# Build the solution
+dotnet build TimeToActParser.sln
+
+# Run all tests
+dotnet test TimeToActParser.Tests
+
+# Run tests with verbose output
+dotnet test TimeToActParser.Tests --verbosity normal
+
+# Run specific test method
+dotnet test TimeToActParser.Tests --filter "TestMethodName"
+
+# Run main application
+dotnet run --project TimeToActParser
+
+# Build specific project
+dotnet build TimeToActParser/TimeToActParser.fsproj
 ```
 
-## Architecture and Design
+### JavaScript Implementation (`js/` directory)
+
+```bash
+# Run basic unit tests
+node documentai.test.js
+
+# Run tests against official test data
+node run-tests.js
+```
+
+## Architecture Overview
 
 ### C# Implementation Architecture
-- **Models**: Records-based immutable data structures (Block, ListBlock, Dictionary, ContentNode)
-- **Parsing**: Lexer tokenizes input, DocumentParser builds structure
-- **Serialization**: Custom JsonConverter handles polymorphic ContentNode types
-- **Design**: Modern C# features (records, nullable reference types, pattern matching)
+
+The C# implementation uses modern object-oriented design with:
+
+- **Models** (`TimeToActDocumentAI.Models/`): Immutable record types for all content structures
+  - `ContentNode`: Base class for all content types
+  - `Block`: Primary container with optional head, number, and body  
+  - `ListBlock`: Ordered/unordered list structures
+  - `Dictionary`: Key-value pairs with configurable separators
+- **Parsing** (`TimeToActDocumentAI.Parsing/`): Comprehensive parsing pipeline
+  - `DocumentParser`: Core parsing logic with context-aware nesting
+  - `Lexer`: Tokenization of structured text
+  - `ParseContext`, `ContentNodeFactory`: Advanced parsing support
+- **API** (`DocumentAI.cs`): Main entry point with JSON serialization
 
 ### F# Implementation Architecture
-- **Types**: Discriminated unions for ContentNode, domain-specific value objects
-- **DocumentParser**: Functional parsing with active patterns
-- **JsonSerializer**: JSON conversion respecting the specification format
-- **Design**: Domain-driven design with functional programming principles
 
-### Key Domain Types
+The F# implementation uses functional programming patterns with:
 
-Both implementations support the same core content types:
-- **Block**: Main container with optional head, number, and body content
-- **ListBlock**: Ordered (numbered) or bulleted lists
-- **Dictionary**: Key-value pairs with configurable separators
-- **Text**: Plain text content
+- **Types** (`Types.fs`): Discriminated unions and value objects for domain modeling
+- **DocumentParser** (`DocumentParser.fs`): Pure functional parsing with active patterns
+- **JsonSerializer** (`JsonSerializer.fs`): Custom JSON serialization respecting the specification
 
-### Document Format
+### JavaScript Implementation Architecture
 
-The parser handles structured documents with these elements:
-- `<head>Title</head>` - Document/section headers
-- `<block>...</block>` - Nested content blocks
-- `<list kind=".">` or `<list kind="*">` - Ordered or bulleted lists
-- `<dict sep=":">` - Key-value dictionaries with custom separators
+The JavaScript implementation uses a simple recursive descent parser:
 
-## Testing Strategy
+- Single-file implementation with `parse()` as main entry point
+- Recursive parsing functions for each document element type
+- String-based parsing with smart nesting logic
 
-Both implementations follow the specification in `spec.md` which serves as both documentation and test cases. The spec provides input/output pairs that define expected behavior.
+## Key Design Patterns
 
-### Test Structure
-- **Specification Tests**: Direct implementation of examples from `spec.md`
-- **Edge Cases**: Empty documents, nested structures, complex mixed content
-- **JSON Serialization**: Round-trip testing for data integrity
+### Domain-Driven Design
+Both .NET implementations follow DDD principles with explicit domain modeling, value objects, and clear boundaries between parsing, domain logic, and serialization.
 
-## Technology Stack
+### Immutability
+All data structures are immutable (C# records, F# types, JavaScript objects), ensuring thread safety and preventing accidental mutations.
 
-- **.NET 8**: Both implementations target .NET 8.0
-- **Testing**: XUnit framework for both C# and F# tests
-- **JSON**: System.Text.Json for serialization in C#, custom implementation in F#
-- **C# Features**: Records, nullable reference types, pattern matching, implicit usings
-- **F# Features**: Discriminated unions, active patterns, type providers, functional composition
+### Specification Compliance
+All implementations strictly follow the parsing rules defined in `spec.md`, with comprehensive test coverage using the official test data in `test-data/`.
 
-## Development Guidelines
+## Test Data and Validation
 
-### Code Quality
-- Follow TDD principles as specified in global CLAUDE.md
-- Maintain immutable data structures where possible
-- Use appropriate language idioms (C# records, F# discriminated unions)
-- Ensure comprehensive test coverage for all specification examples
+The repository includes comprehensive test data in `test-data/`:
+- `basic-blocks.json`: Simple document structures
+- `dictionaries.json`: Key-value pair parsing
+- `lists.json`: List structures and nesting
+- `complex-scenarios.json`: Mixed content and advanced parsing
 
-### When Working with Tests
-- Always run full test suite before making changes
-- New features should include corresponding test cases
-- Follow the specification examples in `spec.md` for expected behavior
-- Use descriptive test names that reflect the specification being tested
+When making changes, ensure all tests pass and new functionality includes corresponding test cases.
 
-## Specification Compliance
+## Implementation Status
 
-Both implementations must conform to the TimeToAct DocumentAI specification in `spec.md`. The specification includes:
-- Input/output examples for all supported document formats
-- JSON structure requirements
-- Parsing rules for nested content
-- Handling of edge cases and empty content
+### C# Implementation
+- **Status**: Complete - 56/56 tests passing (100%)
+- **Key Features**: Advanced parsing with lookahead, context-aware nesting, sophisticated mixed list handling
+- **Architecture**: Clean separation of concerns with comprehensive domain modeling
 
-Any changes to parsing logic should be validated against the complete specification test suite.
+### F# Implementation  
+- **Status**: Complete - Full specification compliance
+- **Key Features**: Functional parsing with active patterns, type-safe domain modeling
+- **Architecture**: Pure functional approach with discriminated unions
+
+### JavaScript Implementation
+- **Status**: Complete - All test suites passing
+- **Key Features**: Simple recursive descent parser, mixed content support
+- **Architecture**: Single-file implementation focused on simplicity
+
+## Requirements
+
+- .NET 8.0 or later (for C# and F# implementations)
+- Node.js (for JavaScript implementation)
+- All implementations use standard runtime libraries
+
+## Project Structure Notes
+
+- Each implementation has its own README with specific details
+- The `csharp/todos.md` file tracks implementation progress and technical decisions
+- All implementations produce identical JSON output as verified by the test suites
+- The specification in `spec.md` is the authoritative source for parsing behavior

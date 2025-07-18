@@ -5,111 +5,115 @@ namespace TimeToActDocumentAI.Parsing;
 
 public class DocumentParser
 {
-    private readonly List<Token> _tokens;
-    private int _position;
+    private readonly TokenStream _initialStream;
 
     public DocumentParser(IEnumerable<Token> tokens)
     {
-        _tokens = tokens.ToList();
-        _position = 0;
+        _initialStream = new TokenStream(tokens);
     }
 
     public Block Parse()
     {
-        return ParseBlock();
+        return ParseBlock(_initialStream).block;
     }
 
-    private Block ParseBlock()
+    private (Block block, TokenStream stream) ParseBlock(TokenStream stream)
     {
         var block = new Block();
         var body = new List<ContentNode>();
         string? head = null;
+        var currentStream = stream;
         
-        while (_position < _tokens.Count && CurrentToken.Type != TokenType.EndOfFile)
+        while (!currentStream.IsAtEnd)
         {
-            var token = CurrentToken;
+            var token = currentStream.Current;
             
             switch (token.Type)
             {
                 case TokenType.HeadStart:
-                    head = ParseHead();
+                    (head, currentStream) = ParseHead(currentStream);
                     break;
                     
                 case TokenType.BlockStart:
-                    Advance();
-                    var nestedBlock = ParseBlock();
+                    currentStream = currentStream.Advance();
+                    var (nestedBlock, nextStream) = ParseBlock(currentStream);
                     body.Add(nestedBlock);
+                    currentStream = nextStream;
                     break;
                     
                 case TokenType.BlockEnd:
-                    Advance();
-                    return block with { Head = head, Body = body.Count > 0 ? body : null };
+                    currentStream = currentStream.Advance();
+                    return (block with { Head = head, Body = body.Count > 0 ? body : null }, currentStream);
                     
                 case TokenType.ListStart:
-                    var listBlock = ParseList();
+                    var (listBlock, listStream) = ParseList(currentStream);
                     body.Add(listBlock);
+                    currentStream = listStream;
                     break;
                     
                 case TokenType.DictStart:
-                    var dict = ParseDictionary();
+                    var (dict, dictStream) = ParseDictionary(currentStream);
                     body.Add(dict);
+                    currentStream = dictStream;
                     break;
                     
                 case TokenType.Text:
-                    var textLines = ParseTextLines();
+                    var (textLines, textStream) = ParseTextLines(currentStream);
                     body.AddRange(textLines.Select(line => new TextContent(line)));
+                    currentStream = textStream;
                     break;
                     
                 default:
-                    Advance();
+                    currentStream = currentStream.Advance();
                     break;
             }
         }
         
-        return block with { Head = head, Body = body.Count > 0 ? body : null };
+        return (block with { Head = head, Body = body.Count > 0 ? body : null }, currentStream);
     }
 
-    private string ParseHead()
+    private (string head, TokenStream stream) ParseHead(TokenStream stream)
     {
-        Advance(); // consume <head>
+        var currentStream = stream.Advance(); // consume <head>
         
         var headContent = new List<string>();
-        while (_position < _tokens.Count && CurrentToken.Type != TokenType.HeadEnd)
+        while (!currentStream.IsAtEnd && currentStream.Current.Type != TokenType.HeadEnd)
         {
-            if (CurrentToken.Type == TokenType.Text)
+            if (currentStream.Current.Type == TokenType.Text)
             {
-                headContent.Add(CurrentToken.Value);
+                headContent.Add(currentStream.Current.Value);
             }
-            Advance();
+            currentStream = currentStream.Advance();
         }
         
-        if (CurrentToken.Type == TokenType.HeadEnd)
+        if (currentStream.Current.Type == TokenType.HeadEnd)
         {
-            Advance(); // consume </head>
+            currentStream = currentStream.Advance(); // consume </head>
         }
         
-        return string.Join(" ", headContent);
+        return (string.Join(" ", headContent), currentStream);
     }
 
-    private ListBlock ParseList()
+    private (ListBlock listBlock, TokenStream stream) ParseList(TokenStream stream)
     {
-        var tagToken = CurrentToken as TagToken;
+        var tagToken = stream.Current as TagToken;
         var kind = tagToken?.Attributes.GetValueOrDefault("kind", ".") ?? ".";
         
-        Advance(); // consume <list>
+        var currentStream = stream.Advance(); // consume <list>
         
         var items = new List<Block>();
         var currentContent = new List<string>();
-        var hasExplicitNestedLists = HasNestedListsAhead(); // Look ahead for explicit nested lists
+        var hasExplicitNestedLists = currentStream.HasTokenAhead(TokenType.ListStart, TokenType.ListEnd); // Look ahead for explicit nested lists
         
-        while (_position < _tokens.Count && CurrentToken.Type != TokenType.ListEnd)
+        while (!currentStream.IsAtEnd && currentStream.Current.Type != TokenType.ListEnd)
         {
-            var token = CurrentToken;
+            var token = currentStream.Current;
             
             switch (token.Type)
             {
                 case TokenType.Text:
-                    var lines = ParseTextLines();
+                    var (lines, textStream) = ParseTextLines(currentStream);
+                    currentStream = textStream;
                     foreach (var line in lines)
                     {
                         var listItem = ParseListItem(line, kind);
@@ -142,8 +146,9 @@ public class DocumentParser
                     break;
                     
                 case TokenType.BlockStart:
-                    Advance();
-                    var nestedBlock = ParseBlock();
+                    currentStream = currentStream.Advance();
+                    var (nestedBlock, blockStream) = ParseBlock(currentStream);
+                    currentStream = blockStream;
                     if (items.Count > 0)
                     {
                         var lastItem = items[^1];
@@ -153,7 +158,8 @@ public class DocumentParser
                     break;
                     
                 case TokenType.DictStart:
-                    var dict = ParseDictionary();
+                    var (dict, dictStream) = ParseDictionary(currentStream);
+                    currentStream = dictStream;
                     if (items.Count > 0)
                     {
                         var lastItem = items[^1];
@@ -163,7 +169,8 @@ public class DocumentParser
                     break;
                     
                 case TokenType.ListStart:
-                    var nestedListBlock = ParseList();
+                    var (nestedListBlock, nestedListStream) = ParseList(currentStream);
+                    currentStream = nestedListStream;
                     if (items.Count > 0)
                     {
                         // For mixed lists, attach to the semantically appropriate parent
@@ -175,17 +182,17 @@ public class DocumentParser
                     break;
                     
                 default:
-                    Advance();
+                    currentStream = currentStream.Advance();
                     break;
             }
         }
         
-        if (CurrentToken.Type == TokenType.ListEnd)
+        if (currentStream.Current.Type == TokenType.ListEnd)
         {
-            Advance(); // consume </list>
+            currentStream = currentStream.Advance(); // consume </list>
         }
         
-        return new ListBlock { Items = items };
+        return (new ListBlock { Items = items }, currentStream);
     }
 
     private Block? ParseListItem(string line, string kind)
@@ -314,50 +321,22 @@ public class DocumentParser
         return lastItem;
     }
 
-    private bool HasNestedListsAhead()
-    {
-        // Look ahead in the token stream to see if there are any ListStart tokens
-        // before the corresponding ListEnd token
-        var lookaheadPos = _position;
-        var nestedDepth = 1; // We're already inside a list
-        
-        while (lookaheadPos < _tokens.Count)
-        {
-            var token = _tokens[lookaheadPos];
-            
-            if (token.Type == TokenType.ListStart)
-            {
-                return true; // Found a nested list
-            }
-            else if (token.Type == TokenType.ListEnd)
-            {
-                nestedDepth--;
-                if (nestedDepth == 0)
-                {
-                    break; // Reached the end of current list
-                }
-            }
-            
-            lookaheadPos++;
-        }
-        
-        return false;
-    }
 
-    private Models.Dictionary ParseDictionary()
+    private (Models.Dictionary dictionary, TokenStream stream) ParseDictionary(TokenStream stream)
     {
-        var tagToken = CurrentToken as TagToken;
+        var tagToken = stream.Current as TagToken;
         var separator = tagToken?.Attributes.GetValueOrDefault("sep", ":") ?? ":";
         
-        Advance(); // consume <dict>
+        var currentStream = stream.Advance(); // consume <dict>
         
         var items = new Dictionary<string, string>();
         
-        while (_position < _tokens.Count && CurrentToken.Type != TokenType.DictEnd)
+        while (!currentStream.IsAtEnd && currentStream.Current.Type != TokenType.DictEnd)
         {
-            if (CurrentToken.Type == TokenType.Text)
+            if (currentStream.Current.Type == TokenType.Text)
             {
-                var lines = ParseTextLines();
+                var (lines, textStream) = ParseTextLines(currentStream);
+                currentStream = textStream;
                 foreach (var line in lines)
                 {
                     var separatorIndex = line.IndexOf(separator);
@@ -375,39 +354,31 @@ public class DocumentParser
             }
             else
             {
-                Advance();
+                currentStream = currentStream.Advance();
             }
         }
         
-        if (CurrentToken.Type == TokenType.DictEnd)
+        if (currentStream.Current.Type == TokenType.DictEnd)
         {
-            Advance(); // consume </dict>
+            currentStream = currentStream.Advance(); // consume </dict>
         }
         
-        return new Models.Dictionary { Items = items };
+        return (new Models.Dictionary { Items = items }, currentStream);
     }
 
-    private List<string> ParseTextLines()
+    private (List<string> lines, TokenStream stream) ParseTextLines(TokenStream stream)
     {
         var lines = new List<string>();
+        var currentStream = stream;
         
-        while (_position < _tokens.Count && CurrentToken.Type == TokenType.Text)
+        while (!currentStream.IsAtEnd && currentStream.Current.Type == TokenType.Text)
         {
-            var textLines = CurrentToken.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+            var textLines = currentStream.Current.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             lines.AddRange(textLines.Select(line => line.Trim()).Where(line => !string.IsNullOrEmpty(line)));
-            Advance();
+            currentStream = currentStream.Advance();
         }
         
-        return lines;
+        return (lines, currentStream);
     }
 
-    private Token CurrentToken => _position < _tokens.Count ? _tokens[_position] : new Token(TokenType.EndOfFile, string.Empty, -1);
-
-    private void Advance()
-    {
-        if (_position < _tokens.Count)
-        {
-            _position++;
-        }
-    }
 }

@@ -444,17 +444,32 @@ public class DocumentAITests
         var list = Assert.IsType<ListBlock>(result.Body[0]);
         Assert.Equal(2, list.Items.Count);
         
-        // Check first item with dictionary
+        // Check first item with text content and dictionary
         var firstItem = list.Items[0];
         Assert.Equal("1.", firstItem.Number);
         Assert.Equal("First item", firstItem.Head);
         Assert.NotNull(firstItem.Body);
-        Assert.Single(firstItem.Body); // Just the dictionary (description text is parsed separately in actual parsing)
+        Assert.Equal(2, firstItem.Body.Count); // Text content + dictionary
         
-        var dict = Assert.IsType<Models.Dictionary>(firstItem.Body[0]);
+        // Check text content
+        var textContent = Assert.IsType<TextContent>(firstItem.Body[0]);
+        Assert.Equal("Some description text.", textContent.Value);
+        
+        // Check dictionary
+        var dict = Assert.IsType<Models.Dictionary>(firstItem.Body[1]);
         Assert.Equal(2, dict.Items.Count);
         Assert.Equal("Value", dict.Items["Subelement"]);
         Assert.Equal("Data", dict.Items["Another"]);
+        
+        // Check second item with text content
+        var secondItem = list.Items[1];
+        Assert.Equal("2.", secondItem.Number);
+        Assert.Equal("Second item", secondItem.Head);
+        Assert.NotNull(secondItem.Body);
+        Assert.Single(secondItem.Body);
+        
+        var secondTextContent = Assert.IsType<TextContent>(secondItem.Body[0]);
+        Assert.Equal("More text here.", secondTextContent.Value);
     }
 
     [Fact]

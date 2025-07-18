@@ -100,6 +100,7 @@ public class DocumentParser
         
         var items = new List<Block>();
         var currentContent = new List<string>();
+        var hasExplicitNestedLists = HasNestedListsAhead(); // Look ahead for explicit nested lists
         
         while (_position < _tokens.Count && CurrentToken.Type != TokenType.ListEnd)
         {
@@ -114,8 +115,9 @@ public class DocumentParser
                         var listItem = ParseListItem(line, kind);
                         if (listItem != null)
                         {
+                            // In mixed list context, disable numbered nesting to keep items flat
                             // Check if this is a nested item (like 2.1. under 2.)
-                            if (ShouldNestUnderPreviousItem(listItem, items))
+                            if (!hasExplicitNestedLists && ShouldNestUnderPreviousItem(listItem, items))
                             {
                                 var lastItemIndex = items.Count - 1;
                                 var lastItem = items[lastItemIndex];
@@ -127,6 +129,14 @@ public class DocumentParser
                             {
                                 items.Add(listItem);
                             }
+                        }
+                        else if (!string.IsNullOrWhiteSpace(line) && items.Count > 0)
+                        {
+                            // This line is not a list item, so attach it as body content to the last item
+                            var lastItemIndex = items.Count - 1;
+                            var lastItem = items[lastItemIndex];
+                            var newBody = new List<ContentNode>(lastItem.Body ?? []) { new TextContent(line) };
+                            items[lastItemIndex] = lastItem with { Body = newBody };
                         }
                     }
                     break;
@@ -302,6 +312,36 @@ public class DocumentParser
         
         // Default to last item if no appropriate parent found
         return lastItem;
+    }
+
+    private bool HasNestedListsAhead()
+    {
+        // Look ahead in the token stream to see if there are any ListStart tokens
+        // before the corresponding ListEnd token
+        var lookaheadPos = _position;
+        var nestedDepth = 1; // We're already inside a list
+        
+        while (lookaheadPos < _tokens.Count)
+        {
+            var token = _tokens[lookaheadPos];
+            
+            if (token.Type == TokenType.ListStart)
+            {
+                return true; // Found a nested list
+            }
+            else if (token.Type == TokenType.ListEnd)
+            {
+                nestedDepth--;
+                if (nestedDepth == 0)
+                {
+                    break; // Reached the end of current list
+                }
+            }
+            
+            lookaheadPos++;
+        }
+        
+        return false;
     }
 
     private Models.Dictionary ParseDictionary()

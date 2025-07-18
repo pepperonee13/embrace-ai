@@ -132,13 +132,10 @@ public class DocumentParser
                                 items.Add(listItem);
                             }
                         }
-                        else if (!string.IsNullOrWhiteSpace(line) && items.Count > 0)
+                        else if (ContentAttachmentService.ShouldAttachAsContent(line, listKind) && items.Count > 0)
                         {
                             // This line is not a list item, so attach it as body content to the last item
-                            var lastItemIndex = items.Count - 1;
-                            var lastItem = items[lastItemIndex];
-                            var newBody = new List<ContentNode>(lastItem.Body ?? []) { new TextContent(line) };
-                            items[lastItemIndex] = lastItem with { Body = newBody };
+                            items = ContentAttachmentService.AttachTextToLastItem(items, line);
                         }
                     }
                     break;
@@ -149,9 +146,7 @@ public class DocumentParser
                     currentStream = blockStream;
                     if (items.Count > 0)
                     {
-                        var lastItem = items[^1];
-                        var newBody = new List<ContentNode>(lastItem.Body ?? []) { nestedBlock };
-                        items[^1] = lastItem with { Body = newBody };
+                        items = ContentAttachmentService.AttachContentToLastItem(items, nestedBlock);
                     }
                     break;
                     
@@ -160,9 +155,7 @@ public class DocumentParser
                     currentStream = dictStream;
                     if (items.Count > 0)
                     {
-                        var lastItem = items[^1];
-                        var newBody = new List<ContentNode>(lastItem.Body ?? []) { dict };
-                        items[^1] = lastItem with { Body = newBody };
+                        items = ContentAttachmentService.AttachContentToLastItem(items, dict);
                     }
                     break;
                     
@@ -174,8 +167,7 @@ public class DocumentParser
                         // For mixed lists, attach to the semantically appropriate parent
                         var targetItem = ListNestingStrategy.FindAppropriateParentForNestedList(items);
                         var targetIndex = items.IndexOf(targetItem);
-                        var newBody = new List<ContentNode>(targetItem.Body ?? []) { nestedListBlock };
-                        items[targetIndex] = targetItem with { Body = newBody };
+                        items = ContentAttachmentService.AttachContentToItem(items, targetIndex, nestedListBlock);
                     }
                     break;
                     

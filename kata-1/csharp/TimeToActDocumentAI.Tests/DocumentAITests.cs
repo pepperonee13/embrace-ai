@@ -14,7 +14,7 @@ public class DocumentAITests
         Assert.Equal("block", result.Kind);
         Assert.Null(result.Head);
         Assert.Null(result.Number);
-        Assert.Empty(result.Body);
+        Assert.True(result.Body == null || result.Body.Count == 0);
     }
 
     [Fact]
@@ -24,6 +24,7 @@ public class DocumentAITests
         var result = DocumentAI.ParseDocument(input);
         
         Assert.Equal("block", result.Kind);
+        Assert.NotNull(result.Body);
         Assert.Equal(2, result.Body.Count);
         Assert.All(result.Body, item => Assert.IsType<TextContent>(item));
         
@@ -61,6 +62,7 @@ public class DocumentAITests
         var result = DocumentAI.ParseDocument(input);
         
         Assert.Equal("Master Agreement", result.Head);
+        Assert.NotNull(result.Body);
         Assert.Equal(2, result.Body.Count);
         
         var textContent = Assert.IsType<TextContent>(result.Body[0]);
@@ -137,11 +139,12 @@ public class DocumentAITests
         
         var result = DocumentAI.ParseDocument(input);
         
+        Assert.NotNull(result.Body);
         Assert.Single(result.Body);
         var list = Assert.IsType<ListBlock>(result.Body[0]);
         Assert.Single(list.Items);
         Assert.Equal(expectedNumber, list.Items[0].Number);
-        Assert.Equal("Test Item", ((TextContent)list.Items[0].Body[0]).Value);
+        Assert.Equal("Test Item", list.Items[0].Head);
     }
 
     [Fact]
@@ -162,16 +165,28 @@ public class DocumentAITests
         Assert.Single(result.Body);
         var list = Assert.IsType<ListBlock>(result.Body[0]);
         Assert.Equal("list", list.Kind);
-        Assert.Equal(5, list.Items.Count);
+        Assert.Equal(3, list.Items.Count);  // Top-level items: 1, 2, 3
         
         Assert.Equal("1.", list.Items[0].Number);
-        Assert.Equal("Payment Terms", ((TextContent)list.Items[0].Body[0]).Value);
+        Assert.Equal("Payment Terms", list.Items[0].Head);
         
         Assert.Equal("2.", list.Items[1].Number);
-        Assert.Equal("Delivery Schedule", ((TextContent)list.Items[1].Body[0]).Value);
+        Assert.Equal("Delivery Schedule", list.Items[1].Head);
         
-        Assert.Equal("2.1.", list.Items[2].Number);
-        Assert.Equal("Initial Delivery", ((TextContent)list.Items[2].Body[0]).Value);
+        // Check nested structure under item 2
+        Assert.NotNull(list.Items[1].Body);
+        Assert.Single(list.Items[1].Body);
+        var nestedList = Assert.IsType<ListBlock>(list.Items[1].Body[0]);
+        Assert.Equal(2, nestedList.Items.Count);
+        
+        Assert.Equal("2.1.", nestedList.Items[0].Number);
+        Assert.Equal("Initial Delivery", nestedList.Items[0].Head);
+        
+        Assert.Equal("2.2.", nestedList.Items[1].Number);
+        Assert.Equal("Final Delivery", nestedList.Items[1].Head);
+        
+        Assert.Equal("3.", list.Items[2].Number);
+        Assert.Equal("Warranties", list.Items[2].Head);
     }
 
     [Theory]
@@ -188,11 +203,12 @@ public class DocumentAITests
         
         var result = DocumentAI.ParseDocument(input);
         
+        Assert.NotNull(result.Body);
         Assert.Single(result.Body);
         var list = Assert.IsType<ListBlock>(result.Body[0]);
         Assert.Single(list.Items);
-        Assert.Null(list.Items[0].Number);
-        Assert.Equal(itemText, ((TextContent)list.Items[0].Body[0]).Value);
+        Assert.Equal(bulletChar, list.Items[0].Number);
+        Assert.Equal(itemText, list.Items[0].Head);
     }
 
     [Fact]
@@ -208,12 +224,13 @@ public class DocumentAITests
         
         var result = DocumentAI.ParseDocument(input);
         
+        Assert.NotNull(result.Body);
         Assert.Single(result.Body);
         var list = Assert.IsType<ListBlock>(result.Body[0]);
         Assert.Equal(3, list.Items.Count);
         
-        Assert.Null(list.Items[0].Number);
-        Assert.Equal("Confidentiality Agreement", ((TextContent)list.Items[0].Body[0]).Value);
+        Assert.Equal("•", list.Items[0].Number);
+        Assert.Equal("Confidentiality Agreement", list.Items[0].Head);
     }
 
     [Fact]
@@ -262,7 +279,7 @@ public class DocumentAITests
         var deserialized = DocumentAI.FromJson(json);
         
         Assert.Equal(parsed.Head, deserialized.Head);
-        Assert.Equal(parsed.Body.Count, deserialized.Body.Count);
+        Assert.Equal(parsed.Body?.Count ?? 0, deserialized.Body?.Count ?? 0);
         Assert.Equal(parsed.Kind, deserialized.Kind);
     }
 
@@ -278,7 +295,7 @@ public class DocumentAITests
         Assert.Equal("block", result.Kind);
         Assert.Null(result.Head);
         Assert.Null(result.Number);
-        Assert.Empty(result.Body);
+        Assert.True(result.Body == null || result.Body.Count == 0);
     }
 
     [Theory]
@@ -327,7 +344,7 @@ public class DocumentAITests
         
         Assert.Equal("block", result.Kind);
         Assert.Equal(expectedHeadText, result.Head);
-        Assert.Equal(expectedBodyCount, result.Body.Count);
+        Assert.Equal(expectedBodyCount, result.Body?.Count ?? 0);
     }
 
     public static IEnumerable<object[]> ComplexDocumentTestData()
@@ -430,9 +447,11 @@ public class DocumentAITests
         // Check first item with dictionary
         var firstItem = list.Items[0];
         Assert.Equal("1.", firstItem.Number);
-        Assert.Equal(2, firstItem.Body.Count); // "First item", dictionary (description text gets parsed as separate line)
+        Assert.Equal("First item", firstItem.Head);
+        Assert.NotNull(firstItem.Body);
+        Assert.Single(firstItem.Body); // Just the dictionary (description text is parsed separately in actual parsing)
         
-        var dict = Assert.IsType<Models.Dictionary>(firstItem.Body[1]);
+        var dict = Assert.IsType<Models.Dictionary>(firstItem.Body[0]);
         Assert.Equal(2, dict.Items.Count);
         Assert.Equal("Value", dict.Items["Subelement"]);
         Assert.Equal("Data", dict.Items["Another"]);

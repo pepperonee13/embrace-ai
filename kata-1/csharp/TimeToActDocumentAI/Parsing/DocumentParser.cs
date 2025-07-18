@@ -152,6 +152,18 @@ public class DocumentParser
                     }
                     break;
                     
+                case TokenType.ListStart:
+                    var nestedListBlock = ParseList();
+                    if (items.Count > 0)
+                    {
+                        // For mixed lists, attach to the semantically appropriate parent
+                        var targetItem = FindAppropriateParentForNestedList(items);
+                        var targetIndex = items.IndexOf(targetItem);
+                        var newBody = new List<ContentNode>(targetItem.Body ?? []) { nestedListBlock };
+                        items[targetIndex] = targetItem with { Body = newBody };
+                    }
+                    break;
+                    
                 default:
                     Advance();
                     break;
@@ -260,6 +272,36 @@ public class DocumentParser
         updatedParent = parentItem with { Body = newBody };
         
         return nestedList;
+    }
+
+    private Block FindAppropriateParentForNestedList(List<Block> items)
+    {
+        if (items.Count == 0)
+            return items[^1];
+
+        var lastItem = items[^1];
+        
+        // If the last item is a numbered sub-item (like 2.1.), 
+        // look for its logical parent (like 2.)
+        if (lastItem.Number != null && lastItem.Number.Contains('.'))
+        {
+            var lastParts = lastItem.Number.TrimEnd('.').Split('.');
+            if (lastParts.Length > 1)
+            {
+                // Look for a parent item (e.g., "2." for "2.1.")
+                var parentNumber = lastParts[0] + ".";
+                for (int i = items.Count - 2; i >= 0; i--)
+                {
+                    if (items[i].Number == parentNumber)
+                    {
+                        return items[i];
+                    }
+                }
+            }
+        }
+        
+        // Default to last item if no appropriate parent found
+        return lastItem;
     }
 
     private Models.Dictionary ParseDictionary()

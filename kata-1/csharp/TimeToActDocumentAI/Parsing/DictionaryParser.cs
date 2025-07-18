@@ -24,7 +24,7 @@ public static class DictionaryParser
         {
             if (currentStream.Current.Type == TokenType.Text)
             {
-                var (lines, textStream) = ParseTextLines(currentStream);
+                var (lines, textStream) = TextLineParser.ParseTextLines(currentStream);
                 currentStream = textStream;
                 
                 foreach (var line in lines)
@@ -92,24 +92,4 @@ public static class DictionaryParser
         return null;
     }
 
-    /// <summary>
-    /// Parses consecutive text tokens into individual lines.
-    /// This is a helper method that mirrors the pattern from DocumentParser.
-    /// </summary>
-    /// <param name="stream">The token stream positioned at text tokens</param>
-    /// <returns>A tuple containing the parsed lines and updated stream</returns>
-    private static (List<string> lines, TokenStream stream) ParseTextLines(TokenStream stream)
-    {
-        var lines = new List<string>();
-        var currentStream = stream;
-        
-        while (!currentStream.IsAtEnd && currentStream.Current.Type == TokenType.Text)
-        {
-            var textLines = currentStream.Current.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            lines.AddRange(textLines.Select(line => line.Trim()).Where(line => !string.IsNullOrEmpty(line)));
-            currentStream = currentStream.Advance();
-        }
-        
-        return (lines, currentStream);
-    }
 }

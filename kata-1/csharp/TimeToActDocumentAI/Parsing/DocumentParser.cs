@@ -58,7 +58,7 @@ public class DocumentParser
                     break;
                     
                 case TokenType.Text:
-                    var (textLines, textStream) = ParseTextLines(currentStream);
+                    var (textLines, textStream) = TextLineParser.ParseTextLines(currentStream);
                     body.AddRange(textLines.Select(line => new TextContent(line)));
                     currentStream = textStream;
                     break;
@@ -113,7 +113,7 @@ public class DocumentParser
             switch (token.Type)
             {
                 case TokenType.Text:
-                    var (lines, textStream) = ParseTextLines(currentStream);
+                    var (lines, textStream) = TextLineParser.ParseTextLines(currentStream);
                     currentStream = textStream;
                     foreach (var line in lines)
                     {
@@ -189,19 +189,5 @@ public class DocumentParser
 
 
 
-    private (List<string> lines, TokenStream stream) ParseTextLines(TokenStream stream)
-    {
-        var lines = new List<string>();
-        var currentStream = stream;
-        
-        while (!currentStream.IsAtEnd && currentStream.Current.Type == TokenType.Text)
-        {
-            var textLines = currentStream.Current.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-            lines.AddRange(textLines.Select(line => line.Trim()).Where(line => !string.IsNullOrEmpty(line)));
-            currentStream = currentStream.Advance();
-        }
-        
-        return (lines, currentStream);
-    }
 
 }

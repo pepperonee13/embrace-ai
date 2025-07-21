@@ -1,32 +1,79 @@
 [
   {
-    "name": "Team1",
+    "name": "Team 1",
     "authors": [
-      "Member 1",
-      "Member 2"
+      "Alice Example",
+      "Bob Example",
+      "Carol Contributor",
+      "David Dev",
+      "Eve Sample",
+      "Charlie Demo",
+      "Dana Test",
+      "Frank Dummy"
     ],
     "products": [
-      "Product1",
-      "Product2",
-      "Product3",
-      "Product4",
-      "Product5",
-      "Product6"
+      {
+        "name": "prod.alpha",
+        "source": "tfs"
+      },
+      {
+        "name": "prod.beta",
+        "source": "tfs"
+      }
     ]
   },
   {
-    "name": "Team2",
+    "name": "Team 2",
     "authors": [
-      "Member3",
-      "Member4",
-      "Member5",
-      "Member6"
+      "Dana Test",
+      "Eve Sample",
+      "Frank Dummy",
+      "Grace Hopper",
+      "Heidi Helper",
+      "Alice Example",
+      "Ivan Inspector",
+      "Judy Judge",
+      "Karl Keeper",
+      "Laura Lead",
+      "Mallory Maintainer",
+      "Bob Example"
     ],
     "products": [
-      "Product7",
-      "Product8",
-      "Product9",
-      "Product10"
+      {
+        "name": "prod.gamma",
+        "source": "tfs"
+      },
+      {
+        "name": "prod.delta",
+        "source": "tfs"
+      }
+    ]
+  },
+  {
+    "name": "Team 3",
+    "authors": [
+      "Nina Newbie",
+      "Oscar Owner",
+      "Peggy Producer",
+      "Quentin Quality",
+      "Ruth Reviewer",
+      "Dana Test",
+      "Sam Support",
+      "Trudy Tester",
+      "Uma User",
+      "Victor Validator",
+      "Wendy Worker",
+      "Carol Contributor"
+    ],
+    "products": [
+      {
+        "name": "prod.epsilon",
+        "source": "tfs"
+      },
+      {
+        "name": "prod.zeta",
+        "source": "tfs"
+      }
     ]
   }
 ]

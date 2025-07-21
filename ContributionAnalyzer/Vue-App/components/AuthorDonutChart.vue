@@ -26,11 +26,19 @@
       Contributions: {{ tooltip.count }}<br />
       Percentage: {{ tooltip.percent }}%
     </div>
+    <div v-if="filteredOutProductsCount > 0" class="filtered-out-info">
+      <template v-if="filteredOutProductsCount === filteredProductCount">
+        All products below {{ filters.minPercent }}% threshold
+      </template>
+      <template v-else>
+        {{ filteredOutProductsCount }} product{{ filteredOutProductsCount !== 1 ? 's' : '' }} below {{ filters.minPercent }}% threshold
+      </template>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted, computed, nextTick } from 'vue';
 import * as d3 from 'd3';
 import { storeToRefs } from 'pinia';
 import { useOwnershipStore } from '../stores/useOwnershipStore';
@@ -44,6 +52,40 @@ const width = 320, height = 300;
 const svg = ref();
 
 const tooltip = ref({ show: false, x: 0, y: 0, product: '', count: 0, percent: 0 });
+
+// Get the total number of products after applying product selection filter
+const filteredProductCount = computed(() => {
+  let dataFiltered = filteredData.value.filter(r => r.Author === props.author);
+  dataFiltered = getFilteredProducts(dataFiltered, filters.value.products);
+  return new Set(dataFiltered.map(r => r.Product)).size;
+});
+
+const filteredOutProductsCount = computed(() => {
+  let dataFiltered = filteredData.value.filter(r => r.Author === props.author);
+  dataFiltered = getFilteredProducts(dataFiltered, filters.value.products);
+
+  // Calculate total contributions per product
+  const productTotals = {};
+  const authorContributions = {};
+  
+  filteredData.value.forEach(r => {
+    if (!productTotals[r.Product]) productTotals[r.Product] = 0;
+    productTotals[r.Product] += r.ContributionCount;
+  });
+
+  dataFiltered.forEach(r => {
+    if (!authorContributions[r.Product]) authorContributions[r.Product] = 0;
+    authorContributions[r.Product] += r.ContributionCount;
+  });
+
+  // Count products below threshold
+  const minPercent = filters.value.minPercent;
+  return Object.entries(authorContributions)
+    .filter(([product, count]) => {
+      const percentage = (count / productTotals[product]) * 100;
+      return percentage < minPercent;
+    }).length;
+});
 
 function getFilteredProducts(data, selectedProducts) {
   // If no products selected, show all
@@ -60,23 +102,67 @@ const totalProductCount = computed(() => {
 const productCount = computed(() => {
   let dataFiltered = filteredData.value.filter(r => r.Author === props.author);
   dataFiltered = getFilteredProducts(dataFiltered, filters.value.products);
-  // Count unique products
-  const uniqueProducts = new Set(dataFiltered.map(r => r.Product));
-  return uniqueProducts.size;
+
+  // Calculate contributions and percentages per product
+  const productTotals = {};
+  const authorContributions = {};
+  
+  // Get total contributions for each product
+  filteredData.value.forEach(r => {
+    if (!productTotals[r.Product]) productTotals[r.Product] = 0;
+    productTotals[r.Product] += r.ContributionCount;
+  });
+
+  // Get author's contributions for each product
+  dataFiltered.forEach(r => {
+    if (!authorContributions[r.Product]) authorContributions[r.Product] = 0;
+    authorContributions[r.Product] += r.ContributionCount;
+  });
+
+  // Filter products where author meets minimum percentage
+  const minPercent = filters.value.minPercent;
+  const significantProducts = Object.entries(authorContributions)
+    .filter(([product, count]) => {
+      const percentage = (count / productTotals[product]) * 100;
+      return percentage >= minPercent;
+    });
+
+  return significantProducts.length;
 });
 
 function draw() {
   let data = filteredData.value.filter(r => r.Author === props.author);
   data = getFilteredProducts(data, filters.value.products);
-  // Aggregate by product
+  
+  // Calculate total contributions per product (from all authors) to determine percentages
+  const productTotals = {};
+  filteredData.value.forEach(r => {
+    if (!productTotals[r.Product]) productTotals[r.Product] = 0;
+    productTotals[r.Product] += r.ContributionCount;
+  });
+
+  // Aggregate author's contributions by product
   const byProduct = {};
   let total = 0;
   data.forEach(r => {
     if (!byProduct[r.Product]) byProduct[r.Product] = 0;
     byProduct[r.Product] += r.ContributionCount;
-    total += r.ContributionCount;
   });
-  const pieData = Object.entries(byProduct).map(([Product, cnt]) => ({ Product, value: cnt }));
+
+  // Filter products where author meets minimum percentage
+  const minPercent = filters.value.minPercent;
+  const filteredByProduct = Object.entries(byProduct)
+    .filter(([product, count]) => {
+      const percentage = (count / productTotals[product]) * 100;
+      return percentage >= minPercent;
+    })
+    .reduce((acc, [product, count]) => {
+      acc[product] = count;
+      total += count;
+      return acc;
+    }, {});
+
+  const pieData = Object.entries(filteredByProduct).map(([Product, cnt]) => ({ Product, value: cnt }));
   const pie = d3.pie().value(d => d.value)(pieData);
   // Make the donut thinner (same as PieChart: innerRadius 85, outerRadius 120)
   const arc = d3.arc().innerRadius(85).outerRadius(120);
@@ -107,7 +193,16 @@ function draw() {
 }
 
 onMounted(draw);
-watch([filteredData, () => props.author, authorColors, filters], draw);
+watch(
+  [
+    filteredData, 
+    () => props.author, 
+    authorColors, 
+    () => filters.value.products,
+    () => filters.value.minPercent
+  ], 
+  () => nextTick(draw)
+);
 </script>
 
 <style scoped>
@@ -155,5 +250,12 @@ svg {
   z-index: 10;
   min-width: 140px;
   white-space: nowrap;
+}
+
+.filtered-out-info {
+  color: #6c757d;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  font-style: italic;
 }
 </style>

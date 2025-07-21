@@ -1,5 +1,8 @@
 node_modules
+report/warningsDB
+report/index.json
 
-RawOwnershipReport.combined.csv
 Run-GenerateOwnershipReport.ps1
-TFSChanges.csv
+TFSChanges.*.csv
+
+*.local.*

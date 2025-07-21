@@ -18,7 +18,13 @@ export const useOwnershipStore = defineStore('ownership', () => {
   const teams = ref([]);
   async function loadTeams() {
     const resp = await fetch('./team_mappings.json');
-    teams.value = await resp.json();
+    const teamsData = await resp.json();
+    
+    teams.value = teamsData.map(team => ({
+      name: team.name,
+      authors: team.authors,
+      products: team.products.map(product => product.name)
+    }));
   }
 
   // Load CSV and mapping JSON
@@ -77,7 +83,7 @@ export const useOwnershipStore = defineStore('ownership', () => {
   // Filtered data
   const filteredData = computed(() => {
     // ...filter logic by filters.value...
-    let d = data.value;
+    let d = data.value;    
     if (filters.value.products.length)
       d = d.filter(r => filters.value.products.includes(r.Product));
     if (filters.value.authors.length)

@@ -150,7 +150,7 @@ foreach ($shortcut in $GitRepos) {
 }
 
 # --- Output Section ---
-$csvPath = Join-Path $PSScriptRoot 'RawOwnershipReport.csv'
+$csvPath = Join-Path $PSScriptRoot 'RawOwnershipReport.local.csv'
 $csvRows | Export-Csv -Path $csvPath -NoTypeInformation -Encoding UTF8
 Append-DateInfoToCsv $csvPath $FromDate $null
 Write-Host "CSV generated: $csvPath" -ForegroundColor Green

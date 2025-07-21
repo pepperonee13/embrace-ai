@@ -1,0 +1,68 @@
+{
+  "category": "Basic Blocks",
+  "description": "Tests for basic block functionality including empty text, plain text, headed blocks, and nested blocks",
+  "testCases": [
+    {
+      "name": "Empty text results in empty document block",
+      "description": "Empty text results in an empty document block",
+      "input": "",
+      "expected": {
+        "kind": "block"
+      }
+    },
+    {
+      "name": "Plain text single paragraph",
+      "description": "Plain text goes into the block body straight away",
+      "input": "First paragraph.",
+      "expected": {
+        "kind": "block",
+        "body": [
+          "First paragraph."
+        ]
+      }
+    },
+    {
+      "name": "Plain text multiple paragraphs",
+      "description": "Different paragraphs are separated by new lines",
+      "input": "First paragraph.\nSecond paragraph.",
+      "expected": {
+        "kind": "block",
+        "body": [
+          "First paragraph.",
+          "Second paragraph."
+        ]
+      }
+    },
+    {
+      "name": "Simple headed block",
+      "description": "Text marked with <head> goes directly into the head of the current block",
+      "input": "<head>Test Document</head>\nContent",
+      "expected": {
+        "kind": "block",
+        "head": "Test Document",
+        "body": [
+          "Content"
+        ]
+      }
+    },
+    {
+      "name": "Nested blocks",
+      "description": "Blocks can be nested explicitly using <block> tags",
+      "input": "<head>AI Coding Kata</head>\nLet's get started with the kata\n<block>\n<head>Preface</head>\nHere is a little story\n</block>",
+      "expected": {
+        "kind": "block",
+        "head": "AI Coding Kata",
+        "body": [
+          "Let's get started with the kata",
+          {
+            "kind": "block",
+            "head": "Preface",
+            "body": [
+              "Here is a little story"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

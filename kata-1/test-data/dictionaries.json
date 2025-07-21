@@ -1,0 +1,41 @@
+{
+  "category": "Dictionaries",
+  "description": "Tests for dictionary functionality with different separators and key-value pairs",
+  "testCases": [
+    {
+      "name": "Dictionary with colon separator",
+      "description": "Dictionaries are used to capture key-value pairs, by default they are separated by :",
+      "input": "<dict sep=\":\">\nKey One: Value One\nKey Two: Value Two\nKey Three: Value Three\n</dict>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "dict",
+            "items": {
+              "Key One": "Value One",
+              "Key Two": "Value Two",
+              "Key Three": "Value Three"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Dictionary with dash separator",
+      "description": "Dictionaries can use custom separators like dash",
+      "input": "<dict sep=\"-\">\nTitle - AI Coding - for TAT\nKata Number - \n</dict>",
+      "expected": {
+        "kind": "block",
+        "body": [
+          {
+            "kind": "dict",
+            "items": {
+              "Title": "AI Coding - for TAT",
+              "Kata Number": ""
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

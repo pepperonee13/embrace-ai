@@ -6,7 +6,8 @@ param(
     [string]$GitBaseUrl = $null,
     [switch]$CloneIfMissing,
     [string]$FromDate = $null,
-    [string]$AuthorMappingFile = "$PSScriptRoot/Vue-App/author_mappings.json"
+    [string]$AuthorMappingFile = "$PSScriptRoot/Vue-App/author_mappings.local.json",
+    [string]$OutputCsv = "$PSScriptRoot/RawOwnershipReport.local.csv"
 )
 
 # Helper: Parse German datetime
@@ -150,7 +151,6 @@ foreach ($shortcut in $GitRepos) {
 }
 
 # --- Output Section ---
-$csvPath = Join-Path $PSScriptRoot 'RawOwnershipReport.local.csv'
-$csvRows | Export-Csv -Path $csvPath -NoTypeInformation -Encoding UTF8
-Append-DateInfoToCsv $csvPath $FromDate $null
-Write-Host "CSV generated: $csvPath" -ForegroundColor Green
+$csvRows | Export-Csv -Path $OutputCsv -NoTypeInformation -Encoding UTF8
+Append-DateInfoToCsv $OutputCsv $FromDate $null
+Write-Host "CSV generated: $OutputCsv" -ForegroundColor Green

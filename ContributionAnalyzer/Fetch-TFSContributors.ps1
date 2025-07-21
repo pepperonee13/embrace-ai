@@ -47,21 +47,26 @@ foreach ($path in $Paths) {
         elseif ($line -match "^Items:") {
             $parsingChanges = $true
         }
-        elseif ($parsingChanges -and $line -match "^\s+(\w+)\s+(.+)$") {
-            $changeType = $matches[1]
+        elseif ($parsingChanges -and $line -match "^\s+([^$]+?)\s+(\$.+)$") {
+            $changeType = $matches[1].Trim()
             $filePath = $matches[2].Trim()
             # Remove suffixes like ;X79607 from the end of the file path
             $filePath = $filePath -replace ';[A-Z0-9]+$', ''
 
-            $allRecords += [pscustomobject]@{
-                ChangesetId = $currentChangeset
-                Author      = $currentUser
-                ChangeDate  = $currentDate
-                ChangeType  = $changeType
-                FilePath    = $filePath
-                TfsRootPath = $path
+            if ($currentChangeset -and $currentUser -and $currentDate) {
+                $allRecords += [pscustomobject]@{
+                    ChangesetId = $currentChangeset
+                    Author      = $currentUser
+                    ChangeDate  = $currentDate
+                    ChangeType  = $changeType
+                    FilePath    = $filePath
+                    TfsRootPath = $path
+                }
+                $recordCount++
             }
-            $recordCount++
+            else {
+                Write-Warning "⚠️no changes added for Changeset: $currentChangeset"
+            }
         }
         elseif ($line -eq "") {
             $parsingChanges = $false

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import Papa from 'papaparse';
+import { getEnvironmentPath } from '../utils/environment';
 
 export const useOwnershipStore = defineStore('ownership', () => {
   const rawCsv = ref('');
@@ -17,7 +18,7 @@ export const useOwnershipStore = defineStore('ownership', () => {
   // Teams loaded from external JSON
   const teams = ref([]);
   async function loadTeams() {
-    const resp = await fetch('./team_mappings.json');
+    const resp = await fetch(getEnvironmentPath('./team_mappings', '.json'));
     const teamsData = await resp.json();
     
     teams.value = teamsData.map(team => ({

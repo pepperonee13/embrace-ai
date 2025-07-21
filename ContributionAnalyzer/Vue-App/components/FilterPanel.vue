@@ -77,18 +77,22 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useOwnershipStore } from '../stores/useOwnershipStore';
-import { computed, ref, watch, onMounted } from 'vue';
-import { TEAM_COLORS } from '../teamColors.js';
+import { computed, ref, watch, onMounted, shallowRef } from 'vue';
+import { getCurrentEnvironment } from '../utils/environment';
 
+const env = getCurrentEnvironment();
+const teamColorsModule = shallowRef(null);
 const store = useOwnershipStore();
 const { data, filters, authorColors, totalContributions, productCount, authorCount, teams } = storeToRefs(store);
 const { setProducts, setAuthors, setMinPercent, loadTeams } = store;
 
 const teamsWithColor = computed(() => (teams.value || []).map(team => ({
   ...team,
-  color: TEAM_COLORS[team.name] || '#bbb'
+  color: teamColorsModule.value?.TEAM_COLORS?.[team.name] || '#bbb'
 })));
-onMounted(() => {
+onMounted(async () => {
+  // Load team colors module
+  teamColorsModule.value = await import(/* @vite-ignore */ `../teamColors${env === 'production' ? '' : `.${env}`}.js`);
   loadTeams();
 });
 

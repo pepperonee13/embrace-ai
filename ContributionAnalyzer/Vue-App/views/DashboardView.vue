@@ -15,6 +15,7 @@ import { storeToRefs } from 'pinia';
 import { useOwnershipStore } from '../stores/useOwnershipStore';
 import FilterPanel from '../components/FilterPanel.vue';
 import ChartsPanel from '../components/ChartsPanel.vue';
+import { getEnvironmentPath } from '../utils/environment';
 
 const store = useOwnershipStore();
 const { dateInfo } = storeToRefs(store);
@@ -29,10 +30,9 @@ const dateRangeText = computed(() => {
 });
 
 onMounted(async () => {
-  // Adjust paths if you move files to public/
-  const csvResp = await fetch('/RawOwnershipReport.example.csv');
+  const csvResp = await fetch(getEnvironmentPath('/RawOwnershipReport', '.csv'));
   const csvText = await csvResp.text();
-  const mapResp = await fetch('/author_mappings.json');
+  const mapResp = await fetch(getEnvironmentPath('/author_mappings', '.json'));
   const mappingJson = await mapResp.json();
   await store.loadData(csvText, mappingJson);
 });

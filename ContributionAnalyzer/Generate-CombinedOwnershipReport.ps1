@@ -50,6 +50,18 @@ function Append-DateInfoToCsv($csvPath, $since, $until) {
     Add-Content -Path $csvPath -Value $dateRow
 }
 
+# Helper: confirm user action
+function Confirm-UserAction {
+    param (
+        [string]$Message,
+        [string]$WarningMessage
+    )
+    
+    Write-Warning $WarningMessage
+    $confirmation = Read-Host -Prompt "$Message [y/N]"
+    return $confirmation -eq 'y'
+}
+
 # Load author mappings if file exists
 $authorMap = @{}
 if (Test-Path $AuthorMappingFile) {
@@ -119,6 +131,75 @@ foreach ($shortcut in $GitRepos) {
             Write-Warning "Repository not found: $repoPath"
             continue
         }
+    } else {
+        Push-Location $repoPath
+        
+        # Check repository status
+        $status = & git status --porcelain
+        $hasChanges = $null -ne $status
+        $behindCount = & git rev-list HEAD..origin/main --count
+        $needsUpdate = $behindCount -gt 0
+        
+        if ($hasChanges -or $needsUpdate) {
+            $warningMsg = "Repository '$repoName' requires updates:"
+            if ($hasChanges) { $warningMsg += "`n - Local uncommitted changes will be stashed" }
+            if ($needsUpdate) { $warningMsg += "`n - $behindCount commits behind remote" }
+            
+            if (-not (Confirm-UserAction -Message "Do you want to proceed with these changes?" -WarningMessage $warningMsg)) {
+                Write-Host "Skipping repository $repoName by user request" -ForegroundColor Yellow
+                Pop-Location
+                continue
+            }
+        }
+        
+        Write-Host "Updating repository..." -ForegroundColor Yellow
+        
+        # Stash any local changes if they exist
+        if ($hasChanges) {
+            Write-Host "  Stashing local changes..." -ForegroundColor Yellow
+            & git stash
+        }
+        
+        # Try fast-forward only pull first
+        $pullResult = & git pull --ff-only 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            if (-not (Confirm-UserAction -Message "Fast-forward pull failed. Attempt to merge changes?" `
+                    -WarningMessage "This will create a merge commit in your local repository")) {
+                Write-Host "Operation cancelled by user" -ForegroundColor Yellow
+                if ($hasChanges) {
+                    Write-Host "Restoring local changes..." -ForegroundColor Yellow
+                    & git stash pop
+                }
+                Pop-Location
+                continue
+            }
+            
+            # Fetch latest and merge
+            & git fetch
+            & git merge --no-commit origin/main
+            if ($LASTEXITCODE -ne 0) {
+                Write-Warning "Merge conflicts detected. Aborting merge and skipping repository."
+                & git merge --abort
+                if ($hasChanges) {
+                    Write-Host "Restoring local changes..." -ForegroundColor Yellow
+                    & git stash pop
+                }
+                Pop-Location
+                continue
+            }
+            # If merge was successful, commit it
+            & git commit -m "Merge origin/main for analysis"
+        }
+        
+        # Restore stashed changes if they were stashed
+        if ($hasChanges) {
+            Write-Host "  Restoring local changes..." -ForegroundColor Yellow
+            & git stash pop
+            if ($LASTEXITCODE -ne 0) {
+                Write-Warning "Failed to restore local changes. They remain in the stash."
+            }
+        }
+        Pop-Location
     }
     Write-Host "Entering repository: $repoPath" -ForegroundColor Green
     Push-Location $repoPath

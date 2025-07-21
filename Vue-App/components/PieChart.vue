@@ -27,6 +27,14 @@
       Percentage (all authors): {{ tooltip.percent }}%<br/>
       Percentage (filtered authors): {{ tooltip.percentFiltered }}%
     </div>
+    <div v-if="filteredOutAuthorsCount > 0" class="filtered-out-info">
+      <template v-if="filteredOutAuthorsCount === filteredAuthorCount">
+        All authors below {{ filters.minPercent }}% threshold
+      </template>
+      <template v-else>
+        {{ filteredOutAuthorsCount }} author{{ filteredOutAuthorsCount !== 1 ? 's' : '' }} below {{ filters.minPercent }}% threshold
+      </template>
+    </div>
   </div>
 </template>
 
@@ -45,6 +53,13 @@ const width = 320, height = 300;
 const svg = ref();
 
 const tooltip = ref({ show: false, x: 0, y: 0, author: '', count: 0, percent: 0, percentFiltered: 0 });
+
+// Get the total number of authors after applying author selection filter
+const filteredAuthorCount = computed(() => {
+  let data = filteredData.value.filter(r => r.Product === props.product);
+  data = getFilteredAuthors(data, filters.value.authors);
+  return new Set(data.map(r => r.Author)).size;
+});
 
 function getFilteredAuthors(data, selectedAuthors) {
   // If no authors selected, show all
@@ -65,10 +80,45 @@ const unfilteredTotal = computed(() => {
     .reduce((sum, r) => sum + r.ContributionCount, 0);
 });
 
+// Helper function to aggregate contributions by author
+function aggregateByAuthor(data) {
+  const byAuthor = {};
+  let total = 0;
+  data.forEach(r => {
+    if (!byAuthor[r.Author]) byAuthor[r.Author] = 0;
+    byAuthor[r.Author] += r.ContributionCount;
+    total += r.ContributionCount;
+  });
+  return { byAuthor, total };
+}
+
+const filteredOutAuthorsCount = computed(() => {
+  let data = filteredData.value.filter(r => r.Product === props.product);
+  data = getFilteredAuthors(data, filters.value.authors);
+  
+  const { byAuthor, total } = aggregateByAuthor(data);
+  const minPercent = filters.value.minPercent;
+  
+  // Count authors below threshold
+  return Object.entries(byAuthor).filter(([_, count]) => 
+    (count / total) * 100 < minPercent
+  ).length;
+});
+
 const contributionsByFilteredAuthors = computed(() => {
   let data = filteredData.value.filter(r => r.Product === props.product);
   data = getFilteredAuthors(data, filters.value.authors);
-  return data.reduce((sum, r) => sum + r.ContributionCount, 0);
+  
+  // Calculate total first to determine percentages
+  const { byAuthor, total: totalBeforeMinPercent } = aggregateByAuthor(data);
+
+  // Filter authors by minimum percentage
+  const minPercent = filters.value.minPercent;
+  const significantAuthors = Object.entries(byAuthor)
+    .filter(([_, count]) => (count / totalBeforeMinPercent) * 100 >= minPercent)
+    .map(([_, count]) => count);
+
+  return significantAuthors.reduce((sum, count) => sum + count, 0);
 });
 
 function draw() {
@@ -82,7 +132,19 @@ function draw() {
     byAuthor[r.Author] += r.ContributionCount;
     total += r.ContributionCount;
   });
-  const pieData = Object.entries(byAuthor).map(([Author, cnt]) => ({ Author, value: cnt }));
+  
+  // Filter out authors below minimum percentage
+  const minPercent = filters.value.minPercent;
+  const filteredByAuthor = Object.fromEntries(
+    Object.entries(byAuthor).filter(([_, count]) => {
+      const percentage = (count / total) * 100;
+      return percentage >= minPercent;
+    })
+  );
+  
+  // Recalculate total after filtering
+  total = Object.values(filteredByAuthor).reduce((sum, count) => sum + count, 0);
+  const pieData = Object.entries(filteredByAuthor).map(([Author, cnt]) => ({ Author, value: cnt }));
   // Make the chart thinner by increasing innerRadius
   const pie = d3.pie().value(d => d.value)(pieData);
   const arc = d3.arc().innerRadius(85).outerRadius(120);
@@ -112,7 +174,16 @@ function draw() {
 }
 
 onMounted(() => { nextTick(draw); });
-watch([filteredData, () => props.product, authorColors, filters], () => nextTick(draw));
+watch(
+  [
+    filteredData, 
+    () => props.product, 
+    authorColors, 
+    () => filters.value.authors,
+    () => filters.value.minPercent
+  ], 
+  () => nextTick(draw)
+);
 </script>
 
 <style scoped>
@@ -166,5 +237,12 @@ svg {
   z-index: 10;
   min-width: 140px;
   white-space: nowrap;
+}
+
+.filtered-out-info {
+  color: #6c757d;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  font-style: italic;
 }
 </style>

@@ -52,9 +52,13 @@
             </button>
           </div>
         </div>
-        <label>Min %:
-          <input type="number" v-model.number="minPercent" min="1" max="100" style="width:4em;" />
-        </label>
+        <div class="filter-group slider-group">
+          <span class="filter-label">Min Contribution %:</span>
+          <div class="slider-container">
+            <input type="range" v-model.number="minPercent" min="0" max="100" class="slider" />
+            <span class="slider-value">{{ minPercent }}%</span>
+          </div>
+        </div>
       </div>
     </transition>
     <div class="metrics-muted-and-clear">
@@ -107,6 +111,10 @@ watch(
 watch(
   () => filters.value.authors,
   (val) => { selectedAuthors.value = [...val]; }
+);
+watch(
+  () => filters.value.minPercent,
+  (val) => { minPercent.value = val; }
 );
 
 const productTeamColor = (product) => {
@@ -259,5 +267,59 @@ function clearFilters() {
   background: #ffeaea;
   color: #a00;
   border-color: #a00;
+}
+
+.slider-group {
+  width: 100%;
+  max-width: 300px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 3px;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #1f77b4;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #1f77b4;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover,
+.slider::-moz-range-thumb:hover {
+  background: #155987;
+}
+
+.slider-value {
+  min-width: 3.5em;
+  font-size: 0.95em;
+  color: #495057;
 }
 </style>

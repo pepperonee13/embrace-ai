@@ -10,7 +10,7 @@ export const useOwnershipStore = defineStore('ownership', () => {
   const filters = ref({
     products: [],
     authors: [],
-    minPercent: 5,
+    minPercent: 0,
   });
   const dateInfo = ref(null);
   const authorColors = ref({});

@@ -164,7 +164,7 @@ watch(minPercent, (val) => {
 function clearFilters() {
   setProducts([]);
   setAuthors([]);
-  setMinPercent(5);
+  setMinPercent(0);
   selectedTeams.value = [];
 }
 </script>

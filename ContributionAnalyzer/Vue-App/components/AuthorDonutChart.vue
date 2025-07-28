@@ -23,7 +23,7 @@
     </svg>
     <div v-if="tooltip.show" class="pie-tooltip" :style="{ left: tooltip.x + 'px', top: tooltip.y + 'px' }">
       <b>{{ tooltip.product }}</b><br />
-      Contributions: {{ tooltip.count }}<br />
+      <!-- Contributions: {{ tooltip.count }}<br /> -->
       Percentage: {{ tooltip.percent }}%
     </div>
     <div v-if="filteredOutProductsCount > 0" class="filtered-out-info">

@@ -48,10 +48,16 @@ const productsWithAuthors = computed(() => {
   });
 });
 
-// Authors with at least one contribution after filtering
+// Authors with at least one contribution after filtering, sorted by number of products
 const authorsWithContributions = computed(() => {
   const authors = [...new Set(filteredData.value.map(r => r.Author))];
-  return authors;
+  
+  // Count number of products per author
+  return authors.sort((a, b) => {
+    const aProducts = new Set(filteredData.value.filter(r => r.Author === a).map(r => r.Product)).size;
+    const bProducts = new Set(filteredData.value.filter(r => r.Author === b).map(r => r.Product)).size;
+    return bProducts - aProducts; // Sort descending
+  });
 });
 </script>
 

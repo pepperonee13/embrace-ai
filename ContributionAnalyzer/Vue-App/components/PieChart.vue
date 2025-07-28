@@ -23,7 +23,7 @@
     </svg>
     <div v-if="tooltip.show" class="pie-tooltip" :style="{ left: tooltip.x + 'px', top: tooltip.y + 'px' }">
       <b>{{ tooltip.author }}</b><br />
-      Contributions: {{ tooltip.count }}<br />
+      <!-- Contributions: {{ tooltip.count }}<br /> -->
       Percentage (all authors): {{ tooltip.percent }}%<br/>
       Percentage (filtered authors): {{ tooltip.percentFiltered }}%
     </div>

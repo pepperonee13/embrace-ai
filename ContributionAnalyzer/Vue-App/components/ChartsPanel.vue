@@ -31,20 +31,28 @@ import PieChart from './PieChart.vue';
 import AuthorDonutChart from './AuthorDonutChart.vue';
 
 const chartMode = ref('product'); // 'product' or 'author'
-const { filters, data, productTotals, filteredData } = storeToRefs(useOwnershipStore());
+const { filters, data, filteredData, productFilteredContributions } = storeToRefs(useOwnershipStore());
 
-// Always show all products if none are selected
-const selectedProducts = computed(() => {
-  const allProducts = [...new Set(data.value.map(r => r.Product))];
-  const productsToShow = filters.value.products.length ? filters.value.products : allProducts;
-  // Order by total contributions descending using store's productTotals
-  return [...productsToShow].sort((a, b) => (productTotals.value[b] || 0) - (productTotals.value[a] || 0));
+// Get all available products
+const allProducts = computed(() => {
+  const products = [...new Set(data.value.map(r => r.Product))];
+  const productsToShow = filters.value.products.length ? filters.value.products : products;
+  return productsToShow;
 });
 
-// Only include products with at least one author after filtering
+// Only include products with contributions after filtering, sorted by filtered contributions
 const productsWithAuthors = computed(() => {
-  return selectedProducts.value.filter(product => {
+  // Get products that have any contributions
+  const products = allProducts.value.filter(product => {
     return filteredData.value.some(r => r.Product === product);
+  });
+  
+  // Sort by filtered contributions (considers author filters and min percent threshold)
+  const contributions = productFilteredContributions.value || {};
+  return products.sort((a, b) => {
+    const aContrib = contributions[a] || 0;
+    const bContrib = contributions[b] || 0;
+    return bContrib - aContrib;
   });
 });
 

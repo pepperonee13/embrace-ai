@@ -44,7 +44,7 @@ const props = defineProps({
   product: String
 });
 
-const { filteredData, authorColors, filters, data } = storeToRefs(useOwnershipStore());
+const { filteredData, authorColors, filters, data, productFilteredContributions } = storeToRefs(useOwnershipStore());
 const width = 320, height = 300;
 const svg = ref();
 
@@ -102,19 +102,7 @@ const filteredOutAuthorsCount = computed(() => {
 });
 
 const contributionsByFilteredAuthors = computed(() => {
-  let data = filteredData.value.filter(r => r.Product === props.product);
-  data = getFilteredAuthors(data, filters.value.authors);
-
-  // Calculate total first to determine percentages
-  const { byAuthor, total: totalBeforeMinPercent } = aggregateByAuthor(data);
-
-  // Filter authors by minimum percentage
-  const minPercent = filters.value.minPercent;
-  const significantAuthors = Object.entries(byAuthor)
-    .filter(([_, count]) => (count / totalBeforeMinPercent) * 100 >= minPercent)
-    .map(([_, count]) => count);
-
-  return significantAuthors.reduce((sum, count) => sum + count, 0);
+  return (productFilteredContributions.value || {})[props.product] || 0;
 });
 
 function draw() {

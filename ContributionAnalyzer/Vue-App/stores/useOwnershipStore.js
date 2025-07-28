@@ -112,6 +112,35 @@ export const useOwnershipStore = defineStore('ownership', () => {
     return totals;
   });
 
+  // Get filtered contributions by product, taking into account author filters and min percent threshold
+  const productFilteredContributions = computed(() => {
+    const result = {};
+    const products = new Set(filteredData.value.map(r => r.Product));
+    
+    products.forEach(product => {
+      let data = filteredData.value.filter(r => r.Product === product);
+      
+      // Calculate totals by author
+      const byAuthor = {};
+      let totalBeforeMinPercent = 0;
+      data.forEach(r => {
+        if (!byAuthor[r.Author]) byAuthor[r.Author] = 0;
+        byAuthor[r.Author] += r.ContributionCount;
+        totalBeforeMinPercent += r.ContributionCount;
+      });
+
+      // Filter authors by minimum percentage
+      const minPercent = filters.value.minPercent;
+      const significantAuthors = Object.entries(byAuthor)
+        .filter(([_, count]) => (count / totalBeforeMinPercent) * 100 >= minPercent)
+        .map(([_, count]) => count);
+
+      result[product] = significantAuthors.reduce((sum, count) => sum + count, 0);
+    });
+
+    return result;
+  });
+
   function setProducts(products) {
     filters.value.products = [...products];
   }
@@ -125,7 +154,7 @@ export const useOwnershipStore = defineStore('ownership', () => {
   return {
     rawCsv, authorMap, data, filters, loadData,
     filteredData, totalContributions, productCount, authorCount,
-    dateInfo, authorColors, productTotals,
+    dateInfo, authorColors, productTotals, productFilteredContributions,
     setProducts, setAuthors, setMinPercent,
     teams, loadTeams,
   };

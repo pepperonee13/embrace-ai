@@ -63,7 +63,7 @@
     </transition>
     <div class="metrics-muted-and-clear">
       <div class="metrics-muted">
-        <span><b>Total:</b> {{ totalContributions }}</span>
+        <span><b>Contributions:</b> {{ totalContributions }}</span>
         <span><b>Products:</b> {{ productCount }}</span>
         <span><b>Authors:</b> {{ authorCount }}</span>
       </div>

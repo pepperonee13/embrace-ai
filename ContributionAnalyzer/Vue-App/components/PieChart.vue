@@ -2,15 +2,8 @@
   <div class="pie-chart">
     <div class="pie-title">{{ product }}</div>
     <svg ref="svg" :width="width" :height="height">
-      <foreignObject
-        v-if="totalContributions > 0"
-        :x="width/2 - 70"
-        :y="height/2 - 40"
-        :width="140"
-        :height="80"
-        class="center-label-fo"
-        style="pointer-events: none;"
-      >
+      <foreignObject v-if="totalContributions > 0" :x="width / 2 - 70" :y="height / 2 - 40" :width="140" :height="80"
+        class="center-label-fo" style="pointer-events: none;">
         <div class="center-label">
           <template v-if="contributionsByFilteredAuthors === totalContributions">
             {{ totalContributions }}
@@ -24,15 +17,18 @@
     <div v-if="tooltip.show" class="pie-tooltip" :style="{ left: tooltip.x + 'px', top: tooltip.y + 'px' }">
       <b>{{ tooltip.author }}</b><br />
       <!-- Contributions: {{ tooltip.count }}<br /> -->
-      Percentage (all authors): {{ tooltip.percent }}%<br/>
-      Percentage (filtered authors): {{ tooltip.percentFiltered }}%
+      Percentage (all authors): {{ tooltip.percent }}%<br />
+      <div v-if="tooltip.percentFiltered != tooltip.percent">Percentage (filtered authors): {{ tooltip.percentFiltered
+        }}%
+      </div>
     </div>
     <div v-if="filteredOutAuthorsCount > 0" class="filtered-out-info">
       <template v-if="filteredOutAuthorsCount === filteredAuthorCount">
         All authors below {{ filters.minPercent }}% threshold
       </template>
       <template v-else>
-        {{ filteredOutAuthorsCount }} author{{ filteredOutAuthorsCount !== 1 ? 's' : '' }} below {{ filters.minPercent }}% threshold
+        {{ filteredOutAuthorsCount }} author{{ filteredOutAuthorsCount !== 1 ? 's' : '' }} below {{ filters.minPercent
+        }}% threshold
       </template>
     </div>
   </div>
@@ -95,12 +91,12 @@ function aggregateByAuthor(data) {
 const filteredOutAuthorsCount = computed(() => {
   let data = filteredData.value.filter(r => r.Product === props.product);
   data = getFilteredAuthors(data, filters.value.authors);
-  
+
   const { byAuthor, total } = aggregateByAuthor(data);
   const minPercent = filters.value.minPercent;
-  
+
   // Count authors below threshold
-  return Object.entries(byAuthor).filter(([_, count]) => 
+  return Object.entries(byAuthor).filter(([_, count]) =>
     (count / total) * 100 < minPercent
   ).length;
 });
@@ -108,7 +104,7 @@ const filteredOutAuthorsCount = computed(() => {
 const contributionsByFilteredAuthors = computed(() => {
   let data = filteredData.value.filter(r => r.Product === props.product);
   data = getFilteredAuthors(data, filters.value.authors);
-  
+
   // Calculate total first to determine percentages
   const { byAuthor, total: totalBeforeMinPercent } = aggregateByAuthor(data);
 
@@ -132,7 +128,7 @@ function draw() {
     byAuthor[r.Author] += r.ContributionCount;
     total += r.ContributionCount;
   });
-  
+
   // Filter out authors below minimum percentage
   const minPercent = filters.value.minPercent;
   const filteredByAuthor = Object.fromEntries(
@@ -141,7 +137,7 @@ function draw() {
       return percentage >= minPercent;
     })
   );
-  
+
   // Recalculate total after filtering
   total = Object.values(filteredByAuthor).reduce((sum, count) => sum + count, 0);
   const pieData = Object.entries(filteredByAuthor).map(([Author, cnt]) => ({ Author, value: cnt }));
@@ -150,13 +146,13 @@ function draw() {
   const arc = d3.arc().innerRadius(85).outerRadius(120);
 
   d3.select(svg.value).selectAll('g').remove();
-  const g = d3.select(svg.value).append('g').attr('transform',`translate(${width/2},${height/2})`);
+  const g = d3.select(svg.value).append('g').attr('transform', `translate(${width / 2},${height / 2})`);
   g.selectAll('path')
     .data(pie)
     .join('path')
     .attr('d', arc)
     .attr('fill', d => authorColors.value[d.data.Author] || '#ccc')
-    .on('mousemove', function(event, d) {
+    .on('mousemove', function (event, d) {
       const [mx, my] = d3.pointer(event, svg.value);
       tooltip.value = {
         show: true,
@@ -176,12 +172,12 @@ function draw() {
 onMounted(() => { nextTick(draw); });
 watch(
   [
-    filteredData, 
-    () => props.product, 
-    authorColors, 
+    filteredData,
+    () => props.product,
+    authorColors,
     () => filters.value.authors,
     () => filters.value.minPercent
-  ], 
+  ],
   () => nextTick(draw)
 );
 </script>
@@ -194,24 +190,29 @@ watch(
   margin-bottom: 1em;
   position: relative;
 }
+
 .pie-title {
   font-weight: bold;
   margin-bottom: 0.5em;
 }
+
 svg {
   width: 100%;
   height: 300px;
 }
+
 .center-label-fo {
   pointer-events: none;
 }
+
 .center-label {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1.2em, 5vw, 2.6em); /* Responsive font size */
+  font-size: clamp(1.2em, 5vw, 2.6em);
+  /* Responsive font size */
   font-weight: 700;
   color: #111;
   opacity: 1;
@@ -224,6 +225,7 @@ svg {
   max-width: 100%;
   max-height: 100%;
 }
+
 .pie-tooltip {
   position: absolute;
   pointer-events: none;

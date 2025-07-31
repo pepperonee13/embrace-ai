@@ -7,16 +7,24 @@
       <button :class="['mode-btn', { active: chartMode === 'author' }]" @click="chartMode = 'author'">
         By Author
       </button>
+      <button :class="['mode-btn', { active: chartMode === 'zscore' }]" @click="chartMode = 'zscore'">
+        Z-Score Analysis
+      </button>
     </div>
-    <div class="pie-charts">
+    <div :class="{ 'pie-charts': chartMode !== 'zscore', 'zscore-chart': chartMode === 'zscore' }">
       <template v-if="chartMode === 'product'">
         <div v-for="product in productsWithAuthors" :key="product" class="pie-card">
           <PieChart :product="product" />
         </div>
       </template>
-      <template v-else>
+      <template v-else-if="chartMode === 'author'">
         <div v-for="author in authorsWithContributions" :key="author" class="pie-card">
           <AuthorDonutChart :author="author" />
+        </div>
+      </template>
+      <template v-else>
+        <div class="zscore-container">
+          <ContributionZScoreChart />
         </div>
       </template>
     </div>
@@ -29,6 +37,7 @@ import { storeToRefs } from 'pinia';
 import { useOwnershipStore } from '../stores/useOwnershipStore';
 import PieChart from './PieChart.vue';
 import AuthorDonutChart from './AuthorDonutChart.vue';
+import ContributionZScoreChart from './ContributionZScoreChart.vue';
 
 const chartMode = ref('product'); // 'product' or 'author'
 const { filters, data, filteredData, productFilteredContributions } = storeToRefs(useOwnershipStore());
@@ -40,31 +49,53 @@ const allProducts = computed(() => {
   return productsToShow;
 });
 
-// Only include products with contributions after filtering, sorted by filtered contributions
+// Only include products that have contributions after all filters (author selection, min percent)
 const productsWithAuthors = computed(() => {
-  // Get products that have any contributions
+  const contributions = productFilteredContributions.value || {};
+  
+  // Filter products that have non-zero contributions after all filters
   const products = allProducts.value.filter(product => {
-    return filteredData.value.some(r => r.Product === product);
+    return (contributions[product] || 0) > 0;
   });
   
-  // Sort by filtered contributions (considers author filters and min percent threshold)
-  const contributions = productFilteredContributions.value || {};
+  // Sort by filtered contributions
   return products.sort((a, b) => {
-    const aContrib = contributions[a] || 0;
-    const bContrib = contributions[b] || 0;
-    return bContrib - aContrib;
+    return (contributions[b] || 0) - (contributions[a] || 0);
   });
 });
 
-// Authors with at least one contribution after filtering, sorted by number of products
+// Authors with actual contributions after filtering and min percent threshold
 const authorsWithContributions = computed(() => {
-  const authors = [...new Set(filteredData.value.map(r => r.Author))];
+  const contributions = productFilteredContributions.value || {};
   
-  // Count number of products per author
+  // Get all products that have contributions after filtering
+  const activeProducts = Object.entries(contributions)
+    .filter(([_, count]) => count > 0)
+    .map(([product]) => product);
+
+  // Get author contributions for these products
+  const authorContributions = {};
+  activeProducts.forEach(product => {
+    const productData = filteredData.value.filter(r => r.Product === product);
+    const total = productData.reduce((sum, r) => sum + r.ContributionCount, 0);
+
+    productData.forEach(r => {
+      // Only count if author meets the threshold
+      if ((r.ContributionCount / total * 100) >= filters.value.minPercent) {
+        if (!authorContributions[r.Author]) {
+          authorContributions[r.Author] = new Set();
+        }
+        authorContributions[r.Author].add(product);
+      }
+    });
+  });
+
+  // Get authors who have any contributions meeting the threshold
+  const authors = Object.keys(authorContributions);
+
+  // Sort by number of products they have significant contributions in
   return authors.sort((a, b) => {
-    const aProducts = new Set(filteredData.value.filter(r => r.Author === a).map(r => r.Product)).size;
-    const bProducts = new Set(filteredData.value.filter(r => r.Author === b).map(r => r.Product)).size;
-    return bProducts - aProducts; // Sort descending
+    return authorContributions[b].size - authorContributions[a].size;
   });
 });
 </script>
@@ -122,6 +153,20 @@ const authorsWithContributions = computed(() => {
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: flex-start;
+}
+
+.zscore-chart {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.zscore-container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 1.2rem;
 }
 
 .pie-card {

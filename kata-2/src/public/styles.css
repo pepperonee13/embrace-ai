@@ -67,6 +67,106 @@ header h1 {
     background: #fafafa;
 }
 
+.tree-item {
+    margin: 2px 0;
+}
+
+.tree-node {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.tree-node:hover {
+    background: #e3f2fd;
+}
+
+.tree-node.selected {
+    background: #3498db;
+    color: white;
+}
+
+.tree-toggle {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    cursor: pointer;
+    font-size: 10px;
+    color: #666;
+    user-select: none;
+}
+
+.tree-toggle.expanded::before {
+    content: '▼';
+}
+
+.tree-toggle.collapsed::before {
+    content: '▶';
+}
+
+.tree-toggle.leaf {
+    visibility: hidden;
+}
+
+.tree-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.tree-icon.folder::before {
+    content: '📁';
+}
+
+.tree-icon.file::before {
+    content: '📄';
+}
+
+.tree-node.selected .tree-icon.folder::before {
+    content: '📂';
+}
+
+.tree-label {
+    flex: 1;
+    font-weight: 500;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tree-size {
+    font-size: 11px;
+    color: #888;
+    margin-left: auto;
+    padding-left: 8px;
+}
+
+.tree-node.selected .tree-size {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.tree-children {
+    margin-left: 20px;
+    border-left: 1px solid #e0e0e0;
+    padding-left: 4px;
+}
+
+.tree-children.hidden {
+    display: none;
+}
+
 .file-item:hover {
     background: #e3f2fd;
     border-color: #3498db;

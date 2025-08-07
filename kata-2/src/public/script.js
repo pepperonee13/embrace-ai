@@ -1,8 +1,9 @@
 class LLMFilePrompter {
     constructor() {
-        this.files = [];
+        this.fileTree = [];
         this.selectedFiles = [];
         this.isSubmitting = false;
+        this.expandedFolders = new Set();
         
         this.initializeElements();
         this.attachEventListeners();
@@ -67,26 +68,60 @@ class LLMFilePrompter {
             const response = await fetch('/api/files');
             if (!response.ok) throw new Error('Failed to load files');
             
-            this.files = await response.json();
-            this.renderFileList();
+            this.fileTree = await response.json();
+            this.renderTreeView();
         } catch (error) {
             this.fileList.innerHTML = `<div class="error">Error loading files: ${error.message}</div>`;
         }
     }
     
-    renderFileList() {
-        if (this.files.length === 0) {
+    renderTreeView() {
+        if (this.fileTree.length === 0) {
             this.fileList.innerHTML = '<div class="empty-state">No files found</div>';
             return;
         }
         
-        this.fileList.innerHTML = this.files.map(file => `
-            <div class="file-item" data-path="${file.path}" onclick="app.toggleFile('${file.path}')">
-                <div class="file-name">${file.name}</div>
-                <div class="file-path">${file.path}</div>
-                <div class="file-size">${this.formatFileSize(file.size)}</div>
-            </div>
-        `).join('');
+        this.fileList.innerHTML = this.renderTreeNodes(this.fileTree);
+    }
+    
+    renderTreeNodes(nodes) {
+        return nodes.map(node => this.renderTreeNode(node)).join('');
+    }
+    
+    renderTreeNode(node) {
+        const isFolder = node.type === 'folder';
+        const isExpanded = this.expandedFolders.has(node.path);
+        const isSelected = this.selectedFiles.some(f => f.path === node.path);
+        
+        let html = `<div class="tree-item">`;
+        
+        if (isFolder) {
+            html += `
+                <div class="tree-node ${isSelected ? 'selected' : ''}" data-path="${node.path}">
+                    <span class="tree-toggle ${isExpanded ? 'expanded' : 'collapsed'}" onclick="app.toggleFolder('${node.path}', event)"></span>
+                    <span class="tree-icon folder"></span>
+                    <span class="tree-label" onclick="app.toggleFileSelection('${node.path}', event)">${node.name}</span>
+                </div>
+            `;
+            
+            if (node.children && node.children.length > 0) {
+                html += `<div class="tree-children ${isExpanded ? '' : 'hidden'}">`;
+                html += this.renderTreeNodes(node.children);
+                html += `</div>`;
+            }
+        } else {
+            html += `
+                <div class="tree-node ${isSelected ? 'selected' : ''}" data-path="${node.path}">
+                    <span class="tree-toggle leaf"></span>
+                    <span class="tree-icon file"></span>
+                    <span class="tree-label" onclick="app.toggleFileSelection('${node.path}', event)">${node.name}</span>
+                    <span class="tree-size">${this.formatFileSize(node.size)}</span>
+                </div>
+            `;
+        }
+        
+        html += `</div>`;
+        return html;
     }
     
     renderSelectedFiles() {
@@ -104,9 +139,23 @@ class LLMFilePrompter {
         `).join('');
     }
     
-    toggleFile(filePath) {
-        const file = this.files.find(f => f.path === filePath);
-        if (!file) return;
+    toggleFolder(folderPath, event) {
+        event.stopPropagation();
+        
+        if (this.expandedFolders.has(folderPath)) {
+            this.expandedFolders.delete(folderPath);
+        } else {
+            this.expandedFolders.add(folderPath);
+        }
+        
+        this.renderTreeView();
+    }
+    
+    toggleFileSelection(filePath, event) {
+        event.stopPropagation();
+        
+        const file = this.findFileByPath(filePath);
+        if (!file || file.type === 'folder') return;
         
         const existingIndex = this.selectedFiles.findIndex(f => f.path === filePath);
         
@@ -117,7 +166,24 @@ class LLMFilePrompter {
         }
         
         this.renderSelectedFiles();
-        this.updateFileListHighlights();
+        this.renderTreeView();
+    }
+    
+    findFileByPath(filePath) {
+        const searchNodes = (nodes) => {
+            for (const node of nodes) {
+                if (node.path === filePath) {
+                    return node;
+                }
+                if (node.children) {
+                    const found = searchNodes(node.children);
+                    if (found) return found;
+                }
+            }
+            return null;
+        };
+        
+        return searchNodes(this.fileTree);
     }
     
     removeFile(filePath) {
@@ -125,17 +191,8 @@ class LLMFilePrompter {
         if (index >= 0) {
             this.selectedFiles.splice(index, 1);
             this.renderSelectedFiles();
-            this.updateFileListHighlights();
+            this.renderTreeView();
         }
-    }
-    
-    updateFileListHighlights() {
-        const fileItems = this.fileList.querySelectorAll('.file-item');
-        fileItems.forEach(item => {
-            const path = item.dataset.path;
-            const isSelected = this.selectedFiles.some(f => f.path === path);
-            item.classList.toggle('selected', isSelected);
-        });
     }
     
     updateSubmitButton() {

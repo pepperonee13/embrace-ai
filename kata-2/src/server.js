@@ -15,6 +15,47 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 let targetDirectory = '';
 
+function buildFileTree(dirPath, basePath = '') {
+    const files = fs.readdirSync(dirPath);
+    const tree = [];
+
+    files.forEach(file => {
+        if (file.startsWith('.') || file === 'node_modules') return;
+        
+        const fullPath = path.join(dirPath, file);
+        const relativePath = basePath ? path.join(basePath, file) : file;
+        const stats = fs.statSync(fullPath);
+
+        if (stats.isDirectory()) {
+            const folderNode = {
+                name: file,
+                path: relativePath,
+                type: 'folder',
+                children: buildFileTree(fullPath, relativePath),
+                expanded: false
+            };
+            tree.push(folderNode);
+        } else {
+            const fileNode = {
+                name: file,
+                path: relativePath,
+                fullPath: fullPath,
+                type: 'file',
+                size: stats.size
+            };
+            tree.push(fileNode);
+        }
+    });
+
+    // Sort: folders first, then files, both alphabetically
+    return tree.sort((a, b) => {
+        if (a.type !== b.type) {
+            return a.type === 'folder' ? -1 : 1;
+        }
+        return a.name.localeCompare(b.name);
+    });
+}
+
 function getAllFiles(dirPath, arrayOfFiles = []) {
     const files = fs.readdirSync(dirPath);
 
@@ -47,8 +88,8 @@ app.get('/api/files', (req, res) => {
             return res.status(400).json({ error: 'Target directory not set' });
         }
         
-        const files = getAllFiles(targetDirectory);
-        res.json(files);
+        const tree = buildFileTree(targetDirectory);
+        res.json(tree);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

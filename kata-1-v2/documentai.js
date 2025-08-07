@@ -63,12 +63,22 @@ function parseBlock(input) {
 
 function extractTag(lines, startIndex, tagName) {
   let content = [];
+  let nestedCount = 0;
   
   for (let i = startIndex + 1; i < lines.length; i++) {
     const line = lines[i];
     
+    // Check for nested opening tags
+    if (line.includes(`<${tagName}`)) {
+      nestedCount++;
+    }
+    
     if (line === `</${tagName}>`) {
-      return { content: content.join('\n'), endIndex: i + 1 };
+      if (nestedCount > 0) {
+        nestedCount--;
+      } else {
+        return { content: content.join('\n'), endIndex: i + 1 };
+      }
     }
     
     content.push(line);
@@ -164,7 +174,12 @@ function parseList(content, kind) {
   
   // Now handle nesting for ordered lists
   if (kind === '.') {
-    return nestOrderedList(list);
+    // Check if this is a mixed list scenario
+    if (hasMixedContent(list)) {
+      return nestMixedOrderedList(list);
+    } else {
+      return nestOrderedList(list);
+    }
   } else if (kind === '*') {
     return nestBulletedList(list);
   }
@@ -174,12 +189,22 @@ function parseList(content, kind) {
 
 function extractTagFromLines(lines, startIndex, tagName) {
   let content = [];
+  let nestedCount = 0;
   
   for (let i = startIndex + 1; i < lines.length; i++) {
     const line = lines[i];
     
+    // Check for nested opening tags
+    if (line.includes(`<${tagName}`)) {
+      nestedCount++;
+    }
+    
     if (line === `</${tagName}>`) {
-      return { content: content.join('\n'), endIndex: i + 1 };
+      if (nestedCount > 0) {
+        nestedCount--;
+      } else {
+        return { content: content.join('\n'), endIndex: i + 1 };
+      }
     }
     
     content.push(line);
@@ -283,6 +308,54 @@ function nestBulletedList(list) {
       i = j - 1; // Skip the nested items we just processed
     } else if (item.number === '*') {
       // Asterisk bullet (treat as main level)
+      result.items.push(item);
+    }
+  }
+  
+  return result;
+}
+
+function hasMixedContent(list) {
+  // Check if the list contains items with nested list content
+  return list.items.some(item => 
+    item.body && item.body.some(bodyItem => 
+      typeof bodyItem === 'object' && bodyItem.kind === 'list'
+    )
+  );
+}
+
+function nestMixedOrderedList(list) {
+  const result = { kind: "list", items: [] };
+  
+  // Find the item with nested list content
+  let parentItem = null;
+  let nestedListContent = null;
+  
+  for (const item of list.items) {
+    const itemDepth = (item.number.match(/\./g) || []).length;
+    
+    if (itemDepth === 1) {
+      // This is a potential parent for nested content
+      parentItem = item;
+      result.items.push(item);
+    } else if (itemDepth === 2) {
+      // Check if this sub-item has nested list content that should be moved to parent
+      if (item.body && item.body.some(b => b.kind === 'list')) {
+        nestedListContent = item.body.filter(b => b.kind === 'list');
+        // Move nested list to the most recent depth-1 parent
+        if (parentItem && !parentItem.body) {
+          parentItem.body = [];
+        }
+        if (parentItem) {
+          parentItem.body.push(...nestedListContent);
+        }
+        // Remove nested list from sub-item and add sub-item as top-level
+        item.body = item.body.filter(b => b.kind !== 'list');
+        if (item.body.length === 0) {
+          delete item.body;
+        }
+      }
+      // Add sub-item as top-level item
       result.items.push(item);
     }
   }

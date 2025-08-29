@@ -1,0 +1,1 @@
+In the `available files` pane on the top left, use a tree view like UI to represent the nested folder structure the input folder might have.

@@ -7,3 +7,6 @@ TFSChanges.*.csv
 
 *.local.*
 .env.local
+.env
+
+node_modules/

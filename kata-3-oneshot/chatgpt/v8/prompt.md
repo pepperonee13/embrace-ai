@@ -1,0 +1,1 @@
+create a secure, functional web app to send user prompt to gemini llm with optional file(s) from a given path using expandable treeview

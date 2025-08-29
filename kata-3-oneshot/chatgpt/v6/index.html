@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Gemini LLM Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Secure Gemini LLM Interface</h1>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="path-input">
+                    <label for="basePath">Base Path:</label>
+                    <input type="text" id="basePath" placeholder="/path/to/files" value="./">
+                    <button id="loadTree">Load Files</button>
+                </div>
+                
+                <div class="file-tree-container">
+                    <h3>File Tree</h3>
+                    <div id="fileTree" class="file-tree"></div>
+                </div>
+                
+                <div class="selected-files">
+                    <h3>Selected Files</h3>
+                    <div id="selectedFiles" class="selected-files-list"></div>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="api-config">
+                    <label for="apiKey">Gemini API Key:</label>
+                    <input type="password" id="apiKey" placeholder="Enter your Gemini API key">
+                </div>
+                
+                <div class="prompt-section">
+                    <label for="userPrompt">Your Prompt:</label>
+                    <textarea id="userPrompt" rows="6" placeholder="Enter your prompt here..."></textarea>
+                    <button id="sendPrompt" disabled>Send to Gemini</button>
+                </div>
+                
+                <div class="response-section">
+                    <h3>Response</h3>
+                    <div id="loading" class="loading hidden">Processing...</div>
+                    <div id="response" class="response"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

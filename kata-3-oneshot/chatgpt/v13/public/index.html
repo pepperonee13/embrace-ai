@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gemini Zip App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0b0f19;
+        --panel: #121829;
+        --muted: #9aa4bf;
+        --text: #e2e8f0;
+        --accent: #7c9cff;
+        --border: #242b3d;
+        --ok: #34d399;
+        --warn: #f59e0b;
+        --err: #ef4444;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #0b0f19 0%, #0b0f19 60%, #0c1224 100%);
+        color: var(--text);
+        font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .title {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 18px;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .label { font-size: 12px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.08em; }
+      textarea, select, input[type="text"] {
+        width: 100%;
+        background: #0f1529;
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 14px;
+        outline: none;
+      }
+      textarea { min-height: 160px; resize: vertical; }
+      .row { display: flex; gap: 10px; align-items: center; }
+      .btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn.secondary { background: #2a3352; }
+      .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+      .file-panel {
+        height: 420px; overflow: auto; background: #0f1529;
+        border: 1px solid var(--border); border-radius: 12px; padding: 10px;
+      }
+      .tree { list-style: none; margin: 0; padding-left: 12px; }
+      .tree li { margin: 4px 0; }
+      .tree .folder, .tree .file {
+        display: flex; align-items: center; gap: 8px;
+        padding: 4px 8px; border-radius: 8px;
+      }
+      .tree .folder:hover, .tree .file:hover { background: rgba(255,255,255,0.04); }
+      .tree .toggle {
+        width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid var(--border); border-radius: 6px; font-size: 11px; color: var(--muted);
+        cursor: pointer; user-select: none;
+      }
+      .small { color: var(--muted); font-size: 12px; }
+      .stats { display: flex; gap: 16px; color: var(--muted); font-size: 13px; }
+      .badge { background: #1a2140; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border); }
+      .notice { font-size: 12px; color: var(--muted); }
+      .footer { margin-top: 16px; display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+      .spinner {
+        width: 16px; height: 16px; border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; animation: spin 1s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .hr { height: 1px; background: var(--border); margin: 12px 0; }
+      .muted { color: var(--muted); }
+      .success { color: var(--ok); }
+      .error { color: var(--err); }
+      .warn { color: var(--warn); }
+      .kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        background: #0e1324; border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="title">Gemini Zip App</div>
+        <div id="health" class="small"></div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="label">Prompt</div>
+          <textarea id="prompt" placeholder="Describe what you want Gemini to do. You can optionally attach files from the tree on the right..."></textarea>
+          <div class="hr"></div>
+          <div class="row">
+            <div style="flex:1">
+              <div class="label">Model</div>
+              <select id="model">
+                <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+              </select>
+            </div>
+            <label style="display:flex; align-items:center; gap:8px; margin-top:20px;">
+              <input type="checkbox" id="includeContext" />
+              <span class="small">Include selected files in ZIP</span>
+            </label>
+            <button class="btn" id="sendBtn" style="margin-top: 18px;">Send to Gemini</button>
+          </div>
+          <div class="footer">
+            <div class="stats">
+              <span class="badge"><span id="selectedCount">0</span> file(s) selected</span>
+              <span class="badge">Root: <code class="kbd" id="rootDir">...</code></span>
+            </div>
+            <div id="status" class="small muted">Ready.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row" style="justify-content: space-between; margin-bottom: 6px;">
+            <div class="label">Files</div>
+            <div class="row">
+              <button class="btn secondary" id="selectAllBtn">Select All</button>
+              <button class="btn secondary" id="clearBtn">Clear</button>
+              <button class="btn secondary" id="refreshBtn" title="Rescan server directory">Rescan</button>
+            </div>
+          </div>
+          <div class="file-panel">
+            <ul class="tree" id="tree"></ul>
+          </div>
+          <div class="notice" style="margin-top:8px;">
+            Tip: Click □ to expand/collapse folders. Check files to include their content in the model call.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const $ = (sel) => document.querySelector(sel);
+      const treeEl = $("#tree");
+      const selected = new Set();
+      let currentTree = null;
+      let health = null;
+
+      function setStatus(msg, cls="muted") {
+        const el = $("#status");
+        el.className = "small " + cls;
+        el.textContent = msg;
+      }
+
+      async function fetchHealth() {
+        const r = await fetch("/api/health");
+        const data = await r.json();
+        health = data;
+        $("#rootDir").textContent = data.root || "";
+        $("#model").value = data.model || "gemini-1.5-flash";
+        $("#health").textContent = data.ok ? "Connected" : "Offline";
+        $("#health").className = "small " + (data.ok ? "success" : "error");
+      }
+
+      function renderTree(node, ul) {
+        if (!node) return;
+        if (node.type === "dir") {
+          for (const c of node.children || []) {
+            const li = document.createElement("li");
+            if (c.type === "dir") {
+              const row = document.createElement("div");
+              row.className = "folder";
+
+              const toggle = document.createElement("div");
+              toggle.className = "toggle";
+              toggle.textContent = "▸";
+              toggle.dataset.state = "closed";
+
+              const name = document.createElement("span");
+              name.textContent = c.name;
+
+              row.appendChild(toggle);
+              row.appendChild(name);
+
+              const subUl = document.createElement("ul");
+              subUl.className = "tree";
+              subUl.style.display = "none";
+
+              toggle.addEventListener("click", () => {
+                if (toggle.dataset.state === "closed") {
+                  toggle.textContent = "▾";
+                  toggle.dataset.state = "open";
+                  subUl.style.display = "";
+                  if (!subUl.dataset.rendered) {
+                    renderTree(c, subUl);
+                    subUl.dataset.rendered = "1";
+                  }
+                } else {
+                  toggle.textContent = "▸";
+                  toggle.dataset.state = "closed";
+                  subUl.style.display = "none";
+                }
+              });
+
+              li.appendChild(row);
+              li.appendChild(subUl);
+              ul.appendChild(li);
+            } else {
+              const row = document.createElement("div");
+              row.className = "file";
+              const cb = document.createElement("input");
+              cb.type = "checkbox";
+              cb.dataset.rel = c.path;
+              cb.addEventListener("change", (e) => {
+                if (e.target.checked) {
+                  selected.add(c.path);
+                } else {
+                  selected.delete(c.path);
+                }
+                $("#selectedCount").textContent = String(selected.size);
+              });
+              const name = document.createElement("span");
+              name.textContent = c.name;
+              const small = document.createElement("span");
+              small.className = "small";
+              small.textContent = c.size ? ` (${c.size} B)` : "";
+
+              row.appendChild(cb);
+              row.appendChild(name);
+              row.appendChild(small);
+
+              const liFile = document.createElement("li");
+              liFile.appendChild(row);
+              ul.appendChild(liFile);
+            }
+          }
+        }
+      }
+
+      async function loadTree() {
+        setStatus("Loading file tree...");
+        const r = await fetch("/api/tree");
+        const data = await r.json();
+        if (!data.ok) throw new Error(data.error || "Failed to load tree");
+        currentTree = data.tree;
+        treeEl.innerHTML = "";
+        renderTree(currentTree, treeEl);
+        setStatus("Ready.");
+      }
+
+      $("#selectAllBtn").addEventListener("click", () => {
+        const boxes = treeEl.querySelectorAll('input[type="checkbox"]');
+        boxes.forEach(b => {
+          if (!b.checked) {
+            b.checked = true; selected.add(b.dataset.rel);
+          }
+        });
+        $("#selectedCount").textContent = String(selected.size);
+      });
+
+      $("#clearBtn").addEventListener("click", () => {
+        const boxes = treeEl.querySelectorAll('input[type="checkbox"]');
+        boxes.forEach(b => { b.checked = false; });
+        selected.clear();
+        $("#selectedCount").textContent = "0";
+      });
+
+      $("#refreshBtn").addEventListener("click", async () => {
+        setStatus("Rescanning...", "warn");
+        await fetch("/api/rescan", { method: "POST" });
+        await loadTree();
+      });
+
+      $("#sendBtn").addEventListener("click", async () => {
+        const btn = $("#sendBtn");
+        const prompt = $("#prompt").value.trim();
+        const model = $("#model").value;
+        const includeContext = $("#includeContext").checked;
+        if (!prompt) {
+          setStatus("Please enter a prompt.", "warn");
+          return;
+        }
+        btn.disabled = true;
+        $("#status").innerHTML = '<span class="spinner"></span> Sending...';
+        try {
+          const body = {
+            prompt,
+            model,
+            includeContextInZip: includeContext,
+            files: Array.from(selected),
+          };
+          const r = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          if (!r.ok) {
+            const err = await r.json().catch(() => ({}));
+            throw new Error(err.error || `HTTP ${r.status}`);
+          }
+          const blob = await r.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "gemini_response.zip";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          setStatus("ZIP downloaded.", "success");
+        } catch (e) {
+          console.error(e);
+          setStatus(e.message || "Failed.", "error");
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      (async function init() {
+        await fetchHealth();
+        await loadTree();
+      })();
+    </script>
+  </body>
+</html>

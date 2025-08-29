@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gemini Prompt Sender</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Gemini Prompt Tool</h1>
+    <form id="promptForm">
+        <textarea id="prompt" placeholder="Enter your prompt here..."></textarea>
+        <h3>Select files:</h3>
+        <div id="fileTree">
+            <% function renderTree(tree) { %>
+                <ul>
+                <% tree.forEach(item => { %>
+                    <% if (item.children) { %>
+                        <li><span class="folder"><%= item.name %></span>
+                            <%= renderTree(item.children) %>
+                        </li>
+                    <% } else { %>
+                        <li>
+                            <label>
+                                <input type="checkbox" name="files" value="<%= item.path %>"> <%= item.name %>
+                            </label>
+                        </li>
+                    <% } %>
+                <% }); %>
+                </ul>
+            <% } %>
+            <%= renderTree(tree) %>
+        </div>
+        <button type="submit">Send to Gemini</button>
+    </form>
+    <pre id="result"></pre>
+    <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gemini Prompt Sender</title>
+</head>
+<body>
+    <h1>Gemini Prompt Sender</h1>
+    <form action="/send" method="post" enctype="multipart/form-data">
+        <label for="prompt">Prompt:</label><br>
+        <textarea name="prompt" rows="4" cols="50"></textarea><br><br>
+        <label for="files">Choose files:</label><br>
+        <input type="file" name="files" multiple><br><br>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>

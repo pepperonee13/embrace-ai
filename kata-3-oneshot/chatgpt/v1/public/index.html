@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>FS → LLM Prototype</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>FS → LLM Prototype</h1>
+    <div class="root-path" id="rootPath"></div>
+  </header>
+
+  <div class="layout">
+    <aside id="tree" class="tree"></aside>
+
+    <main class="main">
+      <section class="prompt-box">
+        <textarea id="prompt" placeholder="Enter your prompt..."></textarea>
+        <div class="actions">
+          <button id="sendBtn">Send to LLM</button>
+          <span id="selCount">0 file(s) selected</span>
+        </div>
+      </section>
+
+      <section class="output">
+        <h2>Response</h2>
+        <pre id="output">(no response yet)</pre>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <small>
+      Tip: this prototype only includes text-like files (e.g., .ts, .cs, .json, .md). Size caps apply.
+    </small>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

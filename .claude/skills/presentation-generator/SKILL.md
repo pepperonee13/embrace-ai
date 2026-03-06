@@ -125,7 +125,7 @@ Do **not** include explanations or commentary — only the final HTML.
 
 # Design & Branding
 
-Strictly follow the design system defined in **`tgg-design-tokens.yaml`** and the component library in **`intro-to-claudecode/styleguide.html`**.
+Strictly follow the design system defined in **`tgg-design-tokens.yaml`** and the component library in **`styleguide.html`** (in this same skill folder).
 
 You must:
 
@@ -136,7 +136,7 @@ You must:
 
 ## Component Library
 
-The file `intro-to-claudecode/styleguide.html` is the single source of truth for all slide components. Before writing any slide HTML, read it and use the patterns shown there. Components defined in the styleguide:
+The file `styleguide.html` (in this same skill folder) is the single source of truth for all slide components. Before writing any slide HTML, read it and use the patterns shown there. Components defined in the styleguide:
 
 | Component | Class / Pattern |
 |---|---|

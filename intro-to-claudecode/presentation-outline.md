@@ -1,8 +1,3 @@
-Use latest info from official sources:
-- https://platform.claude.com/docs/en/home
-- https://claude.com/pricing
-- https://claude.com/platform/api
-
 # 🤖 Claude Code: What I Learned So You Don't Have To
 ### Learning & Sharing Session — ~20 min
 

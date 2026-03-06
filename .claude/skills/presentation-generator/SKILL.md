@@ -59,21 +59,37 @@ Load the script before `</body>` and initialise:
 </script>
 ```
 
-**Do not** load a Reveal theme CSS file — apply all visual styling yourself using the design tokens.
+**Do not** load a Reveal theme CSS file — apply all visual styling yourself.
 
-Override Reveal's default CSS variables to match the brand:
+> **Why:** Reveal's `--r-*` CSS variables are only consumed by theme CSS files.
+> Without a theme file loaded, setting them has no effect. Apply styles directly
+> to the elements that Reveal.js uses for layout.
+
+Add these rules to your `<style>` block:
 
 ```css
-:root {
-  --r-background-color: #212931;
-  --r-main-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --r-main-font-size: 16px;
-  --r-main-color: rgba(255,255,255,0.78);
-  --r-heading-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --r-heading-color: #ffffff;
-  --r-heading-text-transform: none;
-  --r-heading-font-weight: 700;
-  --r-code-font: 'Courier New', Consolas, monospace;
+/* Background — must target .reveal-viewport, not :root or body */
+.reveal-viewport {
+  background: var(--color-bg-dark);
+}
+
+/* Base font and text color */
+.reveal {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  color: var(--color-text-secondary);
+}
+
+/* Heading reset — Reveal.js sets its own heading styles that override browser defaults */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-transform: none;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-shadow: none;
 }
 ```
 
@@ -109,14 +125,44 @@ Do **not** include explanations or commentary — only the final HTML.
 
 # Design & Branding
 
-Strictly follow the design style guide defined in **`tgg-design-tokens.yaml`**.
+Strictly follow the design system defined in **`tgg-design-tokens.yaml`** and the component library in **`intro-to-claudecode/styleguide.html`**.
 
 You must:
 
-1. Parse the YAML design tokens.
-2. Convert tokens into CSS variables.
-3. Use semantic color and typography roles.
-4. Never invent colors or typography outside the tokens.
+1. Parse the YAML design tokens and convert them into CSS variables.
+2. Use semantic color and typography roles.
+3. Never invent colors or typography outside the tokens.
+4. **Use component HTML patterns verbatim from `styleguide.html`** — do not invent new class names, nesting structures, or inline styles for components that already exist in the styleguide.
+
+## Component Library
+
+The file `intro-to-claudecode/styleguide.html` is the single source of truth for all slide components. Before writing any slide HTML, read it and use the patterns shown there. Components defined in the styleguide:
+
+| Component | Class / Pattern |
+|---|---|
+| Slide overline | `.section-label` |
+| Section heading | `.slide-title` + `.accent` span |
+| Hero title | `.display-title` + `.accent` |
+| Title eyebrow | `.eyebrow` |
+| Quote block | `.display-quote` |
+| Brand divider | `.divider` |
+| Arrow bullet list | `ul > li` (::before → arrow) |
+| Cards (4 variants) | `.card`, `.card.petrol`, `.card.orange`, `.card.red` |
+| Badges (4 colours) | `.badge-green`, `.badge-yellow`, `.badge-red`, `.badge-blue` |
+| Code blocks (3 variants) | `pre`, `pre.shell`, `pre.json` |
+| Inline code | `code` |
+| Data table | `table > thead + tbody` |
+| Two-column grid | `.two-col` |
+| Three-column grid | `.three-col` |
+| Agenda list | `.agenda-list > .agenda-item` |
+| Use-case cards | `.usecase-card` with `.uc-header` / `.uc-title` |
+| Numbered demo steps | `.demo-step` with `.demo-step-num` |
+| Takeaway rows | `.takeaway-item` with `.takeaway-icon` / `.takeaway-text` |
+| Resource rows | `.resource-item` with `.resource-icon` |
+| Info highlight box | `.highlight-info` |
+| Warm highlight box | `.highlight-warm` |
+
+Full slide shell templates (title slide, content slide, two-col, three-col) are also provided in the styleguide — use them as the starting structure for each slide type.
 
 Maintain **strong visual consistency** across all slides.
 

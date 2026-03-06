@@ -135,7 +135,7 @@ Rule of thumb:
 
 ## 🟢 Quick wins
 
-Sonnet usually works great for:
+Haiku 4.5 is ideal for:
 
 - fixing bugs
 - writing unit tests

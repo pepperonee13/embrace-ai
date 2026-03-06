@@ -168,8 +168,9 @@ Maintain **strong visual consistency** across all slides.
 
 Rules:
 
-- The **company logo must appear on every slide**
-- Logo placement must be consistent (e.g., fixed corner)
+- The **company logo must appear on every slide**, fixed in the top-right corner
+- Wrap the logo in `<a href="https://www.timetoact-group.at/" target="_blank" rel="noopener">` so it links to the company website
+- Logo placement must be consistent across all slides
 - Use **clean modern layouts**
 - Emphasize **visual hierarchy**
 - Use **large typography**

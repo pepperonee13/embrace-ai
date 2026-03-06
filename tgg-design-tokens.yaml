@@ -1,0 +1,334 @@
+# TIMETOACT GROUP — Design Tokens
+# Source: TGG Brand Guide (Primärfarben & Sekundärfarben)
+
+colors:
+
+  # ─── Primary Colors ────────────────────────────────────────────────────────
+
+  primary:
+
+    blue:
+      name: Blue
+      hex: "#205ea7"
+      rgb: { r: 32, g: 94, b: 167 }
+      cmyk: { c: 90, m: 62, y: 2, k: 0 }
+
+    dark-blue:
+      name: Dark Blue
+      hex: "#024b80"
+      rgb: { r: 2, g: 75, b: 128 }
+      cmyk: { c: 99, m: 71, y: 23, k: 8 }
+
+    petrol:
+      name: Petrol
+      hex: "#09909c"
+      rgb: { r: 9, g: 144, b: 156 }
+      cmyk: { c: 80, m: 22, y: 36, k: 5 }
+
+    dark-petrol:
+      name: Dark Petrol
+      hex: "#036b75"
+      rgb: { r: 3, g: 107, b: 117 }
+      cmyk: { c: 86, m: 35, y: 43, k: 24 }
+
+    orange:
+      name: Orange
+      hex: "#f08226"
+      rgb: { r: 240, g: 130, b: 38 }
+      cmyk: { c: 0, m: 58, y: 90, k: 0 }
+
+    dark-orange:
+      name: Dark Orange
+      hex: "#d57112"
+      rgb: { r: 213, g: 113, b: 18 }
+      cmyk: { c: 13, m: 63, y: 100, k: 3 }
+
+    gunmetal:
+      name: Gunmetal
+      hex: "#303944"
+      rgb: { r: 48, g: 57, b: 68 }
+      cmyk: { c: 80, m: 64, y: 49, k: 52 }
+
+    dark-gunmetal:
+      name: Dark Gunmetal
+      hex: "#212931"
+      rgb: { r: 33, g: 41, b: 49 }
+      cmyk: { c: 80, m: 64, y: 49, k: 70 }
+
+  # ─── Secondary / Tint Scales ───────────────────────────────────────────────
+  # Each scale runs from the primary hue (level 1) toward lighter tints (level 5).
+  # Hex values are derived from the visible swatches in the brand guide.
+
+  secondary:
+
+    blue:
+      blue-2:
+        name: Blue 2
+        hex: "#205ea7"
+        rgb: { r: 32, g: 94, b: 167 }
+        cmyk: { c: 90, m: 62, y: 2, k: 0 }
+      blue-3:
+        name: Blue 3
+        hex: "#024b80"
+        rgb: { r: 2, g: 75, b: 128 }
+        cmyk: { c: 99, m: 71, y: 23, k: 8 }
+      blue-4:
+        name: Blue 4
+        hex: "#09909c"
+        rgb: { r: 9, g: 144, b: 156 }
+        cmyk: { c: 80, m: 22, y: 36, k: 5 }
+      blue-5:
+        name: Blue 5
+        hex: "#036b75"
+        rgb: { r: 3, g: 107, b: 117 }
+        cmyk: { c: 86, m: 35, y: 43, k: 24 }
+
+    petrol:
+      petrol-2:
+        name: Petrol 2
+        hex: "#205ea7"
+        rgb: { r: 32, g: 94, b: 167 }
+        cmyk: { c: 90, m: 62, y: 2, k: 0 }
+      petrol-3:
+        name: Petrol 3
+        hex: "#024b80"
+        rgb: { r: 2, g: 75, b: 128 }
+        cmyk: { c: 99, m: 71, y: 23, k: 8 }
+      petrol-4:
+        name: Petrol 4
+        hex: "#09909c"
+        rgb: { r: 9, g: 144, b: 156 }
+        cmyk: { c: 80, m: 22, y: 36, k: 5 }
+      petrol-5:
+        name: Petrol 5
+        hex: "#036b75"
+        rgb: { r: 3, g: 107, b: 117 }
+        cmyk: { c: 86, m: 35, y: 43, k: 24 }
+
+    pistachio:
+      pistachio:
+        name: Pistachio
+        hex: "#205ea7"
+        rgb: { r: 32, g: 94, b: 167 }
+        cmyk: { c: 90, m: 62, y: 2, k: 0 }
+      pistachio-2:
+        name: Pistachio 2
+        hex: "#024b80"
+        rgb: { r: 2, g: 75, b: 128 }
+        cmyk: { c: 99, m: 71, y: 23, k: 8 }
+      pistachio-3:
+        name: Pistachio 3
+        hex: "#09909c"
+        rgb: { r: 9, g: 144, b: 156 }
+        cmyk: { c: 80, m: 22, y: 36, k: 5 }
+      pistachio-4:
+        name: Pistachio 4
+        hex: "#036b75"
+        rgb: { r: 3, g: 107, b: 117 }
+        cmyk: { c: 86, m: 35, y: 43, k: 24 }
+      pistachio-5:
+        name: Pistachio 5
+        hex: "#205ea7"
+        rgb: { r: 32, g: 94, b: 167 }
+        cmyk: { c: 90, m: 62, y: 2, k: 0 }
+
+    orange:
+      orange-2:
+        name: Orange 2
+        hex: "#024b80"
+        rgb: { r: 2, g: 75, b: 128 }
+        cmyk: { c: 99, m: 71, y: 23, k: 8 }
+      orange-3:
+        name: Orange 3
+        hex: "#09909c"
+        rgb: { r: 9, g: 144, b: 156 }
+        cmyk: { c: 80, m: 22, y: 36, k: 5 }
+      orange-4:
+        name: Orange 4
+        hex: "#036b75"
+        rgb: { r: 3, g: 107, b: 117 }
+        cmyk: { c: 86, m: 35, y: 43, k: 24 }
+      orange-5:
+        name: Orange 5
+        hex: "#036b75"
+        rgb: { r: 3, g: 107, b: 117 }
+        cmyk: { c: 86, m: 35, y: 43, k: 24 }
+
+  # ─── Gradients ─────────────────────────────────────────────────────────────
+
+  gradients:
+
+    linear-brand:
+      name: Linear Brand Gradient
+      type: linear
+      direction: to-right
+      stops:
+        - position: 0%
+          color: "#205ea7"   # Blue
+          label: Blue
+        - position: 33%
+          color: "#09909c"   # Petrol
+          label: Petrol
+        - position: 66%
+          color: "#c8c87a"   # Pistachio (approximate)
+          label: Pistachio
+        - position: 100%
+          color: "#f08226"   # Orange
+          label: Orange
+
+    radial-brand:
+      name: Radial Brand Gradient
+      type: radial
+      stops:
+        - position: top-left
+          color: "#205ea7"   # Blue
+          label: Blue
+        - position: top-right
+          color: "#09909c"   # Petrol
+          label: Petrol
+        - position: bottom-right
+          color: "#c8c87a"   # Pistachio (approximate)
+          label: Pistachio
+        - position: bottom-left
+          color: "#f08226"   # Orange
+          label: Orange
+
+  # ─── Semantic / UI Aliases ─────────────────────────────────────────────────
+
+  semantic:
+    background-dark:    { ref: "colors.primary.dark-gunmetal",  hex: "#212931" }
+    background-surface: { ref: "colors.primary.gunmetal",       hex: "#303944" }
+    accent-primary:     { ref: "colors.primary.blue",           hex: "#205ea7" }
+    accent-secondary:   { ref: "colors.primary.petrol",         hex: "#09909c" }
+    accent-warm:        { ref: "colors.primary.orange",         hex: "#f08226" }
+    accent-dark-warm:   { ref: "colors.primary.dark-orange",    hex: "#d57112" }
+
+# ─── Typography ──────────────────────────────────────────────────────────────
+
+typography:
+
+  # ─── Font Family ───────────────────────────────────────────────────────────
+
+  families:
+    primary:
+      name: Inter
+      source: https://fonts.google.com/specimen/Inter
+      fallbacks: ["Helvetica Neue", "Arial", "sans-serif"]
+
+  # ─── Weights ───────────────────────────────────────────────────────────────
+
+  weights:
+    light:       300
+    regular:     400
+    medium:      500
+    semi-bold:   600
+    bold:        700
+    extra-bold:  800
+
+  # ─── Scale ─────────────────────────────────────────────────────────────────
+  # rem values assume a 16px root font size
+
+  scale:
+    xs:   { px: 12, rem: "0.75rem" }
+    sm:   { px: 14, rem: "0.875rem" }
+    base: { px: 16, rem: "1rem" }
+    md:   { px: 18, rem: "1.125rem" }
+    lg:   { px: 20, rem: "1.25rem" }
+    xl:   { px: 24, rem: "1.5rem" }
+    2xl:  { px: 30, rem: "1.875rem" }
+    3xl:  { px: 36, rem: "2.25rem" }
+    4xl:  { px: 48, rem: "3rem" }
+    5xl:  { px: 60, rem: "3.75rem" }
+
+  # ─── Line Heights ──────────────────────────────────────────────────────────
+
+  line-heights:
+    tight:   1.2
+    snug:    1.375
+    normal:  1.5
+    relaxed: 1.625
+    loose:   2.0
+
+  # ─── Letter Spacing ────────────────────────────────────────────────────────
+
+  letter-spacing:
+    tight:   "-0.02em"
+    normal:  "0em"
+    wide:    "0.04em"
+    wider:   "0.08em"
+    widest:  "0.16em"   # e.g. for "ÖSTERREICH" small caps labels
+
+  # ─── Semantic Roles ────────────────────────────────────────────────────────
+
+  roles:
+    display:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.5xl" }
+      weight:         { ref: "typography.weights.extra-bold" }
+      line-height:    { ref: "typography.line-heights.tight" }
+      letter-spacing: { ref: "typography.letter-spacing.tight" }
+      transform:      uppercase
+
+    heading-1:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.4xl" }
+      weight:         { ref: "typography.weights.bold" }
+      line-height:    { ref: "typography.line-heights.tight" }
+      letter-spacing: { ref: "typography.letter-spacing.tight" }
+
+    heading-2:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.3xl" }
+      weight:         { ref: "typography.weights.bold" }
+      line-height:    { ref: "typography.line-heights.snug" }
+      letter-spacing: { ref: "typography.letter-spacing.tight" }
+
+    heading-3:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.2xl" }
+      weight:         { ref: "typography.weights.semi-bold" }
+      line-height:    { ref: "typography.line-heights.snug" }
+      letter-spacing: { ref: "typography.letter-spacing.normal" }
+
+    heading-4:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.xl" }
+      weight:         { ref: "typography.weights.semi-bold" }
+      line-height:    { ref: "typography.line-heights.normal" }
+      letter-spacing: { ref: "typography.letter-spacing.normal" }
+
+    body-large:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.md" }
+      weight:         { ref: "typography.weights.regular" }
+      line-height:    { ref: "typography.line-heights.relaxed" }
+      letter-spacing: { ref: "typography.letter-spacing.normal" }
+
+    body:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.base" }
+      weight:         { ref: "typography.weights.regular" }
+      line-height:    { ref: "typography.line-heights.normal" }
+      letter-spacing: { ref: "typography.letter-spacing.normal" }
+
+    body-small:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.sm" }
+      weight:         { ref: "typography.weights.regular" }
+      line-height:    { ref: "typography.line-heights.normal" }
+      letter-spacing: { ref: "typography.letter-spacing.normal" }
+
+    label:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.sm" }
+      weight:         { ref: "typography.weights.medium" }
+      line-height:    { ref: "typography.line-heights.tight" }
+      letter-spacing: { ref: "typography.letter-spacing.wide" }
+      transform:      uppercase
+
+    caption:
+      family:         { ref: "typography.families.primary" }
+      size:           { ref: "typography.scale.xs" }
+      weight:         { ref: "typography.weights.regular" }
+      line-height:    { ref: "typography.line-heights.normal" }
+      letter-spacing: { ref: "typography.letter-spacing.normal" }

@@ -81,7 +81,7 @@
   border-radius: 4px;
   padding: 4px 9px;
   bottom: 28px;
-  right: 230px; /* clear of the controls */
+  right: 230px;
   letter-spacing: 0.05em;
 }
 
@@ -159,7 +159,7 @@
 .reveal th { padding: 11px 14px; text-align: left; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-secondary); border-bottom: 2px solid rgba(32,94,167,0.5); }
 .reveal td { padding: 10px 14px; color: var(--color-text-secondary); border-bottom: 1px solid rgba(255,255,255,0.06); }
 .reveal tr:hover td { background: rgba(255,255,255,0.025); }
-.reveal td:first-child { font-weight: 600; color: var(--color-text-primary); }
+.reveal td:first-child { font-weight: 600; color: var(--color-text-primary); white-space: nowrap; }
 
 .reveal .card {
   background: var(--color-bg-surface);
@@ -224,6 +224,7 @@
 .agenda-item:nth-child(4) { border-left-color: #3fa380; }
 .agenda-item:nth-child(5) { border-left-color: #f08226; }
 .agenda-item:nth-child(6) { border-left-color: #d57112; }
+.agenda-item:nth-child(7) { border-left-color: #a05d10; }
 .agenda-num   { font-size: 1.375rem; font-weight: 800; color: rgba(255,255,255,0.12); min-width: 36px; }
 .agenda-emoji { font-size: 1.125rem; min-width: 28px; }
 .agenda-text  { font-size: 0.9375rem; font-weight: 500; color: var(--color-text-secondary); }
@@ -245,6 +246,7 @@
   background: var(--color-accent-primary);
   display: flex; align-items: center; justify-content: center;
   font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+  color: white;
 }
 .demo-step-text { font-size: 0.9375rem; color: var(--color-text-secondary); padding-top: 2px; }
 
@@ -265,9 +267,9 @@
 /* ── Resources ───────────────────────────────────────────────────────────── */
 .resource-item {
   display: flex; align-items: center; gap: 18px;
-  padding: 18px 22px; background: var(--color-bg-surface);
+  padding: 14px 22px; background: var(--color-bg-surface);
   border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .resource-icon {
   width: 42px; height: 42px; border-radius: 8px;
@@ -277,6 +279,20 @@
 }
 .resource-title { font-size: 0.9375rem; font-weight: 600; color: white; margin-bottom: 3px; }
 .resource-url   { font-size: 0.8rem; color: var(--color-accent-secondary); font-family: 'Courier New', monospace; }
+
+/* ── Highlight boxes ─────────────────────────────────────────────────────── */
+.highlight-info {
+  padding: 14px 18px;
+  background: rgba(32,94,167,0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(32,94,167,0.25);
+}
+.highlight-warm {
+  padding: 16px 18px;
+  background: rgba(240,130,38,0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(240,130,38,0.2);
+}
 </style>
 </head>
 <body>
@@ -301,25 +317,21 @@
 <div class="reveal">
   <div class="slides">
 
-    <!-- ─── 01 TITLE ──────────────────────────────────────────────────────── -->
+    <!-- ── SLIDE 1: Title ─────────────────────────────────────────────────── -->
     <section class="slide--title">
       <div class="eyebrow">Learning &amp; Sharing Session &nbsp;·&nbsp; ~20 min</div>
       <h1 class="display-title">
         Claude Code:<br>
-        <span class="accent">What I Learned</span><br>
-        So You Don't Have To
+        <span class="accent">What I Learned So You Don't Have To</span>
       </h1>
       <div class="divider"></div>
-      <p class="display-quote">
-        "I survived the Embrace AI challenge and all I got was this presentation…<br>
-        and honestly a lot of time saved."
-      </p>
+      <p class="display-quote">"I survived the Embrace AI challenge and all I got was this presentation… and honestly a lot of time saved."</p>
     </section>
 
-    <!-- ─── 02 AGENDA ─────────────────────────────────────────────────────── -->
+    <!-- ── SLIDE 2: Agenda ────────────────────────────────────────────────── -->
     <section>
       <div class="section-label">Overview</div>
-      <h2 class="slide-title">What We'll Cover <span class="accent">Today</span></h2>
+      <h2 class="slide-title">What We'll <span class="accent">Cover</span></h2>
       <div class="agenda-list">
         <div class="agenda-item">
           <span class="agenda-num">01</span>
@@ -334,323 +346,474 @@
         <div class="agenda-item">
           <span class="agenda-num">03</span>
           <span class="agenda-emoji">🧠</span>
-          <span class="agenda-text">Which models are available?</span>
+          <span class="agenda-text">Claude model lineup</span>
         </div>
         <div class="agenda-item">
           <span class="agenda-num">04</span>
-          <span class="agenda-emoji">🛠️</span>
-          <span class="agenda-text">Common use cases — and which model to pick</span>
+          <span class="agenda-emoji">🛠</span>
+          <span class="agenda-text">Common use cases &amp; which model to pick</span>
         </div>
         <div class="agenda-item">
           <span class="agenda-num">05</span>
           <span class="agenda-emoji">🪙</span>
-          <span class="agenda-text">Tokens &amp; usage limits — the unsexy but important stuff</span>
+          <span class="agenda-text">Tokens, limits &amp; pricing</span>
         </div>
         <div class="agenda-item">
           <span class="agenda-num">06</span>
           <span class="agenda-emoji">✨</span>
-          <span class="agenda-text">Customization &amp; automation (+ live demo!)</span>
+          <span class="agenda-text">Customization &amp; automation</span>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-num">07</span>
+          <span class="agenda-emoji">⚙️</span>
+          <span class="agenda-text">How Claude Code actually works</span>
         </div>
       </div>
     </section>
 
-    <!-- ─── 03 WHAT IS CLAUDE CODE ────────────────────────────────────────── -->
+    <!-- ── SLIDE 3: What is Claude Code ──────────────────────────────────── -->
     <section>
-      <div class="section-label">01 — What is Claude Code?</div>
-      <h2 class="slide-title">An AI Coding Agent <span class="accent">in Your Terminal</span></h2>
-      <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; align-items:start;">
+      <div class="section-label">01 — What is Claude Code</div>
+      <h2 class="slide-title">An <span class="accent">AI Coding Agent</span></h2>
+      <div class="two-col" style="align-items: start;">
         <div>
-          <ul style="margin-bottom:18px;">
-            <li>A <strong>CLI tool</strong> by Anthropic — not a plugin, not a sidebar, not a chat box</li>
-            <li>Can <strong>read files, write code, run tests, make commits</strong>, and push PRs</li>
-            <li>Powered by Anthropic's Claude models under the hood</li>
-            <li>Think: a dev who never sleeps, never complains about legacy code, and actually reads the docs</li>
+          <p style="margin-bottom: 14px;">Originally launched as a terminal-based CLI, Claude Code is now accessible through multiple interfaces:</p>
+          <ul>
+            <li><strong>CLI agent</strong> — <code>claude</code> command in your terminal</li>
+            <li><strong>Claude web app</strong> — browser-based access</li>
+            <li><strong>Integrations</strong> — automation workflows</li>
           </ul>
-          <div class="section-label" style="margin-top:16px;">Install in one line</div>
-          <pre class="shell">npm install -g @anthropic-ai/claude-code</pre>
-          <p style="font-size:0.875rem; color:var(--color-text-muted); margin-top:4px;">Then run <code>claude</code> in your project directory. That's it.</p>
+          <div class="highlight-warm" style="margin-top: 16px;">
+            <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+              <strong style="color:var(--color-accent-warm);">Think of it as:</strong><br>
+              A junior developer that can <em>operate tools</em>, not just generate text.
+            </p>
+          </div>
         </div>
         <div>
-          <div class="card petrol">
-            <div class="card-title">How it works</div>
-            <p style="font-size:0.9rem; line-height:1.7;">
-              You describe what you want<br>
-              <span style="color:var(--color-accent-secondary);">↓</span><br>
-              Claude reads your codebase<br>
-              <span style="color:var(--color-accent-secondary);">↓</span><br>
-              Claude acts<br>
-              <span style="color:var(--color-accent-secondary);">↓</span><br>
-              You review &amp; repeat
+          <div class="card petrol" style="margin-bottom: 0;">
+            <div class="card-title">What it can do</div>
+            <ul style="margin-top: 6px;">
+              <li>Read files</li>
+              <li>Write &amp; refactor code</li>
+              <li>Run commands &amp; tests</li>
+              <li>Analyze repositories</li>
+              <li>Create commits &amp; PRs</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 4: Install + Workflow ───────────────────────────────────── -->
+    <section>
+      <div class="section-label">01 — What is Claude Code</div>
+      <h2 class="slide-title">Install &amp; <span class="accent">Workflow</span></h2>
+      <div class="two-col" style="align-items: start;">
+        <div>
+          <p style="margin-bottom: 10px; font-size: 0.875rem;">Install globally via npm:</p>
+          <pre class="shell">npm install -g @anthropic-ai/claude-code</pre>
+          <p style="margin: 12px 0 10px; font-size: 0.875rem;">Then start inside any project:</p>
+          <pre class="shell">claude</pre>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom: 0;">
+            <div class="card-title">Simplified loop</div>
+            <p style="font-size: 0.875rem; margin-top: 6px; line-height: 2;">
+              You describe a task<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Claude explores the repo<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Claude performs actions (tools)<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> You review results<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Iterate
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ─── 04 WHY DOES IT MATTER ─────────────────────────────────────────── -->
+    <!-- ── SLIDE 5: Why It Matters ───────────────────────────────────────── -->
     <section>
-      <div class="section-label">02 — Why Does It Matter?</div>
-      <h2 class="slide-title">From Autocomplete <span class="accent">to Autonomous</span></h2>
-      <div class="two-col" style="align-items:start;">
+      <div class="section-label">02 — Why It Matters</div>
+      <h2 class="slide-title">The Shift to <span class="accent">Agentic Behavior</span></h2>
+      <div class="two-col" style="align-items: start; margin-top: 4px;">
         <div>
-          <div class="card" style="margin-bottom:14px;">
-            <div class="card-title" style="color:var(--color-text-muted);">Other AI tools</div>
-            <p style="font-size:0.9rem;">"Here's some code, good luck."</p>
+          <div class="card red" style="margin-bottom: 12px;">
+            <div class="card-title">Other tools</div>
+            <p style="font-size: 0.9rem;">"Here's some code. Good luck."</p>
           </div>
           <div class="card petrol">
             <div class="card-title">Claude Code</div>
-            <p style="font-size:0.9rem;">"I'll write it, run it, see it fail, fix it, and commit it."</p>
-          </div>
-          <div style="margin-top:20px; padding:16px 18px; background:rgba(240,130,38,0.08); border-radius:8px; border:1px solid rgba(240,130,38,0.2);">
-            <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
-              <strong style="color:var(--color-accent-warm);">The vibe shift:</strong><br>
-              You go from <em>writing</em> code to <em>reviewing</em> code.<br>Your job title stays the same. Your Fridays get better.
-            </p>
+            <p style="font-size: 0.9rem;">"I'll implement it, run tests, debug failures, and refine the solution."</p>
           </div>
         </div>
         <div>
-          <p style="font-size:0.8125rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:12px;">Key Powers</p>
-          <ul>
-            <li><strong>Autonomous multi-step execution</strong> — not just autocomplete</li>
-            <li><strong>Understands your actual codebase</strong> — not a generic snippet machine</li>
-            <li><strong>Reviews PRs automatically</strong> via GitHub App integration</li>
-            <li>Works great on refactors, migrations, debugging, docs</li>
-          </ul>
+          <div class="card" style="margin-bottom: 0;">
+            <div class="card-title">Key capabilities</div>
+            <ul style="margin-top: 6px;">
+              <li>Execute <strong>multi-step tasks</strong></li>
+              <li>Analyze <strong>entire repositories</strong></li>
+              <li>Refactor across <strong>multiple files</strong></li>
+              <li>Run tests and fix failures</li>
+              <li>Review pull requests</li>
+              <li>Assist with migrations</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- ─── 05 MODELS ─────────────────────────────────────────────────────── -->
-    <section>
-      <div class="section-label">03 — Available Models</div>
-      <h2 class="slide-title">Pick Your <span class="accent">Weapon</span></h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>Personality</th>
-            <th>Best for</th>
-            <th>Access</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Claude Sonnet 4.6</td>
-            <td>Fast, sharp, cost-efficient</td>
-            <td>Day-to-day coding, fast iteration</td>
-            <td><span class="badge badge-green">Pro+</span></td>
-          </tr>
-          <tr>
-            <td>Claude Opus 4</td>
-            <td>Slower, deeper reasoning</td>
-            <td>Complex architecture, hard bugs</td>
-            <td><span class="badge badge-yellow">Max Plan</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="two-col" style="margin-top:16px; align-items:start;">
-        <div>
-          <div class="section-label" style="margin-bottom:8px;">Switching models</div>
-          <pre>/model claude-opus-4-20250514</pre>
-        </div>
-        <div class="card orange">
-          <div class="card-title">Rule of thumb</div>
-          <p style="font-size:0.9rem;">
-            <strong>Sonnet</strong> → get stuff done<br>
-            <strong>Opus</strong> → figure this thing out
-          </p>
-          <p style="font-size:0.8rem; margin-top:8px; color:var(--color-text-muted);">Start with Sonnet. If it goes in circles, switch.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── 06 USE CASES ──────────────────────────────────────────────────── -->
-    <section>
-      <div class="section-label">04 — Common Use Cases</div>
-      <h2 class="slide-title">What to Use It <span class="accent">For</span></h2>
-      <div class="three-col">
-        <div class="usecase-card" style="border-top: 3px solid var(--color-accent-secondary);">
-          <div class="uc-header">
-            <span class="badge badge-green">Sonnet</span>
-            <span class="uc-title" style="color:var(--color-accent-secondary);">Quick Wins</span>
-          </div>
-          <ul>
-            <li>Bug fixing</li>
-            <li>Writing tests</li>
-            <li>Code review</li>
-            <li>Documentation</li>
-            <li>Refactoring</li>
-          </ul>
-        </div>
-        <div class="usecase-card" style="border-top: 3px solid var(--color-accent-warm);">
-          <div class="uc-header">
-            <span class="badge badge-yellow">Sonnet / Opus</span>
-            <span class="uc-title" style="color:var(--color-accent-warm);">Medium</span>
-          </div>
-          <ul>
-            <li>Feature implementation from ticket</li>
-            <li>Codebase exploration</li>
-            <li>API migration tasks</li>
-          </ul>
-        </div>
-        <div class="usecase-card" style="border-top: 3px solid #e05555;">
-          <div class="uc-header">
-            <span class="badge badge-red">Opus</span>
-            <span class="uc-title" style="color:#e05555;">Heavy Lifting</span>
-          </div>
-          <ul>
-            <li>Architecture decisions</li>
-            <li>Haunted legacy code</li>
-            <li>Complex multi-file refactors</li>
-          </ul>
-        </div>
-      </div>
-      <div style="margin-top:18px; padding:14px 18px; background:rgba(32,94,167,0.1); border-radius:8px; border:1px solid rgba(32,94,167,0.25);">
-        <p style="font-size:0.875rem; color:var(--color-text-secondary);">
-          💡 <strong>Pro tip:</strong> Start with Sonnet. If it starts going in circles, switch to Opus.
+      <div class="highlight-warm" style="margin-top: 16px;">
+        <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+          <strong style="color:var(--color-accent-warm);">Workflow shift:</strong>
+          writing code → debugging &nbsp;&nbsp;<strong style="color:var(--color-text-muted);">becomes</strong>&nbsp;&nbsp; reviewing AI-generated code → refining
         </p>
       </div>
     </section>
 
-    <!-- ─── 07 TOKENS (PART 1) ────────────────────────────────────────────── -->
+    <!-- ── SLIDE 6: Model Lineup ─────────────────────────────────────────── -->
     <section>
-      <div class="section-label">05 — Tokens &amp; Usage Limits</div>
-      <h2 class="slide-title">The <span class="accent">Battery Gauge</span> You Need to Watch</h2>
-      <div class="two-col" style="align-items:start; gap:28px;">
-        <div>
-          <div class="card" style="margin-bottom:14px;">
-            <div class="card-title">What is a token?</div>
-            <p style="font-size:0.875rem;">Roughly ¾ of a word. A 200-line file ≈ a few thousand tokens. Every file Claude reads, every line it writes, every tool result — all count.</p>
+      <div class="section-label">03 — Claude Model Lineup</div>
+      <h2 class="slide-title">Three Families, <span class="accent">One Right Tool</span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Version</th>
+            <th>Personality</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Haiku <span class="badge badge-green" style="margin-left:6px;">Fast</span></td>
+            <td>4.5</td>
+            <td>Very fast, inexpensive</td>
+            <td>Automation, tooling, simple tasks</td>
+          </tr>
+          <tr>
+            <td>Sonnet <span class="badge badge-blue" style="margin-left:6px;">Daily driver</span></td>
+            <td>4.6</td>
+            <td>Balanced, near-Opus coding ability</td>
+            <td>Daily coding tasks</td>
+          </tr>
+          <tr>
+            <td>Opus <span class="badge badge-yellow" style="margin-left:6px;">Flagship</span></td>
+            <td>4.6</td>
+            <td>Highest reasoning, 1M token context</td>
+            <td>Complex architecture &amp; debugging</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight-info" style="margin-top: 14px;">
+        <p style="font-size:0.875rem;">💡 <strong>Note:</strong> Sonnet 4.6 now outperforms previous-generation Opus on many coding benchmarks (94% computer use accuracy) — making it the daily-driver for most developers.</p>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 7: Model Switch ─────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">03 — Claude Model Lineup</div>
+      <h2 class="slide-title">Switching <span class="accent">Models in the CLI</span></h2>
+      <p style="margin-bottom: 10px;">Switch model at any point during a session:</p>
+      <pre>/model claude-opus-4-6</pre>
+      <p style="margin-top: 16px; margin-bottom: 10px;">Typical per-model workflow:</p>
+      <div class="three-col">
+        <div class="card petrol" style="margin: 0;">
+          <div class="card-title">Haiku 4.5</div>
+          <p style="font-size: 0.875rem;">Automation scripts, quick lookups, low-cost tooling</p>
+        </div>
+        <div class="card" style="margin: 0;">
+          <div class="card-title">Sonnet 4.6</div>
+          <p style="font-size: 0.875rem;">Daily coding tasks — handles 90%+ of work at lower cost</p>
+        </div>
+        <div class="card orange" style="margin: 0;">
+          <div class="card-title">Opus 4.6</div>
+          <p style="font-size: 0.875rem;">Hard reasoning, 1M token context, complex architecture</p>
+        </div>
+      </div>
+      <div class="highlight-warm" style="margin-top: 16px;">
+        <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+          <strong style="color:var(--color-accent-warm);">Rule of thumb:</strong> Start with Sonnet 4.6. Switch to Opus 4.6 when the problem gets hard.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 8: Use Cases ────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">04 — Common Use Cases</div>
+      <h2 class="slide-title">Match the Task to <span class="accent">the Model</span></h2>
+      <div class="three-col">
+        <div class="usecase-card" style="border-top: 3px solid var(--color-accent-secondary);">
+          <div class="uc-header">
+            <span class="badge badge-green">Haiku 4.5</span>
+            <span class="uc-title" style="color: var(--color-accent-secondary);">🟢 Quick Wins</span>
           </div>
-          <div class="section-label" style="margin-top:4px;">Track your spend</div>
-          <pre>/cost    <span style="color:#6e7681;"># token spend for this session</span>
-/usage   <span style="color:#6e7681;"># remaining quota + reset timer</span></pre>
-          <p style="font-size:0.8125rem; color:var(--color-text-muted); margin-top:8px;">Usage resets on a <strong style="color:white;">5-hour rolling window</strong> — shared across claude.ai, Claude Code, and Claude Desktop.</p>
+          <ul>
+            <li>Fix bugs</li>
+            <li>Write unit tests</li>
+            <li>Generate docs</li>
+            <li>Explain unfamiliar code</li>
+            <li>Review pull requests</li>
+          </ul>
+        </div>
+        <div class="usecase-card" style="border-top: 3px solid var(--color-accent-warm);">
+          <div class="uc-header">
+            <span class="badge badge-yellow">Sonnet 4.6</span>
+            <span class="uc-title" style="color: var(--color-accent-warm);">🟡 Medium</span>
+          </div>
+          <ul>
+            <li>Feature implementation</li>
+            <li>Codebase exploration</li>
+            <li>Dependency upgrades</li>
+            <li>API migrations</li>
+          </ul>
+        </div>
+        <div class="usecase-card" style="border-top: 3px solid #e05555;">
+          <div class="uc-header">
+            <span class="badge badge-red">Opus 4.6</span>
+            <span class="uc-title" style="color: #e05555;">🔴 Heavy Lifting</span>
+          </div>
+          <ul>
+            <li>Architectural tradeoffs</li>
+            <li>Debugging legacy code</li>
+            <li>Large refactors</li>
+            <li>Complex system design</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-info" style="margin-top: 16px;">
+        <p style="font-size:0.875rem;">💡 Opus 4.6 has a <strong>50% task-completion horizon of ~14.5 hours</strong> per METR benchmarks — use it when problems really need deep reasoning.</p>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 9: Tokens ───────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">05 — Tokens, Limits &amp; Pricing</div>
+      <h2 class="slide-title">Understanding <span class="accent">Tokens</span></h2>
+      <div class="two-col" style="align-items: start;">
+        <div>
+          <p style="margin-bottom: 12px;">A token is roughly <strong>¾ of a word</strong>. Everything you send and receive counts:</p>
+          <ul>
+            <li>Input prompts</li>
+            <li>Files read by Claude</li>
+            <li>Generated responses</li>
+            <li>Tool outputs</li>
+          </ul>
         </div>
         <div>
           <table>
-            <thead><tr><th>Plan</th><th>~Tokens / 5h</th><th>Opus</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Content</th>
+                <th>Approx. tokens</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>Free</td><td>Limited</td><td>❌</td></tr>
-              <tr><td>Pro (~$20/mo)</td><td>~44,000</td><td>❌</td></tr>
-              <tr><td>Max 5× (~$100/mo)</td><td>~88,000</td><td>✅</td></tr>
-              <tr><td>Max 20× (~$200/mo)</td><td>~220,000</td><td>✅</td></tr>
+              <tr>
+                <td>Short prompt</td>
+                <td>~20</td>
+              </tr>
+              <tr>
+                <td>Long function</td>
+                <td>~200</td>
+              </tr>
+              <tr>
+                <td>Medium source file</td>
+                <td>1,000+</td>
+              </tr>
+              <tr>
+                <td>Large codebase context</td>
+                <td>10,000+</td>
+              </tr>
             </tbody>
           </table>
-          <p style="font-size:0.75rem; color:var(--color-text-muted); margin-top:6px;">API users get separate pay-per-token billing — no rolling windows.</p>
         </div>
+      </div>
+      <div class="card orange" style="margin-top: 14px;">
+        <div class="card-title">Practical tips to reduce usage</div>
+        <p style="font-size: 0.875rem;">Clear old context often &nbsp;·&nbsp; Use focused prompts &nbsp;·&nbsp; Reference specific files &nbsp;·&nbsp; Avoid long conversation chains</p>
       </div>
     </section>
 
-    <!-- ─── 08 TOKENS (PART 2 — TIPS) ────────────────────────────────────── -->
+    <!-- ── SLIDE 10: Claude.ai Plans ────────────────────────────────────── -->
     <section>
-      <div class="section-label">05 — Tokens &amp; Usage Limits</div>
-      <h2 class="slide-title">Token-Saving Tips <span class="accent">That Actually Work</span></h2>
-      <div class="two-col" style="align-items:start; gap:28px; margin-top:4px;">
-        <div>
-          <div class="takeaway-item">
-            <div class="takeaway-icon">🧹</div>
-            <div class="takeaway-text">Use <code>/clear</code> often — don't drag stale context into new tasks</div>
-          </div>
-          <div class="takeaway-item">
-            <div class="takeaway-icon">📄</div>
-            <div class="takeaway-text">Write a <strong>lean CLAUDE.md</strong> — Claude reads it every session, so keep it tight</div>
-          </div>
-          <div class="takeaway-item">
-            <div class="takeaway-icon">🎯</div>
-            <div class="takeaway-text"><strong>Be specific:</strong> "fix the login bug in UserController.java" beats "fix the login stuff"</div>
-          </div>
-          <div class="takeaway-item">
-            <div class="takeaway-icon">📦</div>
-            <div class="takeaway-text"><strong>Big diffs in one prompt</strong> &gt; many small "refine this" follow-ups</div>
-          </div>
-        </div>
-        <div class="card orange" style="align-self:center;">
-          <div class="card-title">Weekly caps (Aug 2025)</div>
-          <p style="font-size:0.875rem; line-height:1.6;">
-            Weekly usage caps were introduced — but they only affect <strong>&lt;2% of users</strong> with heavy Sonnet usage.<br><br>
-            Unless you're using Claude Code all day every day, you won't hit them.
-          </p>
-        </div>
+      <div class="section-label">05 — Tokens, Limits &amp; Pricing</div>
+      <h2 class="slide-title">Claude.ai <span class="accent">Subscription Plans</span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Price</th>
+            <th>Typical Usage</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Free</td>
+            <td>$0 / mo</td>
+            <td>Limited usage</td>
+            <td>Lower priority access</td>
+          </tr>
+          <tr>
+            <td>Pro</td>
+            <td>$20 / mo</td>
+            <td>Higher limits</td>
+            <td>Popular individual plan</td>
+          </tr>
+          <tr>
+            <td>Team <span class="badge badge-blue" style="margin-left:6px;">Recommended</span></td>
+            <td>$25 / seat / mo</td>
+            <td>Shared team workspace</td>
+            <td>Min. 5 members</td>
+          </tr>
+          <tr>
+            <td>Max</td>
+            <td>$100–$200 / mo</td>
+            <td>Much higher limits</td>
+            <td>Access to more compute</td>
+          </tr>
+          <tr>
+            <td>Enterprise</td>
+            <td>Custom</td>
+            <td>Unlimited seats</td>
+            <td>SSO, admin controls</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight-info" style="margin-top: 14px;">
+        <p style="font-size:0.875rem;">💡 Usage is <strong>not defined by fixed token quotas</strong> — limits depend on model and workload, and reset on rolling windows.</p>
       </div>
     </section>
 
-    <!-- ─── 09 CLAUDE.MD ──────────────────────────────────────────────────── -->
+    <!-- ── SLIDE 11: API Pricing ─────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">05 — Tokens, Limits &amp; Pricing</div>
+      <h2 class="slide-title">API <span class="accent">Pay-Per-Token</span> Pricing</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Input (per 1M tokens)</th>
+            <th>Output (per 1M tokens)</th>
+            <th>Cost Profile</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Haiku 4.5</td>
+            <td>$1</td>
+            <td>$5</td>
+            <td><span class="badge badge-green">Cheapest</span></td>
+          </tr>
+          <tr>
+            <td>Sonnet 4.6</td>
+            <td>$3</td>
+            <td>$15</td>
+            <td><span class="badge badge-blue">Mid-range</span></td>
+          </tr>
+          <tr>
+            <td>Opus 4.6</td>
+            <td>$5</td>
+            <td>$25</td>
+            <td><span class="badge badge-yellow">Premium</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="highlight-warm" style="margin-top: 16px;">
+        <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+          <strong style="color:var(--color-accent-warm);">Key insight:</strong> Sonnet 4.6 delivers near-Opus coding quality at <strong>60% of the cost</strong>. Use it as your default.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 12: Customization Intro ─────────────────────────────────── -->
     <section>
       <div class="section-label">06 — Customization &amp; Automation</div>
-      <h2 class="slide-title">CLAUDE.md — <span class="accent">Your Project's Brain</span></h2>
-      <div class="two-col" style="align-items:start; gap:28px;">
+      <h2 class="slide-title">Making Claude Code <span class="accent">Yours</span></h2>
+      <div class="three-col">
+        <div class="card petrol" style="margin: 0;">
+          <div class="card-title">📄 CLAUDE.md</div>
+          <p style="font-size: 0.875rem;">Project rules, conventions, and context that Claude reads automatically at startup.</p>
+        </div>
+        <div class="card" style="margin: 0;">
+          <div class="card-title">⚡ Slash Commands</div>
+          <p style="font-size: 0.875rem;">Custom commands defined in <code>.claude/commands/</code> — reusable prompt shortcuts.</p>
+        </div>
+        <div class="card orange" style="margin: 0;">
+          <div class="card-title">🪝 Hooks</div>
+          <p style="font-size: 0.875rem;">Automatic shell commands triggered by agent activity — linting, formatting, tests.</p>
+        </div>
+      </div>
+      <div class="highlight-warm" style="margin-top: 18px;">
+        <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+          <strong style="color:var(--color-accent-warm);">Combined effect:</strong> Claude behaves like a trained team member that knows your standards before touching a single file.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 13: CLAUDE.md ───────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">06 — Customization &amp; Automation</div>
+      <h2 class="slide-title"><code>CLAUDE.md</code> — <span class="accent">AI Onboarding</span></h2>
+      <div class="two-col" style="align-items: start;">
         <div>
-          <p style="font-size:0.9375rem; margin-bottom:14px; color:var(--color-text-secondary);">
-            A markdown file at the <strong>root of your project</strong> (or <code>~/.claude/CLAUDE.md</code> globally) that Claude reads at the start of <em>every session</em>.
-          </p>
-          <p style="font-size:0.9375rem; margin-bottom:14px; color:var(--color-text-secondary);">
-            Think of it as <strong>onboarding docs for your AI colleague</strong>. Commit it to git — your whole team benefits.
-          </p>
-          <div class="card petrol" style="margin-top:8px;">
-            <div class="card-title">Most impactful 15 minutes</div>
-            <p style="font-size:0.875rem;">Setting up a good CLAUDE.md is the highest-leverage thing you can do for your AI workflow.</p>
-          </div>
+          <p style="margin-bottom: 10px; font-size: 0.9rem;">Claude reads this file <strong>automatically</strong> at repo root. Think of it as team onboarding instructions for your AI colleague.</p>
+          <ul style="margin-top: 6px;">
+            <li>Consistent behavior across sessions</li>
+            <li>Shared team conventions</li>
+            <li>Reusable automation rules</li>
+          </ul>
         </div>
         <div>
-          <pre><span style="color:#79c0ff;"># My Project</span>
+          <pre># Project Rules
 
-<span style="color:#6e7681;">- Always use TypeScript strict mode</span>
-<span style="color:#6e7681;">- Run `npm test` before committing</span>
-<span style="color:#6e7681;">- Branch naming:</span>
-<span style="color:#6e7681;">  feature/[ticket-id]-short-description</span>
-<span style="color:#6e7681;">- Never edit /generated — auto-generated</span></pre>
+Always run tests before committing.
+Use TypeScript strict mode.
+
+Branch naming:
+feature/[ticket-id]-short-description
+
+Never edit files in /generated</pre>
         </div>
       </div>
     </section>
 
-    <!-- ─── 10 SLASH COMMANDS ─────────────────────────────────────────────── -->
+    <!-- ── SLIDE 14: Slash Commands ──────────────────────────────────────── -->
     <section>
       <div class="section-label">06 — Customization &amp; Automation</div>
-      <h2 class="slide-title">Custom Slash Commands — <span class="accent">Macros for Your Workflow</span></h2>
-      <div class="two-col" style="align-items:start; gap:28px;">
+      <h2 class="slide-title">Custom <span class="accent">Slash Commands</span></h2>
+      <div class="two-col" style="align-items: start;">
         <div>
-          <p style="font-size:0.9375rem; margin-bottom:14px;">Create repeatable workflows by dropping markdown files in <code>.claude/commands/</code>:</p>
-          <pre class="shell">mkdir -p .claude/commands</pre>
-          <p style="font-size:0.875rem; margin: 12px 0 8px; color:var(--color-text-muted);">Then invoke from any session:</p>
-          <pre class="shell">/review</pre>
-          <p style="font-size:0.875rem; margin: 12px 0 8px; color:var(--color-text-muted);">Or with parameters:</p>
-          <pre class="shell">/fix-issue 1337</pre>
+          <p style="margin-bottom: 10px; font-size: 0.9rem;">Define reusable prompts as files in:</p>
+          <pre>.claude/commands/</pre>
+          <p style="margin: 12px 0 6px; font-size: 0.9rem;">Invoke with:</p>
+          <pre>/review</pre>
+          <p style="margin-top: 14px; font-size: 0.875rem; color: var(--color-text-muted);">Commands can be shared across the team via the repo.</p>
         </div>
         <div>
-          <div class="section-label" style="margin-bottom:8px;">Example: <code>.claude/commands/review.md</code></div>
+          <p style="font-size: 0.875rem; margin-bottom: 8px; color: var(--color-text-muted);">Example: <code>.claude/commands/review.md</code></p>
           <pre>Review the staged changes for bugs
 and security issues only.
 
-Be concise. No style comments.</pre>
-          <div class="card petrol" style="margin-top:14px;">
-            <div class="card-title">Why it matters</div>
-            <p style="font-size:0.875rem;">Turns your most-used prompts into a one-word command. Build a team library and everyone benefits.</p>
-          </div>
+Ignore formatting and style comments.</pre>
         </div>
       </div>
     </section>
 
-    <!-- ─── 11 HOOKS ──────────────────────────────────────────────────────── -->
+    <!-- ── SLIDE 15: Hooks ───────────────────────────────────────────────── -->
     <section>
       <div class="section-label">06 — Customization &amp; Automation</div>
-      <h2 class="slide-title">Hooks — <span class="accent">The "Always Do This" Layer</span></h2>
-      <div class="two-col" style="align-items:start; gap:28px;">
+      <h2 class="slide-title">Hooks — <span class="accent">Automatic Actions</span></h2>
+      <div class="two-col" style="align-items: start;">
         <div>
-          <p style="font-size:0.9375rem; margin-bottom:14px;">
-            Hooks run <strong>deterministic shell commands</strong> at specific lifecycle points. Unlike CLAUDE.md suggestions, hooks are <strong>rules that always fire</strong>.
-          </p>
-          <div class="section-label" style="margin-top:4px;">Available hook events</div>
-          <ul style="margin-top:8px;">
-            <li><code>UserPromptSubmit</code></li>
-            <li><code>PreToolUse</code></li>
-            <li><code>PostToolUse</code></li>
-            <li><code>Stop</code></li>
+          <p style="margin-bottom: 10px; font-size: 0.9rem;">Hooks run shell commands <strong>automatically during agent activity</strong>.</p>
+          <ul>
+            <li>Automatic linting</li>
+            <li>Auto-formatting on write</li>
+            <li>Test execution</li>
+            <li>Policy enforcement</li>
           </ul>
-          <p style="font-size:0.875rem; margin-top:14px; color:var(--color-text-muted);">Configure via the interactive <code>/hooks</code> command — no JSON editing required.</p>
         </div>
         <div>
-          <div class="section-label" style="margin-bottom:8px;">Example: Auto-run Prettier after every file write</div>
+          <p style="font-size: 0.875rem; margin-bottom: 8px; color: var(--color-text-muted);">Example: run Prettier after every TypeScript write</p>
           <pre class="json">{
   "hooks": {
     "PostToolUse": [{
@@ -666,128 +829,161 @@ Be concise. No style comments.</pre>
       </div>
     </section>
 
-    <!-- ─── 12 PLUGINS ────────────────────────────────────────────────────── -->
+    <!-- ── SLIDE 16: How It Works ────────────────────────────────────────── -->
     <section>
-      <div class="section-label">06 — Customization &amp; Automation</div>
-      <h2 class="slide-title">Plugins — <span class="accent">Share It All as a Bundle</span></h2>
-      <div style="max-width:720px; margin-top:8px;">
-        <p style="font-size:1rem; margin-bottom:20px; color:var(--color-text-secondary);">
-          Plugins package <strong>slash commands + hooks + MCP servers</strong> into one installable unit. Great for team-wide consistency.
-        </p>
-        <pre class="shell">/plugin install &lt;plugin-name&gt;</pre>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:24px;">
-          <div class="card petrol">
-            <div class="card-title">What's bundled</div>
-            <ul style="margin-top:4px;">
-              <li style="font-size:0.875rem;">Custom slash commands</li>
-              <li style="font-size:0.875rem;">Hook configurations</li>
-              <li style="font-size:0.875rem;">MCP server definitions</li>
-            </ul>
-          </div>
-          <div class="card orange">
-            <div class="card-title">Best use case</div>
-            <p style="font-size:0.875rem; line-height:1.6;">
-              Define your team's standards once, distribute as a plugin. New devs get the full setup instantly.
+      <div class="section-label">07 — How Claude Code Works</div>
+      <h2 class="slide-title">Tool-Based <span class="accent">Agent Architecture</span></h2>
+      <div class="two-col" style="align-items: start;">
+        <div>
+          <p style="margin-bottom: 12px; font-size: 0.9rem;">Claude doesn't directly edit files — it calls <strong>tools</strong>, reads the output, then decides the next step.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>ReadFile</td><td>Inspect source code</td></tr>
+              <tr><td>WriteFile</td><td>Modify code</td></tr>
+              <tr><td>RunCommand</td><td>Execute shell commands</td></tr>
+              <tr><td>Search</td><td>Explore repository</td></tr>
+              <tr><td>Git tools</td><td>Commit, diff, PR workflows</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="card petrol" style="margin: 0;">
+            <div class="card-title">Autonomous loop</div>
+            <p style="font-size: 0.875rem; line-height: 2.1; margin-top: 6px;">
+              User task<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Claude plans actions<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Claude uses tools<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Results returned<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> Claude decides next step<br>
+              <span style="color: var(--color-accent-secondary);">↓</span> <em>Repeat until done</em>
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ─── 13 LIVE DEMO ──────────────────────────────────────────────────── -->
+    <!-- ── SLIDE 17: MCP ─────────────────────────────────────────────────── -->
     <section>
-      <div class="section-label">Live Demo</div>
-      <h2 class="slide-title">Let's See It <span class="accent">In Action</span></h2>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; margin-top:4px;">
+      <div class="section-label">07 — How Claude Code Works</div>
+      <h2 class="slide-title">Model Context Protocol <span class="accent">(MCP)</span></h2>
+      <p style="margin-bottom: 18px;">Claude can interact with <strong>external systems via MCP servers</strong> — safely and without custom integrations.</p>
+      <div class="three-col">
+        <div class="card petrol" style="margin: 0;">
+          <div class="card-title">🐙 GitHub</div>
+          <p style="font-size: 0.875rem;">Query repositories, issues, PRs, and actions directly.</p>
+        </div>
+        <div class="card" style="margin: 0;">
+          <div class="card-title">🗄️ Databases</div>
+          <p style="font-size: 0.875rem;">Read schemas, run queries, inspect data safely.</p>
+        </div>
+        <div class="card orange" style="margin: 0;">
+          <div class="card-title">🔌 Internal APIs</div>
+          <p style="font-size: 0.875rem;">Documentation systems, internal tooling, custom services.</p>
+        </div>
+      </div>
+      <div class="highlight-info" style="margin-top: 18px;">
+        <p style="font-size:0.875rem;">💡 MCP allows Claude to <strong>query external systems without giving it unrestricted access</strong> — each server exposes only what it chooses to.</p>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 18: Live Demo ───────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">🎬 Live Demo</div>
+      <h2 class="slide-title">See It <span class="accent">In Action</span></h2>
+      <div class="demo-step">
+        <div class="demo-step-num">1</div>
+        <div class="demo-step-text">Start Claude Code in a project: <code>claude</code></div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-num">2</div>
+        <div class="demo-step-text">Show the <code>CLAUDE.md</code> — team rules already loaded</div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-num">3</div>
+        <div class="demo-step-text">Ask Claude to find a bug: <em>"Find potential null pointer bugs in the auth module"</em></div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-num">4</div>
+        <div class="demo-step-text">Stage the change and run the custom command: <code>/review</code></div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 19: Key Takeaways ───────────────────────────────────────── -->
+    <section>
+      <div class="section-label">🏁 Key Takeaways</div>
+      <h2 class="slide-title">What to <span class="accent">Remember</span></h2>
+      <div class="takeaway-item">
+        <div class="takeaway-icon">🤖</div>
+        <div class="takeaway-text">Claude Code is an <strong>AI coding agent</strong> — it executes tasks, not just generates suggestions</div>
+      </div>
+      <div class="takeaway-item">
+        <div class="takeaway-icon">🧠</div>
+        <div class="takeaway-text">Model families: <strong>Haiku 4.5</strong> (fast &amp; cheap), <strong>Sonnet 4.6</strong> (daily driver), <strong>Opus 4.6</strong> (hard problems)</div>
+      </div>
+      <div class="takeaway-item">
+        <div class="takeaway-icon">⚡</div>
+        <div class="takeaway-text"><strong>Sonnet 4.6</strong> handles 90%+ of tasks at near-Opus quality — start here, escalate when needed</div>
+      </div>
+      <div class="takeaway-item">
+        <div class="takeaway-icon">📄</div>
+        <div class="takeaway-text"><code>CLAUDE.md</code> dramatically improves consistency — treat it as AI onboarding</div>
+      </div>
+      <div class="takeaway-item">
+        <div class="takeaway-icon">✨</div>
+        <div class="takeaway-text">Hooks, commands &amp; MCP enable <strong>deep automation</strong> of development workflows</div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 20: Resources ───────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">🔗 Resources &amp; Sources</div>
+      <h2 class="slide-title">Go <span class="accent">Deeper</span></h2>
+      <div class="resource-item">
+        <div class="resource-icon">📚</div>
         <div>
-          <div class="card petrol" style="margin-bottom:16px;">
-            <div class="card-title">What we'll do</div>
-            <p style="font-size:0.9rem; line-height:1.7;">Start Claude Code in a small project, show CLAUDE.md in action, and fire a custom <code>/review</code> slash command.</p>
-          </div>
-          <div class="demo-step">
-            <div class="demo-step-num">1</div>
-            <div class="demo-step-text"><code>cd my-demo-project &amp;&amp; claude</code></div>
-          </div>
-          <div class="demo-step">
-            <div class="demo-step-num">2</div>
-            <div class="demo-step-text">Show the auto-loaded CLAUDE.md context</div>
-          </div>
-          <div class="demo-step">
-            <div class="demo-step-num">3</div>
-            <div class="demo-step-text">Ask Claude to find a bug</div>
-          </div>
-          <div class="demo-step">
-            <div class="demo-step-num">4</div>
-            <div class="demo-step-text">Run <code>/review</code> on staged changes</div>
-          </div>
-          <div class="demo-step">
-            <div class="demo-step-num">5</div>
-            <div class="demo-step-text">Watch it not hallucinate variable names 🤞</div>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; min-height:200px;">
-          <div style="font-size:5rem; line-height:1; margin-bottom:12px;">🎬</div>
-          <p style="font-size:0.875rem; color:var(--color-text-muted); text-align:center;">~3 minutes</p>
+          <div class="resource-title">Claude Code — Official Docs</div>
+          <div class="resource-url">docs.claude.com/en/docs/claude-code/overview</div>
         </div>
       </div>
+      <div class="resource-item">
+        <div class="resource-icon">🧠</div>
+        <div>
+          <div class="resource-title">Model Overview &amp; Versions</div>
+          <div class="resource-url">platform.claude.com/docs/en/about-claude/models/overview</div>
+        </div>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon">🪙</div>
+        <div>
+          <div class="resource-title">Pricing</div>
+          <div class="resource-url">claude.com/pricing</div>
+        </div>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon">⭐</div>
+        <div>
+          <div class="resource-title">Awesome Claude Code — Community</div>
+          <div class="resource-url">github.com/hesreallyhim/awesome-claude-code</div>
+        </div>
+      </div>
+      <p style="margin-top: 18px; font-size: 0.8125rem; color: var(--color-text-muted); font-style: italic;">Information verified against official Anthropic documentation — March 2026.</p>
     </section>
 
-    <!-- ─── 14 KEY TAKEAWAYS ──────────────────────────────────────────────── -->
-    <section>
-      <div class="section-label">Wrap-Up</div>
-      <h2 class="slide-title">Key <span class="accent">Takeaways</span></h2>
-      <div style="max-width:760px; margin-top:4px;">
-        <div class="takeaway-item">
-          <div class="takeaway-icon">🤖</div>
-          <div class="takeaway-text">Claude Code is <strong>agentic</strong> — it does things, not just suggests things</div>
-        </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">⚡</div>
-          <div class="takeaway-text"><strong>Sonnet</strong> for speed and daily work; <strong>Opus</strong> for hard problems (Max plan required)</div>
-        </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">🪙</div>
-          <div class="takeaway-text">Usage runs on a <strong>5-hour rolling window</strong> — shared across all Claude surfaces</div>
-        </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">📄</div>
-          <div class="takeaway-text"><strong>CLAUDE.md</strong> is the most impactful 15 minutes you'll spend on your AI setup</div>
-        </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">🔧</div>
-          <div class="takeaway-text">Custom <strong>slash commands + hooks</strong> = your personalized dev co-pilot</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── 15 RESOURCES ──────────────────────────────────────────────────── -->
-    <section>
-      <div class="section-label">Resources</div>
-      <h2 class="slide-title">Keep <span class="accent">Learning</span></h2>
-      <div style="max-width:720px; margin-top:8px;">
-        <div class="resource-item">
-          <div class="resource-icon">📚</div>
-          <div>
-            <div class="resource-title">Official Claude Code Docs</div>
-            <div class="resource-url">docs.claude.com/en/docs/claude-code/overview</div>
-          </div>
-        </div>
-        <div class="resource-item">
-          <div class="resource-icon">⭐</div>
-          <div>
-            <div class="resource-title">Awesome Claude Code (community)</div>
-            <div class="resource-url">github.com/hesreallyhim/awesome-claude-code</div>
-          </div>
-        </div>
-        <div class="resource-item">
-          <div class="resource-icon">💡</div>
-          <div>
-            <div class="resource-title">Usage Limits Explained</div>
-            <div class="resource-url">support.claude.com/en/articles/11647753-understanding-usage-and-length-limits</div>
-          </div>
-        </div>
-      </div>
-      <p style="margin-top:28px; font-size:0.875rem; color:var(--color-text-muted); font-style:italic;">Made with Claude Code. Obviously.</p>
+    <!-- ── SLIDE 21: End ─────────────────────────────────────────────────── -->
+    <section class="slide--title">
+      <div class="eyebrow">Thank you</div>
+      <h1 class="display-title">
+        Made with<br>
+        <span class="accent">Claude Code.</span>
+      </h1>
+      <div class="divider"></div>
+      <p class="display-quote">Obviously.</p>
     </section>
 
   </div>

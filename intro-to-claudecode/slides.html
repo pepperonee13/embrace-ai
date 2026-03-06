@@ -7,35 +7,37 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
 <style>
 /* ── Design tokens from tgg-design-tokens.yaml ─────────────────────────── */
 :root {
-  --color-bg-dark:        #212931;
-  --color-bg-surface:     #303944;
-  --color-bg-card:        #3b4656;
-  --color-accent-primary: #205ea7;
+  --color-bg-dark:          #212931;
+  --color-bg-surface:       #303944;
+  --color-bg-card:          #3b4656;
+  --color-accent-primary:   #205ea7;
   --color-accent-dark-blue: #024b80;
   --color-accent-secondary: #09909c;
   --color-accent-dark-petrol: #036b75;
-  --color-accent-warm:    #f08226;
+  --color-accent-warm:      #f08226;
   --color-accent-dark-warm: #d57112;
-  --color-text-primary:   #ffffff;
-  --color-text-secondary: rgba(255,255,255,0.78);
-  --color-text-muted:     rgba(255,255,255,0.45);
+  --color-text-primary:     #ffffff;
+  --color-text-secondary:   rgba(255,255,255,0.78);
+  --color-text-muted:       rgba(255,255,255,0.45);
   --font-primary: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   --gradient-brand: linear-gradient(to right, #205ea7 0%, #09909c 33%, #c8c87a 66%, #f08226 100%);
-}
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: var(--font-primary);
-  background: var(--color-bg-dark);
-  color: var(--color-text-primary);
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
-  user-select: none;
+  /* ── Reveal.js theme variable overrides ── */
+  --r-background-color:       #212931;
+  --r-main-font:              'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --r-main-font-size:         16px;
+  --r-main-color:             rgba(255,255,255,0.78);
+  --r-heading-font:           'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --r-heading-color:          #ffffff;
+  --r-heading-text-transform: none;
+  --r-heading-font-weight:    700;
+  --r-heading-line-height:    1.15;
+  --r-code-font:              'Courier New', Consolas, monospace;
+  --r-block-margin:           0px;
 }
 
 /* ── Fixed chrome ────────────────────────────────────────────────────────── */
@@ -53,108 +55,67 @@ body {
 }
 #logo svg { width: 100%; height: 100%; display: block; }
 
-.progress-bar {
-  position: fixed;
-  top: 0; left: 0;
-  height: 3px;
-  background: var(--gradient-brand);
-  transition: width 0.4s ease;
-  z-index: 200;
-}
+/* ── Reveal.js UI overrides ──────────────────────────────────────────────── */
+.reveal > .progress { height: 3px; background: transparent; }
+.reveal > .progress span { background: var(--gradient-brand); transition: width 0.4s ease; }
 
-.nav {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  z-index: 200;
+.reveal .controls { color: var(--color-accent-primary); bottom: 20px; right: 20px; }
+.reveal .controls .controls-arrow { opacity: 0.6; }
+.reveal .controls .controls-arrow:hover { opacity: 1; }
+
+.reveal .slide-number {
   background: rgba(33,41,49,0.85);
-  backdrop-filter: blur(12px);
-  padding: 8px 16px;
-  border-radius: 40px;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.nav-btn {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: transparent;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.nav-btn:hover:not(:disabled) { background: var(--color-accent-primary); border-color: var(--color-accent-primary); }
-.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.nav-dots { display: flex; gap: 6px; align-items: center; }
-.nav-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.25);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.nav-dot.active { background: var(--color-accent-warm); width: 20px; border-radius: 3px; }
-.nav-counter {
-  font-size: 0.75rem; font-weight: 500;
   color: var(--color-text-muted);
-  letter-spacing: 0.06em;
-  min-width: 44px; text-align: center;
+  font-family: var(--font-primary);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 4px 9px;
+  bottom: 28px;
+  right: 230px; /* clear of the controls */
+  letter-spacing: 0.05em;
 }
 
-/* ── Slide engine ─────────────────────────────────────────────────────────── */
-#presentation { width: 100%; height: 100%; position: relative; }
-
-.slide {
-  position: absolute;
-  inset: 0;
+/* ── Slide layout ────────────────────────────────────────────────────────── */
+.reveal .slides > section {
+  text-align: left;
+  padding: 52px 72px 80px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: 52px 72px 80px;
-  background: var(--color-bg-dark);
-  opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  pointer-events: none;
-}
-.slide.active {
-  opacity: 1;
-  transform: translateX(0) !important;
-  pointer-events: all;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* ── Shared slide components ─────────────────────────────────────────────── */
-.section-label {
+.reveal .section-label {
   font-size: 0.6875rem; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--color-accent-warm);
   margin-bottom: 10px;
 }
-.slide-title {
+.reveal .slide-title {
   font-size: 2.25rem; font-weight: 700;
   line-height: 1.15; letter-spacing: -0.02em;
-  margin-bottom: 28px;
+  margin-bottom: 28px; color: var(--color-text-primary);
 }
-.slide-title .accent { color: var(--color-accent-secondary); }
-.divider {
+.reveal .slide-title .accent { color: var(--color-accent-secondary); }
+.reveal .divider {
   width: 44px; height: 3px;
   background: var(--gradient-brand);
   border-radius: 2px;
   margin: 14px 0 24px;
 }
 
-p, li { font-size: 1rem; line-height: 1.65; color: var(--color-text-secondary); }
-strong { color: var(--color-text-primary); font-weight: 600; }
-em { color: var(--color-text-muted); font-style: italic; }
+.reveal p, .reveal li { font-size: 1rem; line-height: 1.65; color: var(--color-text-secondary); }
+.reveal strong { color: var(--color-text-primary); font-weight: 600; }
+.reveal em { color: var(--color-text-muted); font-style: italic; }
 
-ul { list-style: none; padding: 0; }
-ul li { padding: 5px 0 5px 22px; position: relative; }
-ul li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-secondary); font-weight: 700; }
+.reveal ul { list-style: none; padding: 0; margin: 0; }
+.reveal ul li { padding: 5px 0 5px 22px; position: relative; margin: 0; }
+.reveal ul li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-secondary); font-weight: 700; }
 
-pre {
+.reveal pre {
   background: #0d1117;
   border: 1px solid rgba(32,94,167,0.35);
   border-left: 3px solid var(--color-accent-primary);
@@ -165,11 +126,12 @@ pre {
   color: #e6edf3;
   overflow-x: auto;
   margin: 12px 0;
-  white-space: pre;
+  width: auto;
+  box-shadow: none;
 }
-pre.shell { border-left-color: var(--color-accent-warm); }
-pre.json  { border-left-color: var(--color-accent-secondary); }
-code {
+.reveal pre.shell { border-left-color: var(--color-accent-warm); }
+.reveal pre.json  { border-left-color: var(--color-accent-secondary); }
+.reveal code {
   font-family: 'Courier New', Consolas, monospace;
   font-size: 0.875em;
   background: rgba(32,94,167,0.15);
@@ -177,65 +139,69 @@ code {
   padding: 1px 6px;
   border-radius: 3px;
 }
-pre code { background: none; padding: 0; color: inherit; }
+.reveal pre code {
+  background: none; padding: 0; color: inherit;
+  font-size: inherit; border-radius: 0;
+  max-height: none;
+}
 
-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9375rem; }
-thead tr { background: var(--color-bg-surface); }
-th { padding: 11px 14px; text-align: left; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-secondary); border-bottom: 2px solid rgba(32,94,167,0.5); }
-td { padding: 10px 14px; color: var(--color-text-secondary); border-bottom: 1px solid rgba(255,255,255,0.06); }
-tr:hover td { background: rgba(255,255,255,0.025); }
-td:first-child { font-weight: 600; color: var(--color-text-primary); }
+.reveal table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9375rem; }
+.reveal thead tr { background: var(--color-bg-surface); }
+.reveal th { padding: 11px 14px; text-align: left; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-secondary); border-bottom: 2px solid rgba(32,94,167,0.5); }
+.reveal td { padding: 10px 14px; color: var(--color-text-secondary); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.reveal tr:hover td { background: rgba(255,255,255,0.025); }
+.reveal td:first-child { font-weight: 600; color: var(--color-text-primary); }
 
-.card {
+.reveal .card {
   background: var(--color-bg-surface);
   border-radius: 8px;
   padding: 18px 22px;
   margin: 10px 0;
   border-left: 3px solid var(--color-accent-primary);
 }
-.card.orange { border-left-color: var(--color-accent-warm); }
-.card.petrol { border-left-color: var(--color-accent-secondary); }
-.card.red    { border-left-color: #e05555; }
-.card-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; color: var(--color-accent-primary); }
-.card.orange .card-title { color: var(--color-accent-warm); }
-.card.petrol .card-title { color: var(--color-accent-secondary); }
-.card.red    .card-title { color: #e05555; }
+.reveal .card.orange { border-left-color: var(--color-accent-warm); }
+.reveal .card.petrol { border-left-color: var(--color-accent-secondary); }
+.reveal .card.red    { border-left-color: #e05555; }
+.reveal .card-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; color: var(--color-accent-primary); }
+.reveal .card.orange .card-title { color: var(--color-accent-warm); }
+.reveal .card.petrol .card-title { color: var(--color-accent-secondary); }
+.reveal .card.red    .card-title { color: #e05555; }
 
-.badge {
+.reveal .badge {
   display: inline-block; padding: 2px 9px;
   border-radius: 4px; font-size: 0.6875rem; font-weight: 600;
   letter-spacing: 0.05em; text-transform: uppercase;
 }
-.badge-green  { background: rgba(9,144,156,0.18); color: #3dc5ce; border: 1px solid rgba(9,144,156,0.4); }
-.badge-yellow { background: rgba(240,130,38,0.15); color: #f4a24a; border: 1px solid rgba(240,130,38,0.4); }
-.badge-red    { background: rgba(220,60,60,0.15);  color: #f07575; border: 1px solid rgba(220,60,60,0.35); }
-.badge-blue   { background: rgba(32,94,167,0.18);  color: #6aadee; border: 1px solid rgba(32,94,167,0.4); }
+.reveal .badge-green  { background: rgba(9,144,156,0.18);  color: #3dc5ce; border: 1px solid rgba(9,144,156,0.4); }
+.reveal .badge-yellow { background: rgba(240,130,38,0.15); color: #f4a24a; border: 1px solid rgba(240,130,38,0.4); }
+.reveal .badge-red    { background: rgba(220,60,60,0.15);  color: #f07575; border: 1px solid rgba(220,60,60,0.35); }
+.reveal .badge-blue   { background: rgba(32,94,167,0.18);  color: #6aadee; border: 1px solid rgba(32,94,167,0.4); }
 
 .two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 22px; margin-top: 8px; }
 .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 8px; }
 
-/* ── Slide-specific layouts ──────────────────────────────────────────────── */
-
-/* Title slide */
-.slide--title .display-title {
+/* ── Title slide ─────────────────────────────────────────────────────────── */
+.reveal .slides > section.slide--title { justify-content: center; }
+.reveal .slide--title .display-title {
   font-size: 3.125rem; font-weight: 800;
   line-height: 1.1; letter-spacing: -0.025em;
   max-width: 780px; margin-bottom: 18px;
+  color: var(--color-text-primary);
 }
-.slide--title .display-title .accent { color: var(--color-accent-secondary); }
-.slide--title .display-quote {
+.reveal .slide--title .display-title .accent { color: var(--color-accent-secondary); }
+.reveal .slide--title .display-quote {
   font-size: 0.9375rem; font-style: italic;
   color: var(--color-text-muted);
   border-left: 3px solid var(--color-accent-warm);
   padding-left: 18px; line-height: 1.65; max-width: 660px;
 }
-.slide--title .eyebrow {
+.reveal .slide--title .eyebrow {
   font-size: 0.75rem; font-weight: 600;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--color-text-muted); margin-bottom: 24px;
 }
 
-/* Agenda */
+/* ── Agenda ──────────────────────────────────────────────────────────────── */
 .agenda-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
 .agenda-item {
   display: flex; align-items: center; gap: 18px;
@@ -249,23 +215,17 @@ td:first-child { font-weight: 600; color: var(--color-text-primary); }
 .agenda-item:nth-child(4) { border-left-color: #3fa380; }
 .agenda-item:nth-child(5) { border-left-color: #f08226; }
 .agenda-item:nth-child(6) { border-left-color: #d57112; }
-.agenda-num { font-size: 1.375rem; font-weight: 800; color: rgba(255,255,255,0.12); min-width: 36px; }
+.agenda-num   { font-size: 1.375rem; font-weight: 800; color: rgba(255,255,255,0.12); min-width: 36px; }
 .agenda-emoji { font-size: 1.125rem; min-width: 28px; }
-.agenda-text { font-size: 0.9375rem; font-weight: 500; color: var(--color-text-secondary); }
+.agenda-text  { font-size: 0.9375rem; font-weight: 500; color: var(--color-text-secondary); }
 
-/* Use-case cards */
-.usecase-card {
-  background: var(--color-bg-surface); border-radius: 8px;
-  padding: 16px 18px; height: 100%;
-}
-.usecase-card .uc-header {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
-}
+/* ── Use-case cards ──────────────────────────────────────────────────────── */
+.usecase-card { background: var(--color-bg-surface); border-radius: 8px; padding: 16px 18px; height: 100%; }
+.usecase-card .uc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .usecase-card .uc-title { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
 .usecase-card ul li { font-size: 0.875rem; padding: 3px 0 3px 18px; }
-.usecase-card ul li::before { font-size: 0.75rem; }
 
-/* Demo steps */
+/* ── Demo steps ──────────────────────────────────────────────────────────── */
 .demo-step {
   display: flex; align-items: flex-start; gap: 14px;
   padding: 12px 16px;
@@ -279,7 +239,7 @@ td:first-child { font-weight: 600; color: var(--color-text-primary); }
 }
 .demo-step-text { font-size: 0.9375rem; color: var(--color-text-secondary); padding-top: 2px; }
 
-/* Takeaways */
+/* ── Takeaways ───────────────────────────────────────────────────────────── */
 .takeaway-item {
   display: flex; align-items: flex-start; gap: 14px;
   padding: 14px 18px; background: var(--color-bg-surface);
@@ -293,7 +253,7 @@ td:first-child { font-weight: 600; color: var(--color-text-primary); }
 }
 .takeaway-text { font-size: 0.9375rem; line-height: 1.55; color: var(--color-text-secondary); }
 
-/* Resources */
+/* ── Resources ───────────────────────────────────────────────────────────── */
 .resource-item {
   display: flex; align-items: center; gap: 18px;
   padding: 18px 22px; background: var(--color-bg-surface);
@@ -308,20 +268,13 @@ td:first-child { font-weight: 600; color: var(--color-text-primary); }
 }
 .resource-title { font-size: 0.9375rem; font-weight: 600; color: white; margin-bottom: 3px; }
 .resource-url   { font-size: 0.8rem; color: var(--color-accent-secondary); font-family: 'Courier New', monospace; }
-
-/* Closing */
-.closing-text {
-  font-size: 1.5rem; font-weight: 300; color: var(--color-text-muted);
-  letter-spacing: 0.02em; margin-top: 20px;
-}
-.closing-text strong { color: var(--color-text-secondary); font-weight: 600; }
 </style>
 </head>
 <body>
 
-<!-- ── Fixed logo ─────────────────────────────────────────────────────────── -->
+<!-- ── Fixed logo (outside Reveal, always visible) ───────────────────────── -->
 <div id="logo">
-  <svg viewBox="74 740 1780 440" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg viewBox="74 740 1780 440" xmlns="http://www.w3.org/2000/svg">
     <style>.st0{fill:#1E5EA8;}.st1{fill:#054A80;}.st2{fill:#088F9B;}.st3{fill:#006B75;}.st4{fill:#F08223;}.st5{fill:#D47113;}.st6{fill:#2F3944;}.st8{fill:#225EA9;}</style>
     <polygon class="st0" points="311.6,949.7 192.9,881.3 192.9,744.7 311.6,813.1"/>
     <polygon class="st1" points="311.6,949.7 192.9,881.3 74.3,949.7 193,1018.1"/>
@@ -335,14 +288,12 @@ td:first-child { font-weight: 600; color: var(--color-text-primary); }
   </svg>
 </div>
 
-<div class="progress-bar" id="progress-bar"></div>
+<!-- ── Reveal.js presentation ─────────────────────────────────────────────── -->
+<div class="reveal">
+  <div class="slides">
 
-<!-- ── Slides ──────────────────────────────────────────────────────────────── -->
-<div id="presentation">
-
-  <!-- ─── 01 TITLE ──────────────────────────────────────────────────────── -->
-  <div class="slide slide--title active">
-    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-top:24px;">
+    <!-- ─── 01 TITLE ──────────────────────────────────────────────────────── -->
+    <section class="slide--title">
       <div class="eyebrow">Learning &amp; Sharing Session &nbsp;·&nbsp; ~20 min</div>
       <h1 class="display-title">
         Claude Code:<br>
@@ -354,353 +305,344 @@ td:first-child { font-weight: 600; color: var(--color-text-primary); }
         "I survived the Embrace AI challenge and all I got was this presentation…<br>
         and honestly a lot of time saved."
       </p>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 02 AGENDA ─────────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">Overview</div>
-    <h2 class="slide-title">What We'll Cover <span class="accent">Today</span></h2>
-    <div class="agenda-list">
-      <div class="agenda-item">
-        <span class="agenda-num">01</span>
-        <span class="agenda-emoji">🐣</span>
-        <span class="agenda-text">What is Claude Code?</span>
+    <!-- ─── 02 AGENDA ─────────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">Overview</div>
+      <h2 class="slide-title">What We'll Cover <span class="accent">Today</span></h2>
+      <div class="agenda-list">
+        <div class="agenda-item">
+          <span class="agenda-num">01</span>
+          <span class="agenda-emoji">🐣</span>
+          <span class="agenda-text">What is Claude Code?</span>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-num">02</span>
+          <span class="agenda-emoji">🔥</span>
+          <span class="agenda-text">Why does it matter?</span>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-num">03</span>
+          <span class="agenda-emoji">🧠</span>
+          <span class="agenda-text">Which models are available?</span>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-num">04</span>
+          <span class="agenda-emoji">🛠️</span>
+          <span class="agenda-text">Common use cases — and which model to pick</span>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-num">05</span>
+          <span class="agenda-emoji">🪙</span>
+          <span class="agenda-text">Tokens &amp; usage limits — the unsexy but important stuff</span>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-num">06</span>
+          <span class="agenda-emoji">✨</span>
+          <span class="agenda-text">Customization &amp; automation (+ live demo!)</span>
+        </div>
       </div>
-      <div class="agenda-item">
-        <span class="agenda-num">02</span>
-        <span class="agenda-emoji">🔥</span>
-        <span class="agenda-text">Why does it matter?</span>
-      </div>
-      <div class="agenda-item">
-        <span class="agenda-num">03</span>
-        <span class="agenda-emoji">🧠</span>
-        <span class="agenda-text">Which models are available?</span>
-      </div>
-      <div class="agenda-item">
-        <span class="agenda-num">04</span>
-        <span class="agenda-emoji">🛠️</span>
-        <span class="agenda-text">Common use cases — and which model to pick</span>
-      </div>
-      <div class="agenda-item">
-        <span class="agenda-num">05</span>
-        <span class="agenda-emoji">🪙</span>
-        <span class="agenda-text">Tokens &amp; usage limits — the unsexy but important stuff</span>
-      </div>
-      <div class="agenda-item">
-        <span class="agenda-num">06</span>
-        <span class="agenda-emoji">✨</span>
-        <span class="agenda-text">Customization &amp; automation (+ live demo!)</span>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 03 WHAT IS CLAUDE CODE ────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">01 — What is Claude Code?</div>
-    <h2 class="slide-title">An AI Coding Agent <span class="accent">in Your Terminal</span></h2>
-    <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; align-items:start;">
-      <div>
-        <ul style="margin-bottom:18px;">
-          <li>A <strong>CLI tool</strong> by Anthropic — not a plugin, not a sidebar, not a chat box</li>
-          <li>Can <strong>read files, write code, run tests, make commits</strong>, and push PRs</li>
-          <li>Powered by Anthropic's Claude models under the hood</li>
-          <li>Think: a dev who never sleeps, never complains about legacy code, and actually reads the docs</li>
-        </ul>
-        <div class="section-label" style="margin-top:16px;">Install in one line</div>
-        <pre class="shell">npm install -g @anthropic-ai/claude-code</pre>
-        <p style="font-size:0.875rem; color:var(--color-text-muted); margin-top:4px;">Then run <code>claude</code> in your project directory. That's it.</p>
+    <!-- ─── 03 WHAT IS CLAUDE CODE ────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">01 — What is Claude Code?</div>
+      <h2 class="slide-title">An AI Coding Agent <span class="accent">in Your Terminal</span></h2>
+      <div style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; align-items:start;">
+        <div>
+          <ul style="margin-bottom:18px;">
+            <li>A <strong>CLI tool</strong> by Anthropic — not a plugin, not a sidebar, not a chat box</li>
+            <li>Can <strong>read files, write code, run tests, make commits</strong>, and push PRs</li>
+            <li>Powered by Anthropic's Claude models under the hood</li>
+            <li>Think: a dev who never sleeps, never complains about legacy code, and actually reads the docs</li>
+          </ul>
+          <div class="section-label" style="margin-top:16px;">Install in one line</div>
+          <pre class="shell">npm install -g @anthropic-ai/claude-code</pre>
+          <p style="font-size:0.875rem; color:var(--color-text-muted); margin-top:4px;">Then run <code>claude</code> in your project directory. That's it.</p>
+        </div>
+        <div>
+          <div class="card petrol">
+            <div class="card-title">How it works</div>
+            <p style="font-size:0.9rem; line-height:1.7;">
+              You describe what you want<br>
+              <span style="color:var(--color-accent-secondary);">↓</span><br>
+              Claude reads your codebase<br>
+              <span style="color:var(--color-accent-secondary);">↓</span><br>
+              Claude acts<br>
+              <span style="color:var(--color-accent-secondary);">↓</span><br>
+              You review &amp; repeat
+            </p>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="card petrol">
-          <div class="card-title">How it works</div>
-          <p style="font-size:0.9rem; line-height:1.7;">
-            You describe what you want<br>
-            <span style="color:var(--color-accent-secondary);">↓</span><br>
-            Claude reads your codebase<br>
-            <span style="color:var(--color-accent-secondary);">↓</span><br>
-            Claude acts<br>
-            <span style="color:var(--color-accent-secondary);">↓</span><br>
-            You review &amp; repeat
+    </section>
+
+    <!-- ─── 04 WHY DOES IT MATTER ─────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">02 — Why Does It Matter?</div>
+      <h2 class="slide-title">From Autocomplete <span class="accent">to Autonomous</span></h2>
+      <div class="two-col" style="align-items:start;">
+        <div>
+          <div class="card" style="margin-bottom:14px;">
+            <div class="card-title" style="color:var(--color-text-muted);">Other AI tools</div>
+            <p style="font-size:0.9rem;">"Here's some code, good luck."</p>
+          </div>
+          <div class="card petrol">
+            <div class="card-title">Claude Code</div>
+            <p style="font-size:0.9rem;">"I'll write it, run it, see it fail, fix it, and commit it."</p>
+          </div>
+          <div style="margin-top:20px; padding:16px 18px; background:rgba(240,130,38,0.08); border-radius:8px; border:1px solid rgba(240,130,38,0.2);">
+            <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+              <strong style="color:var(--color-accent-warm);">The vibe shift:</strong><br>
+              You go from <em>writing</em> code to <em>reviewing</em> code.<br>Your job title stays the same. Your Fridays get better.
+            </p>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:0.8125rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:12px;">Key Powers</p>
+          <ul>
+            <li><strong>Autonomous multi-step execution</strong> — not just autocomplete</li>
+            <li><strong>Understands your actual codebase</strong> — not a generic snippet machine</li>
+            <li><strong>Reviews PRs automatically</strong> via GitHub App integration</li>
+            <li>Works great on refactors, migrations, debugging, docs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 05 MODELS ─────────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">03 — Available Models</div>
+      <h2 class="slide-title">Pick Your <span class="accent">Weapon</span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Personality</th>
+            <th>Best for</th>
+            <th>Access</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Claude Sonnet 4.6</td>
+            <td>Fast, sharp, cost-efficient</td>
+            <td>Day-to-day coding, fast iteration</td>
+            <td><span class="badge badge-green">Pro+</span></td>
+          </tr>
+          <tr>
+            <td>Claude Opus 4</td>
+            <td>Slower, deeper reasoning</td>
+            <td>Complex architecture, hard bugs</td>
+            <td><span class="badge badge-yellow">Max Plan</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="two-col" style="margin-top:16px; align-items:start;">
+        <div>
+          <div class="section-label" style="margin-bottom:8px;">Switching models</div>
+          <pre>/model claude-opus-4-20250514</pre>
+        </div>
+        <div class="card orange">
+          <div class="card-title">Rule of thumb</div>
+          <p style="font-size:0.9rem;">
+            <strong>Sonnet</strong> → get stuff done<br>
+            <strong>Opus</strong> → figure this thing out
           </p>
+          <p style="font-size:0.8rem; margin-top:8px; color:var(--color-text-muted);">Start with Sonnet. If it goes in circles, switch.</p>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 04 WHY DOES IT MATTER ─────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">02 — Why Does It Matter?</div>
-    <h2 class="slide-title">From Autocomplete <span class="accent">to Autonomous</span></h2>
-    <div class="two-col" style="align-items:start;">
-      <div>
-        <div class="card" style="margin-bottom:14px;">
-          <div class="card-title" style="color:var(--color-text-muted);">Other AI tools</div>
-          <p style="font-size:0.9rem;">"Here's some code, good luck."</p>
+    <!-- ─── 06 USE CASES ──────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">04 — Common Use Cases</div>
+      <h2 class="slide-title">What to Use It <span class="accent">For</span></h2>
+      <div class="three-col">
+        <div class="usecase-card" style="border-top: 3px solid var(--color-accent-secondary);">
+          <div class="uc-header">
+            <span class="badge badge-green">Sonnet</span>
+            <span class="uc-title" style="color:var(--color-accent-secondary);">Quick Wins</span>
+          </div>
+          <ul>
+            <li>Bug fixing</li>
+            <li>Writing tests</li>
+            <li>Code review</li>
+            <li>Documentation</li>
+            <li>Refactoring</li>
+          </ul>
         </div>
-        <div class="card petrol">
-          <div class="card-title">Claude Code</div>
-          <p style="font-size:0.9rem;">"I'll write it, run it, see it fail, fix it, and commit it."</p>
+        <div class="usecase-card" style="border-top: 3px solid var(--color-accent-warm);">
+          <div class="uc-header">
+            <span class="badge badge-yellow">Sonnet / Opus</span>
+            <span class="uc-title" style="color:var(--color-accent-warm);">Medium</span>
+          </div>
+          <ul>
+            <li>Feature implementation from ticket</li>
+            <li>Codebase exploration</li>
+            <li>API migration tasks</li>
+          </ul>
         </div>
-        <div style="margin-top:20px; padding:16px 18px; background:rgba(240,130,38,0.08); border-radius:8px; border:1px solid rgba(240,130,38,0.2);">
-          <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
-            <strong style="color:var(--color-accent-warm);">The vibe shift:</strong><br>
-            You go from <em>writing</em> code to <em>reviewing</em> code.<br>Your job title stays the same. Your Fridays get better.
-          </p>
+        <div class="usecase-card" style="border-top: 3px solid #e05555;">
+          <div class="uc-header">
+            <span class="badge badge-red">Opus</span>
+            <span class="uc-title" style="color:#e05555;">Heavy Lifting</span>
+          </div>
+          <ul>
+            <li>Architecture decisions</li>
+            <li>Haunted legacy code</li>
+            <li>Complex multi-file refactors</li>
+          </ul>
         </div>
       </div>
-      <div>
-        <p style="font-size:0.8125rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:12px;">Key Powers</p>
-        <ul>
-          <li><strong>Autonomous multi-step execution</strong> — not just autocomplete</li>
-          <li><strong>Understands your actual codebase</strong> — not a generic snippet machine</li>
-          <li><strong>Reviews PRs automatically</strong> via GitHub App integration</li>
-          <li>Works great on refactors, migrations, debugging, docs</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── 05 MODELS ─────────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">03 — Available Models</div>
-    <h2 class="slide-title">Pick Your <span class="accent">Weapon</span></h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Model</th>
-          <th>Personality</th>
-          <th>Best for</th>
-          <th>Access</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Claude Sonnet 4.6</td>
-          <td>Fast, sharp, cost-efficient</td>
-          <td>Day-to-day coding, fast iteration</td>
-          <td><span class="badge badge-green">Pro+</span></td>
-        </tr>
-        <tr>
-          <td>Claude Opus 4</td>
-          <td>Slower, deeper reasoning</td>
-          <td>Complex architecture, hard bugs</td>
-          <td><span class="badge badge-yellow">Max Plan</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="two-col" style="margin-top:16px; align-items:start;">
-      <div>
-        <div class="section-label" style="margin-bottom:8px;">Switching models</div>
-        <pre>/model claude-opus-4-20250514</pre>
-      </div>
-      <div class="card orange">
-        <div class="card-title">Rule of thumb</div>
-        <p style="font-size:0.9rem;">
-          <strong>Sonnet</strong> → get stuff done<br>
-          <strong>Opus</strong> → figure this thing out
+      <div style="margin-top:18px; padding:14px 18px; background:rgba(32,94,167,0.1); border-radius:8px; border:1px solid rgba(32,94,167,0.25);">
+        <p style="font-size:0.875rem; color:var(--color-text-secondary);">
+          💡 <strong>Pro tip:</strong> Start with Sonnet. If it starts going in circles, switch to Opus.
         </p>
-        <p style="font-size:0.8rem; margin-top:8px; color:var(--color-text-muted);">Start with Sonnet. If it goes in circles, switch.</p>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 06 USE CASES ──────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">04 — Common Use Cases</div>
-    <h2 class="slide-title">What to Use It <span class="accent">For</span></h2>
-    <div class="three-col">
-      <div class="usecase-card" style="border-top: 3px solid var(--color-accent-secondary);">
-        <div class="uc-header">
-          <span class="badge badge-green">Sonnet</span>
-          <span class="uc-title" style="color:var(--color-accent-secondary);">Quick Wins</span>
-        </div>
-        <ul>
-          <li>Bug fixing</li>
-          <li>Writing tests</li>
-          <li>Code review</li>
-          <li>Documentation</li>
-          <li>Refactoring</li>
-        </ul>
-      </div>
-      <div class="usecase-card" style="border-top: 3px solid var(--color-accent-warm);">
-        <div class="uc-header">
-          <span class="badge badge-yellow">Sonnet / Opus</span>
-          <span class="uc-title" style="color:var(--color-accent-warm);">Medium</span>
-        </div>
-        <ul>
-          <li>Feature implementation from ticket</li>
-          <li>Codebase exploration</li>
-          <li>API migration tasks</li>
-        </ul>
-      </div>
-      <div class="usecase-card" style="border-top: 3px solid #e05555;">
-        <div class="uc-header">
-          <span class="badge badge-red">Opus</span>
-          <span class="uc-title" style="color:#e05555;">Heavy Lifting</span>
-        </div>
-        <ul>
-          <li>Architecture decisions</li>
-          <li>Haunted legacy code</li>
-          <li>Complex multi-file refactors</li>
-        </ul>
-      </div>
-    </div>
-    <div style="margin-top:18px; padding:14px 18px; background:rgba(32,94,167,0.1); border-radius:8px; border:1px solid rgba(32,94,167,0.25);">
-      <p style="font-size:0.875rem; color:var(--color-text-secondary);">
-        💡 <strong>Pro tip:</strong> Start with Sonnet. If it starts going in circles, switch to Opus.
-      </p>
-    </div>
-  </div>
-
-  <!-- ─── 07 TOKENS (PART 1) ────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">05 — Tokens &amp; Usage Limits</div>
-    <h2 class="slide-title">The <span class="accent">Battery Gauge</span> You Need to Watch</h2>
-    <div class="two-col" style="align-items:start; gap:28px;">
-      <div>
-        <div class="card" style="margin-bottom:14px;">
-          <div class="card-title">What is a token?</div>
-          <p style="font-size:0.875rem;">Roughly ¾ of a word. A 200-line file ≈ a few thousand tokens. Every file Claude reads, every line it writes, every tool result — all count.</p>
-        </div>
-        <div class="section-label" style="margin-top:4px;">Track your spend</div>
-        <pre>/cost    <span style="color:#6e7681;"># token spend for this session</span>
+    <!-- ─── 07 TOKENS (PART 1) ────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">05 — Tokens &amp; Usage Limits</div>
+      <h2 class="slide-title">The <span class="accent">Battery Gauge</span> You Need to Watch</h2>
+      <div class="two-col" style="align-items:start; gap:28px;">
+        <div>
+          <div class="card" style="margin-bottom:14px;">
+            <div class="card-title">What is a token?</div>
+            <p style="font-size:0.875rem;">Roughly ¾ of a word. A 200-line file ≈ a few thousand tokens. Every file Claude reads, every line it writes, every tool result — all count.</p>
+          </div>
+          <div class="section-label" style="margin-top:4px;">Track your spend</div>
+          <pre>/cost    <span style="color:#6e7681;"># token spend for this session</span>
 /usage   <span style="color:#6e7681;"># remaining quota + reset timer</span></pre>
-        <p style="font-size:0.8125rem; color:var(--color-text-muted); margin-top:8px;">Usage resets on a <strong style="color:white;">5-hour rolling window</strong> — shared across claude.ai, Claude Code, and Claude Desktop.</p>
+          <p style="font-size:0.8125rem; color:var(--color-text-muted); margin-top:8px;">Usage resets on a <strong style="color:white;">5-hour rolling window</strong> — shared across claude.ai, Claude Code, and Claude Desktop.</p>
+        </div>
+        <div>
+          <table>
+            <thead><tr><th>Plan</th><th>~Tokens / 5h</th><th>Opus</th></tr></thead>
+            <tbody>
+              <tr><td>Free</td><td>Limited</td><td>❌</td></tr>
+              <tr><td>Pro (~$20/mo)</td><td>~44,000</td><td>❌</td></tr>
+              <tr><td>Max 5× (~$100/mo)</td><td>~88,000</td><td>✅</td></tr>
+              <tr><td>Max 20× (~$200/mo)</td><td>~220,000</td><td>✅</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.75rem; color:var(--color-text-muted); margin-top:6px;">API users get separate pay-per-token billing — no rolling windows.</p>
+        </div>
       </div>
-      <div>
-        <table>
-          <thead><tr><th>Plan</th><th>~Tokens / 5h</th><th>Opus</th></tr></thead>
-          <tbody>
-            <tr><td>Free</td><td>Limited</td><td>❌</td></tr>
-            <tr><td>Pro (~$20/mo)</td><td>~44,000</td><td>❌</td></tr>
-            <tr><td>Max 5× (~$100/mo)</td><td>~88,000</td><td>✅</td></tr>
-            <tr><td>Max 20× (~$200/mo)</td><td>~220,000</td><td>✅</td></tr>
-          </tbody>
-        </table>
-        <p style="font-size:0.75rem; color:var(--color-text-muted); margin-top:6px;">API users get separate pay-per-token billing — no rolling windows.</p>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 08 TOKENS (PART 2 — TIPS) ────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">05 — Tokens &amp; Usage Limits</div>
-    <h2 class="slide-title">Token-Saving Tips <span class="accent">That Actually Work</span></h2>
-    <div class="two-col" style="align-items:start; gap:28px; margin-top:4px;">
-      <div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">🧹</div>
-          <div class="takeaway-text">
-            Use <code>/clear</code> often — don't drag stale context into new tasks
+    <!-- ─── 08 TOKENS (PART 2 — TIPS) ────────────────────────────────────── -->
+    <section>
+      <div class="section-label">05 — Tokens &amp; Usage Limits</div>
+      <h2 class="slide-title">Token-Saving Tips <span class="accent">That Actually Work</span></h2>
+      <div class="two-col" style="align-items:start; gap:28px; margin-top:4px;">
+        <div>
+          <div class="takeaway-item">
+            <div class="takeaway-icon">🧹</div>
+            <div class="takeaway-text">Use <code>/clear</code> often — don't drag stale context into new tasks</div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-icon">📄</div>
+            <div class="takeaway-text">Write a <strong>lean CLAUDE.md</strong> — Claude reads it every session, so keep it tight</div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-icon">🎯</div>
+            <div class="takeaway-text"><strong>Be specific:</strong> "fix the login bug in UserController.java" beats "fix the login stuff"</div>
+          </div>
+          <div class="takeaway-item">
+            <div class="takeaway-icon">📦</div>
+            <div class="takeaway-text"><strong>Big diffs in one prompt</strong> &gt; many small "refine this" follow-ups</div>
           </div>
         </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">📄</div>
-          <div class="takeaway-text">
-            Write a <strong>lean CLAUDE.md</strong> — Claude reads it every session, so keep it tight
-          </div>
-        </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">🎯</div>
-          <div class="takeaway-text">
-            <strong>Be specific:</strong> "fix the login bug in UserController.java" beats "fix the login stuff"
-          </div>
-        </div>
-        <div class="takeaway-item">
-          <div class="takeaway-icon">📦</div>
-          <div class="takeaway-text">
-            <strong>Big diffs in one prompt</strong> &gt; many small "refine this" follow-ups
-          </div>
+        <div class="card orange" style="align-self:center;">
+          <div class="card-title">Weekly caps (Aug 2025)</div>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Weekly usage caps were introduced — but they only affect <strong>&lt;2% of users</strong> with heavy Sonnet usage.<br><br>
+            Unless you're using Claude Code all day every day, you won't hit them.
+          </p>
         </div>
       </div>
-      <div class="card orange" style="align-self:center;">
-        <div class="card-title">Weekly caps (Aug 2025)</div>
-        <p style="font-size:0.875rem; line-height:1.6;">
-          Weekly usage caps were introduced — but they only affect <strong>&lt;2% of users</strong> with heavy Sonnet usage.<br><br>
-          Unless you're using Claude Code all day every day, you won't hit them.
-        </p>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 09 CLAUDE.MD ──────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">06 — Customization &amp; Automation</div>
-    <h2 class="slide-title">CLAUDE.md — <span class="accent">Your Project's Brain</span></h2>
-    <div class="two-col" style="align-items:start; gap:28px;">
-      <div>
-        <p style="font-size:0.9375rem; margin-bottom:14px; color:var(--color-text-secondary);">
-          A markdown file at the <strong>root of your project</strong> (or <code>~/.claude/CLAUDE.md</code> globally) that Claude reads at the start of <em>every session</em>.
-        </p>
-        <p style="font-size:0.9375rem; margin-bottom:14px; color:var(--color-text-secondary);">
-          Think of it as <strong>onboarding docs for your AI colleague</strong>. Commit it to git — your whole team benefits.
-        </p>
-        <div class="card petrol" style="margin-top:8px;">
-          <div class="card-title">Most impactful 15 minutes</div>
-          <p style="font-size:0.875rem;">Setting up a good CLAUDE.md is the highest-leverage thing you can do for your AI workflow.</p>
+    <!-- ─── 09 CLAUDE.MD ──────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">06 — Customization &amp; Automation</div>
+      <h2 class="slide-title">CLAUDE.md — <span class="accent">Your Project's Brain</span></h2>
+      <div class="two-col" style="align-items:start; gap:28px;">
+        <div>
+          <p style="font-size:0.9375rem; margin-bottom:14px; color:var(--color-text-secondary);">
+            A markdown file at the <strong>root of your project</strong> (or <code>~/.claude/CLAUDE.md</code> globally) that Claude reads at the start of <em>every session</em>.
+          </p>
+          <p style="font-size:0.9375rem; margin-bottom:14px; color:var(--color-text-secondary);">
+            Think of it as <strong>onboarding docs for your AI colleague</strong>. Commit it to git — your whole team benefits.
+          </p>
+          <div class="card petrol" style="margin-top:8px;">
+            <div class="card-title">Most impactful 15 minutes</div>
+            <p style="font-size:0.875rem;">Setting up a good CLAUDE.md is the highest-leverage thing you can do for your AI workflow.</p>
+          </div>
         </div>
-      </div>
-      <div>
-        <pre><span style="color:#79c0ff;"># My Project</span>
+        <div>
+          <pre><span style="color:#79c0ff;"># My Project</span>
 
 <span style="color:#6e7681;">- Always use TypeScript strict mode</span>
 <span style="color:#6e7681;">- Run `npm test` before committing</span>
 <span style="color:#6e7681;">- Branch naming:</span>
 <span style="color:#6e7681;">  feature/[ticket-id]-short-description</span>
 <span style="color:#6e7681;">- Never edit /generated — auto-generated</span></pre>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 10 SLASH COMMANDS ─────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">06 — Customization &amp; Automation</div>
-    <h2 class="slide-title">Custom Slash Commands — <span class="accent">Macros for Your Workflow</span></h2>
-    <div class="two-col" style="align-items:start; gap:28px;">
-      <div>
-        <p style="font-size:0.9375rem; margin-bottom:14px;">Create repeatable workflows by dropping markdown files in <code>.claude/commands/</code>:</p>
-        <pre class="shell">mkdir -p .claude/commands</pre>
-        <p style="font-size:0.875rem; margin: 12px 0 8px; color:var(--color-text-muted);">Then invoke from any session:</p>
-        <pre class="shell">/review</pre>
-        <p style="font-size:0.875rem; margin: 12px 0 8px; color:var(--color-text-muted);">Or with parameters:</p>
-        <pre class="shell">/fix-issue 1337</pre>
-      </div>
-      <div>
-        <div class="section-label" style="margin-bottom:8px;">Example: <code>.claude/commands/review.md</code></div>
-        <pre>Review the staged changes for bugs
+    <!-- ─── 10 SLASH COMMANDS ─────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">06 — Customization &amp; Automation</div>
+      <h2 class="slide-title">Custom Slash Commands — <span class="accent">Macros for Your Workflow</span></h2>
+      <div class="two-col" style="align-items:start; gap:28px;">
+        <div>
+          <p style="font-size:0.9375rem; margin-bottom:14px;">Create repeatable workflows by dropping markdown files in <code>.claude/commands/</code>:</p>
+          <pre class="shell">mkdir -p .claude/commands</pre>
+          <p style="font-size:0.875rem; margin: 12px 0 8px; color:var(--color-text-muted);">Then invoke from any session:</p>
+          <pre class="shell">/review</pre>
+          <p style="font-size:0.875rem; margin: 12px 0 8px; color:var(--color-text-muted);">Or with parameters:</p>
+          <pre class="shell">/fix-issue 1337</pre>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:8px;">Example: <code>.claude/commands/review.md</code></div>
+          <pre>Review the staged changes for bugs
 and security issues only.
 
 Be concise. No style comments.</pre>
-        <div class="card petrol" style="margin-top:14px;">
-          <div class="card-title">Why it matters</div>
-          <p style="font-size:0.875rem;">Turns your most-used prompts into a one-word command. Build a team library and everyone benefits.</p>
+          <div class="card petrol" style="margin-top:14px;">
+            <div class="card-title">Why it matters</div>
+            <p style="font-size:0.875rem;">Turns your most-used prompts into a one-word command. Build a team library and everyone benefits.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 11 HOOKS ──────────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">06 — Customization &amp; Automation</div>
-    <h2 class="slide-title">Hooks — <span class="accent">The "Always Do This" Layer</span></h2>
-    <div class="two-col" style="align-items:start; gap:28px;">
-      <div>
-        <p style="font-size:0.9375rem; margin-bottom:14px;">
-          Hooks run <strong>deterministic shell commands</strong> at specific lifecycle points. Unlike CLAUDE.md suggestions, hooks are <strong>rules that always fire</strong>.
-        </p>
-        <div class="section-label" style="margin-top:4px;">Available hook events</div>
-        <ul style="margin-top:8px;">
-          <li><code>UserPromptSubmit</code></li>
-          <li><code>PreToolUse</code></li>
-          <li><code>PostToolUse</code></li>
-          <li><code>Stop</code></li>
-        </ul>
-        <p style="font-size:0.875rem; margin-top:14px; color:var(--color-text-muted);">Configure via the interactive <code>/hooks</code> command — no JSON editing required.</p>
-      </div>
-      <div>
-        <div class="section-label" style="margin-bottom:8px;">Example: Auto-run Prettier after every file write</div>
-        <pre class="json">{
+    <!-- ─── 11 HOOKS ──────────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">06 — Customization &amp; Automation</div>
+      <h2 class="slide-title">Hooks — <span class="accent">The "Always Do This" Layer</span></h2>
+      <div class="two-col" style="align-items:start; gap:28px;">
+        <div>
+          <p style="font-size:0.9375rem; margin-bottom:14px;">
+            Hooks run <strong>deterministic shell commands</strong> at specific lifecycle points. Unlike CLAUDE.md suggestions, hooks are <strong>rules that always fire</strong>.
+          </p>
+          <div class="section-label" style="margin-top:4px;">Available hook events</div>
+          <ul style="margin-top:8px;">
+            <li><code>UserPromptSubmit</code></li>
+            <li><code>PreToolUse</code></li>
+            <li><code>PostToolUse</code></li>
+            <li><code>Stop</code></li>
+          </ul>
+          <p style="font-size:0.875rem; margin-top:14px; color:var(--color-text-muted);">Configure via the interactive <code>/hooks</code> command — no JSON editing required.</p>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:8px;">Example: Auto-run Prettier after every file write</div>
+          <pre class="json">{
   "hooks": {
     "PostToolUse": [{
       "matcher": "Write(*.ts)",
@@ -711,226 +653,150 @@ Be concise. No style comments.</pre>
     }]
   }
 }</pre>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 12 PLUGINS ────────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">06 — Customization &amp; Automation</div>
-    <h2 class="slide-title">Plugins — <span class="accent">Share It All as a Bundle</span></h2>
-    <div style="max-width:720px; margin-top:8px;">
-      <p style="font-size:1rem; margin-bottom:20px; color:var(--color-text-secondary);">
-        Plugins package <strong>slash commands + hooks + MCP servers</strong> into one installable unit. Great for team-wide consistency.
-      </p>
-      <pre class="shell">/plugin install &lt;plugin-name&gt;</pre>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:24px;">
-        <div class="card petrol">
-          <div class="card-title">What's bundled</div>
-          <ul style="margin-top:4px;">
-            <li style="font-size:0.875rem;">Custom slash commands</li>
-            <li style="font-size:0.875rem;">Hook configurations</li>
-            <li style="font-size:0.875rem;">MCP server definitions</li>
-          </ul>
-        </div>
-        <div class="card orange">
-          <div class="card-title">Best use case</div>
-          <p style="font-size:0.875rem; line-height:1.6;">
-            Define your team's standards once, distribute as a plugin. New devs get the full setup instantly.
-          </p>
+    <!-- ─── 12 PLUGINS ────────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">06 — Customization &amp; Automation</div>
+      <h2 class="slide-title">Plugins — <span class="accent">Share It All as a Bundle</span></h2>
+      <div style="max-width:720px; margin-top:8px;">
+        <p style="font-size:1rem; margin-bottom:20px; color:var(--color-text-secondary);">
+          Plugins package <strong>slash commands + hooks + MCP servers</strong> into one installable unit. Great for team-wide consistency.
+        </p>
+        <pre class="shell">/plugin install &lt;plugin-name&gt;</pre>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:24px;">
+          <div class="card petrol">
+            <div class="card-title">What's bundled</div>
+            <ul style="margin-top:4px;">
+              <li style="font-size:0.875rem;">Custom slash commands</li>
+              <li style="font-size:0.875rem;">Hook configurations</li>
+              <li style="font-size:0.875rem;">MCP server definitions</li>
+            </ul>
+          </div>
+          <div class="card orange">
+            <div class="card-title">Best use case</div>
+            <p style="font-size:0.875rem; line-height:1.6;">
+              Define your team's standards once, distribute as a plugin. New devs get the full setup instantly.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ─── 13 LIVE DEMO ──────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">Live Demo</div>
-    <h2 class="slide-title">Let's See It <span class="accent">In Action</span></h2>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; margin-top:4px;">
-      <div>
-        <div class="card petrol" style="margin-bottom:16px;">
-          <div class="card-title">What we'll do</div>
-          <p style="font-size:0.9rem; line-height:1.7;">Start Claude Code in a small project, show CLAUDE.md in action, and fire a custom <code>/review</code> slash command.</p>
-        </div>
-        <div class="demo-step">
-          <div class="demo-step-num">1</div>
-          <div class="demo-step-text"><code>cd my-demo-project &amp;&amp; claude</code></div>
-        </div>
-        <div class="demo-step">
-          <div class="demo-step-num">2</div>
-          <div class="demo-step-text">Show the auto-loaded CLAUDE.md context</div>
-        </div>
-        <div class="demo-step">
-          <div class="demo-step-num">3</div>
-          <div class="demo-step-text">Ask Claude to find a bug</div>
-        </div>
-        <div class="demo-step">
-          <div class="demo-step-num">4</div>
-          <div class="demo-step-text">Run <code>/review</code> on staged changes</div>
-        </div>
-        <div class="demo-step">
-          <div class="demo-step-num">5</div>
-          <div class="demo-step-text">Watch it not hallucinate variable names 🤞</div>
-        </div>
-      </div>
-      <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; min-height:200px;">
-        <div style="font-size:5rem; line-height:1; margin-bottom:12px;">🎬</div>
-        <p style="font-size:0.875rem; color:var(--color-text-muted); text-align:center;">~3 minutes</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── 14 KEY TAKEAWAYS ──────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">Wrap-Up</div>
-    <h2 class="slide-title">Key <span class="accent">Takeaways</span></h2>
-    <div style="max-width:760px; margin-top:4px;">
-      <div class="takeaway-item">
-        <div class="takeaway-icon">🤖</div>
-        <div class="takeaway-text">Claude Code is <strong>agentic</strong> — it does things, not just suggests things</div>
-      </div>
-      <div class="takeaway-item">
-        <div class="takeaway-icon">⚡</div>
-        <div class="takeaway-text"><strong>Sonnet</strong> for speed and daily work; <strong>Opus</strong> for hard problems (Max plan required)</div>
-      </div>
-      <div class="takeaway-item">
-        <div class="takeaway-icon">🪙</div>
-        <div class="takeaway-text">Usage runs on a <strong>5-hour rolling window</strong> — shared across all Claude surfaces</div>
-      </div>
-      <div class="takeaway-item">
-        <div class="takeaway-icon">📄</div>
-        <div class="takeaway-text"><strong>CLAUDE.md</strong> is the most impactful 15 minutes you'll spend on your AI setup</div>
-      </div>
-      <div class="takeaway-item">
-        <div class="takeaway-icon">🔧</div>
-        <div class="takeaway-text">Custom <strong>slash commands + hooks</strong> = your personalized dev co-pilot</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ─── 15 RESOURCES ──────────────────────────────────────────────────── -->
-  <div class="slide">
-    <div class="section-label">Resources</div>
-    <h2 class="slide-title">Keep <span class="accent">Learning</span></h2>
-    <div style="max-width:720px; margin-top:8px;">
-      <div class="resource-item">
-        <div class="resource-icon">📚</div>
+    <!-- ─── 13 LIVE DEMO ──────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">Live Demo</div>
+      <h2 class="slide-title">Let's See It <span class="accent">In Action</span></h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; margin-top:4px;">
         <div>
-          <div class="resource-title">Official Claude Code Docs</div>
-          <div class="resource-url">docs.claude.com/en/docs/claude-code/overview</div>
+          <div class="card petrol" style="margin-bottom:16px;">
+            <div class="card-title">What we'll do</div>
+            <p style="font-size:0.9rem; line-height:1.7;">Start Claude Code in a small project, show CLAUDE.md in action, and fire a custom <code>/review</code> slash command.</p>
+          </div>
+          <div class="demo-step">
+            <div class="demo-step-num">1</div>
+            <div class="demo-step-text"><code>cd my-demo-project &amp;&amp; claude</code></div>
+          </div>
+          <div class="demo-step">
+            <div class="demo-step-num">2</div>
+            <div class="demo-step-text">Show the auto-loaded CLAUDE.md context</div>
+          </div>
+          <div class="demo-step">
+            <div class="demo-step-num">3</div>
+            <div class="demo-step-text">Ask Claude to find a bug</div>
+          </div>
+          <div class="demo-step">
+            <div class="demo-step-num">4</div>
+            <div class="demo-step-text">Run <code>/review</code> on staged changes</div>
+          </div>
+          <div class="demo-step">
+            <div class="demo-step-num">5</div>
+            <div class="demo-step-text">Watch it not hallucinate variable names 🤞</div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; min-height:200px;">
+          <div style="font-size:5rem; line-height:1; margin-bottom:12px;">🎬</div>
+          <p style="font-size:0.875rem; color:var(--color-text-muted); text-align:center;">~3 minutes</p>
         </div>
       </div>
-      <div class="resource-item">
-        <div class="resource-icon">⭐</div>
-        <div>
-          <div class="resource-title">Awesome Claude Code (community)</div>
-          <div class="resource-url">github.com/hesreallyhim/awesome-claude-code</div>
+    </section>
+
+    <!-- ─── 14 KEY TAKEAWAYS ──────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">Wrap-Up</div>
+      <h2 class="slide-title">Key <span class="accent">Takeaways</span></h2>
+      <div style="max-width:760px; margin-top:4px;">
+        <div class="takeaway-item">
+          <div class="takeaway-icon">🤖</div>
+          <div class="takeaway-text">Claude Code is <strong>agentic</strong> — it does things, not just suggests things</div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-icon">⚡</div>
+          <div class="takeaway-text"><strong>Sonnet</strong> for speed and daily work; <strong>Opus</strong> for hard problems (Max plan required)</div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-icon">🪙</div>
+          <div class="takeaway-text">Usage runs on a <strong>5-hour rolling window</strong> — shared across all Claude surfaces</div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-icon">📄</div>
+          <div class="takeaway-text"><strong>CLAUDE.md</strong> is the most impactful 15 minutes you'll spend on your AI setup</div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-icon">🔧</div>
+          <div class="takeaway-text">Custom <strong>slash commands + hooks</strong> = your personalized dev co-pilot</div>
         </div>
       </div>
-      <div class="resource-item">
-        <div class="resource-icon">💡</div>
-        <div>
-          <div class="resource-title">Usage Limits Explained</div>
-          <div class="resource-url">support.claude.com/en/articles/11647753-understanding-usage-and-length-limits</div>
+    </section>
+
+    <!-- ─── 15 RESOURCES ──────────────────────────────────────────────────── -->
+    <section>
+      <div class="section-label">Resources</div>
+      <h2 class="slide-title">Keep <span class="accent">Learning</span></h2>
+      <div style="max-width:720px; margin-top:8px;">
+        <div class="resource-item">
+          <div class="resource-icon">📚</div>
+          <div>
+            <div class="resource-title">Official Claude Code Docs</div>
+            <div class="resource-url">docs.claude.com/en/docs/claude-code/overview</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="resource-icon">⭐</div>
+          <div>
+            <div class="resource-title">Awesome Claude Code (community)</div>
+            <div class="resource-url">github.com/hesreallyhim/awesome-claude-code</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="resource-icon">💡</div>
+          <div>
+            <div class="resource-title">Usage Limits Explained</div>
+            <div class="resource-url">support.claude.com/en/articles/11647753-understanding-usage-and-length-limits</div>
+          </div>
         </div>
       </div>
-    </div>
-    <p style="margin-top:28px; font-size:0.875rem; color:var(--color-text-muted); font-style:italic;">Made with Claude Code. Obviously.</p>
+      <p style="margin-top:28px; font-size:0.875rem; color:var(--color-text-muted); font-style:italic;">Made with Claude Code. Obviously.</p>
+    </section>
+
   </div>
+</div>
 
-</div><!-- /#presentation -->
-
-<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
-<nav class="nav">
-  <button class="nav-btn" id="prev-btn">&#8592;</button>
-  <div class="nav-dots" id="nav-dots"></div>
-  <span class="nav-counter" id="nav-counter">1 / 15</span>
-  <button class="nav-btn" id="next-btn">&#8594;</button>
-</nav>
-
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
 <script>
-(function () {
-  const slides = Array.from(document.querySelectorAll('.slide'));
-  const total = slides.length;
-  let current = 0;
-
-  const prevBtn    = document.getElementById('prev-btn');
-  const nextBtn    = document.getElementById('next-btn');
-  const counter    = document.getElementById('nav-counter');
-  const dotsWrap   = document.getElementById('nav-dots');
-  const progressEl = document.getElementById('progress-bar');
-
-  // Build dots
-  slides.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
+  Reveal.initialize({
+    hash: true,
+    center: false,
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    controls: true,
+    progress: true,
+    slideNumber: 'c/t',
+    keyboard: true,
+    touch: true,
   });
-
-  function goTo(n) {
-    if (n < 0 || n >= total || n === current) return;
-    const isForward = n > current;
-    const leaving   = slides[current];
-    const arriving  = slides[n];
-    current = n;
-
-    // 1. Snap arriving slide to its off-screen starting position (no transition)
-    arriving.style.transition = 'none';
-    arriving.style.transform  = isForward ? 'translateX(56px)' : 'translateX(-56px)';
-    arriving.style.opacity    = '0';
-
-    // 2. Force browser to register that position before animating
-    arriving.offsetWidth; // eslint-disable-line no-unused-expressions
-
-    // 3. Re-enable transitions and animate arriving slide in
-    arriving.style.transition = '';
-    arriving.style.transform  = '';
-    arriving.style.opacity    = '';
-    arriving.classList.add('active');
-
-    // 4. Animate leaving slide out in the opposite direction
-    leaving.classList.remove('active');
-    leaving.style.transform = isForward ? 'translateX(-56px)' : 'translateX(56px)';
-    leaving.style.opacity   = '0';
-
-    // 5. Reset leaving slide after transition completes
-    setTimeout(() => {
-      leaving.style.transform = '';
-      leaving.style.opacity   = '';
-    }, 380);
-
-    updateUI();
-  }
-
-  function updateUI() {
-    counter.textContent = (current + 1) + ' / ' + total;
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current === total - 1;
-    progressEl.style.width = ((current + 1) / total * 100) + '%';
-    dotsWrap.querySelectorAll('.nav-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === current);
-    });
-  }
-
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-      e.preventDefault(); goTo(current + 1);
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      e.preventDefault(); goTo(current - 1);
-    } else if (e.key === 'Home') {
-      goTo(0);
-    } else if (e.key === 'End') {
-      goTo(total - 1);
-    }
-  });
-
-  updateUI();
-})();
 </script>
 </body>
 </html>

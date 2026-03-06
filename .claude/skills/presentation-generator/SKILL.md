@@ -17,107 +17,17 @@ Slides must be **minimal, structured, visually consistent, and brand-accurate**.
 
 # Output
 
-Produce a **single self-contained HTML file**.
+Produce a **single self-contained HTML file** by filling in the `layout.html` template.
 
-Requirements:
+## How to generate
 
-- No separate asset files
-- Everything must be embedded or loaded via CDN inside the HTML
+1. **Read** `layout.html` from this skill folder — it contains all CSS, design tokens, the logo, Reveal.js CDN links, and the full presentation shell
+2. **Read** `styleguide.html` from this skill folder — use it for all component HTML patterns
+3. **Plan** the slide structure based on the input content
+4. **Generate** only the `<section>` elements for each slide, using patterns from `styleguide.html` verbatim
+5. **Output** the complete file: take the full content of `layout.html`, replace `%%TITLE%%` with the presentation title and `<!-- %%SLIDES%% -->` with your generated `<section>` elements
 
-Assets must be embedded as follows:
-
-- Fonts: Google Fonts CDN or `@font-face`
-- Icons: inline SVG
-- Images: base64
-- Company logo (`TAT-Logo-4c.svg`): inline SVG (preferred) — fall back to `TAT-Logo.png` as base64 data URI only if the SVG is unavailable
-
-## Slide Framework: Reveal.js
-
-Use **Reveal.js v5** via CDN for all slide navigation and transitions.
-Do **not** hand-roll navigation JavaScript or CSS transitions.
-
-Load via CDN in `<head>`:
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
-```
-
-Load the script before `</body>` and initialise:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
-<script>
-  Reveal.initialize({
-    hash: true,
-    center: false,
-    transition: 'slide',
-    transitionSpeed: 'fast',
-    controls: true,
-    progress: true,
-    slideNumber: 'c/t',
-  });
-</script>
-```
-
-**Do not** load a Reveal theme CSS file — apply all visual styling yourself.
-
-> **Why:** Reveal's `--r-*` CSS variables are only consumed by theme CSS files.
-> Without a theme file loaded, setting them has no effect. Apply styles directly
-> to the elements that Reveal.js uses for layout.
-
-Add these rules to your `<style>` block:
-
-```css
-/* Background — must target .reveal-viewport, not :root or body */
-.reveal-viewport {
-  background: var(--color-bg-dark);
-}
-
-/* Base font and text color */
-.reveal {
-  font-family: var(--font-primary);
-  font-size: 16px;
-  color: var(--color-text-secondary);
-}
-
-/* Heading reset — Reveal.js sets its own heading styles that override browser defaults */
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-  font-family: var(--font-primary);
-  color: var(--color-text-primary);
-  font-weight: 700;
-  text-transform: none;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin: 0;
-  text-shadow: none;
-}
-```
-
-Wrap slides in the Reveal structure:
-
-```html
-<div class="reveal">
-  <div class="slides">
-    <section>Slide content</section>
-    <section>Slide content</section>
-  </div>
-</div>
-```
-
-Style `.reveal .slides section` for left-aligned, top-anchored content with brand padding:
-
-```css
-.reveal .slides section {
-  text-align: left;
-  padding: 52px 72px 80px;
-  height: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-```
-
-The file must be **fully portable and presentation-ready**.
+Do **not** regenerate the CSS, design tokens, logo SVG, or Reveal.js setup — everything is already in `layout.html`.
 
 Do **not** include explanations or commentary — only the final HTML.
 
@@ -129,10 +39,8 @@ Strictly follow the design system defined in **`tgg-design-tokens.yaml`** and th
 
 You must:
 
-1. Parse the YAML design tokens and convert them into CSS variables.
-2. Use semantic color and typography roles.
-3. Never invent colors or typography outside the tokens.
-4. **Use component HTML patterns verbatim from `styleguide.html`** — do not invent new class names, nesting structures, or inline styles for components that already exist in the styleguide.
+1. **Use component HTML patterns verbatim from `styleguide.html`** — do not invent new class names, nesting structures, or inline styles for components that already exist in the styleguide.
+2. Never invent colors or typography outside the tokens already defined in `layout.html`.
 
 ## Component Library
 
@@ -168,9 +76,7 @@ Maintain **strong visual consistency** across all slides.
 
 Rules:
 
-- The **company logo must appear on every slide**, fixed in the top-right corner
-- Wrap the logo in `<a href="https://www.timetoact-group.at/" target="_blank" rel="noopener">` so it links to the company website
-- Logo placement must be consistent across all slides
+- The company logo and its link are already provided by `layout.html` — do not add or move it
 - Use **clean modern layouts**
 - Emphasize **visual hierarchy**
 - Use **large typography**

@@ -3,7 +3,6 @@ Use latest info from official sources:
 - https://claude.com/pricing
 - https://claude.com/platform/api
 
-  
 # 🤖 Claude Code: What I Learned So You Don't Have To
 ### Learning & Sharing Session — ~20 min
 
@@ -11,243 +10,452 @@ Use latest info from official sources:
 
 ---
 
-## 🎯 Agenda
+# 🎯 Agenda
 
 1. What is Claude Code?
 2. Why does it matter?
-3. Which models are available?
+3. Claude model lineup
 4. Common use cases (+ which model to pick)
-5. Tokens & usage limits — the unsexy but important stuff
-6. Customization & automation (+ live demo!)
+5. Tokens, limits & pricing
+6. Customization & automation
+7. How Claude Code actually works
 
 ---
 
-## 1. 🐣 What is Claude Code?
+# 1. 🐣 What is Claude Code?
 
-**TL;DR:** It's an AI coding agent that lives in your terminal.
+**TL;DR:** It's an AI coding agent that can operate directly on your codebase.
 
-- A **CLI tool** by Anthropic — not a plugin, not a sidebar, not a chat box
-- It can **read files, write code, run tests, make commits**, and push PRs
-- Powered by Anthropic's Claude models under the hood
-- Think of it as a dev who never sleeps, never complains about legacy code, and actually reads the docs
+Originally launched as a **terminal-based CLI tool**, Claude Code is now accessible through multiple interfaces:
 
-**Install in one line:**
-```bash
+- **CLI agent** (`claude` command in your terminal)
+- **Claude web app**
+- **Integrations and automation workflows**
+
+Unlike simple AI assistants, Claude Code can **interact with your repository and development tools**.
+
+It can:
+
+- read files
+- write code
+- run commands
+- execute tests
+- refactor code
+- analyze repositories
+- create commits and pull requests
+
+Think of it as a **junior developer that can operate tools**, not just generate text.
+
+---
+
+## Install (CLI)
+
 npm install -g @anthropic-ai/claude-code
-```
-Then just run `claude` in your project directory. That's it.
 
-**How it works (oversimplified):**
-> You describe what you want → Claude reads your codebase → Claude acts → you review → repeat
+Then inside a project:
 
----
-
-## 2. 🔥 Why Does It Matter?
-
-**The agentic difference:**
-- Most AI tools: "here's some code, good luck"
-- Claude Code: "I'll write it, run it, see it fail, fix it, and commit it"
-
-**Key powers:**
-- Autonomous multi-step task execution (not just autocomplete)
-- Understands your *actual* codebase — not a generic snippet machine
-- Can review PRs automatically (via GitHub App integration)
-- Works well on refactors, migrations, debugging, documentation
-
-**The vibe shift:** You go from *writing* code to *reviewing* code. Your job title stays the same, your Friday afternoons get better.
+claude
 
 ---
 
-## 3. 🧠 Available Models
+## Simplified workflow
 
-//TODO: include all models from https://platform.claude.com/docs/en/about-claude/models/overview
-Claude Code lets you choose your model. Here's the lineup as of early 2026:
-
-| Model | Personality | Good for |
-|---|---|---|
-| **Claude Sonnet 4.6** | Fast, sharp, cost-efficient | Day-to-day coding, fast iteration |
-| **Claude Opus 4** | Slower, deeper reasoning | Complex architecture, hard bugs |
-
-**Model switching:**
-```bash
-/model claude-opus-4-20250514
-```
-
-**Default behavior (Pro plan):** Uses Sonnet until you hit ~50% of your usage window, then stays on Sonnet. Opus requires Max plan or API access.
-
-**Rule of thumb:** Sonnet for "get stuff done", Opus for "figure this thing out".
+You describe a task
+↓
+Claude explores the repository
+↓
+Claude performs actions (tools)
+↓
+You review results
+↓
+Iterate
 
 ---
 
-## 4. 🛠 Common Use Cases
+# 2. 🔥 Why Does It Matter?
 
-### 🟢 Quick wins — Sonnet is perfect here
-- **Bug fixing** — "Find and fix the null pointer in AuthService"
-- **Writing tests** — "Add unit tests for the payment module"
-- **Code review** — "Review this PR and flag actual bugs, not style nitpicks"
-- **Documentation** — "Write a README for this repo"
-- **Refactoring** — "Extract this logic into a reusable utility"
+Most AI coding tools behave like this:
 
-### 🟡 Medium complexity — Sonnet, maybe Opus
-- **Feature implementation** from a spec or ticket
-- **Codebase exploration** — "How does our auth flow actually work?"
-- **Migration tasks** — "Migrate these API calls from v1 to v2"
+> "Here's some code. Good luck."
 
-### 🔴 Heavy lifting — Opus earns its keep
-- **Architectural decisions** — "Should this be a microservice or a module?"
-- **Debugging haunted legacy code** — the kind that has no tests and three authors
-- **Complex multi-file refactors** with lots of interdependencies
+Claude Code behaves more like this:
 
-**Pro tip:** Start with Sonnet. If it starts going in circles, switch to Opus.
+> "I'll try implementing it, run tests, debug failures, and refine the solution."
 
----
+This difference is often called **agentic behavior**.
 
-## 5. 🪙 Tokens & Usage Limits
+### Key capabilities
 
-*Yes, we have to talk about this. It's like checking your phone battery — annoying but necessary.*
+Claude Code can:
 
-### What's a token?
-- Roughly ~¾ of a word. A 200-line file ≈ a few thousand tokens.
-- Every file Claude reads, every line it writes, every tool result — all count.
+- execute **multi-step tasks**
+- analyze **entire repositories**
+- refactor across **multiple files**
+- run tests and fix failures
+- review pull requests
+- generate documentation
+- assist with migrations
 
-### The usage model (Claude.ai plans)
+This shifts the workflow from:
 
-Source: https://claude.com/pricing
+writing code → debugging
 
-//TODO: find and list per Input/Output token costs
-| Plan | Approx. tokens / 5h window | Opus access |
-|---|---|---|
-| **Free** | ~limited / no agentic features | ❌ |
-| **Pro** (~$20/mo) | ~44,000 tokens | ❌ |
-| **Max 5x** (~$100/mo) | ~88,000 tokens | ✅ |
-| **Max 20x** (~$200/mo) | ~220,000 tokens | ✅ |
+to
 
-- Usage **resets every 5 hours** (rolling window)
-- There are also **weekly caps** (introduced Aug 2025) — affects <2% of users with Sonnet
-- All Claude surfaces (claude.ai, Claude Code, Claude Desktop) share the **same usage pool**
-- **API users** get separate pay-per-token billing — no rolling windows
-
-### Commands to track your usage
-```bash
-/cost      # see token spend for current session
-/usage     # see remaining quota + reset timer
-```
-
-### Token-saving tips that actually work
-- Use `/clear` often — don't drag old context into new tasks
-- Write a lean `CLAUDE.md` — Claude reads it every session, so keep it tight
-- Be specific in your prompts — "fix the login bug in UserController.java" > "fix the login stuff"
-- Big diffs in one prompt > lots of small "refine this" follow-ups
+reviewing AI-generated code → refining
 
 ---
 
-## 6. ✨ Customization & Automation
+# 3. 🧠 Claude Model Lineup
 
-*Here's where Claude Code goes from "pretty cool" to "actually magic".*
+Claude models come in **three families**, each optimized for different workloads.
 
-### 📄 CLAUDE.md — Your project's brain transplant
+| Model | Personality | Best For |
+|------|-------------|----------|
+| **Haiku** | Very fast, inexpensive | Automation, tooling, simple tasks |
+| **Sonnet** | Balanced performance | Daily coding tasks |
+| **Opus** | Highest reasoning ability | Complex architecture & debugging |
 
-A markdown file at the root of your project (or `~/.claude/CLAUDE.md` globally) that Claude reads at the start of every session.
+Typical workflow:
 
-```markdown
-# My Project
-
-- Always use TypeScript strict mode
-- Run `npm test` before committing
-- Branch naming: feature/[ticket-id]-short-description
-- Never edit files in /generated — these are auto-generated
-```
-
-Think of it as onboarding docs for your AI colleague. Commit it to git — your whole team benefits.
+- **Haiku** → automation scripts
+- **Sonnet** → daily coding tasks
+- **Opus** → difficult reasoning problems
 
 ---
 
-### ⚡ Custom Slash Commands — Macros for your workflow
+## Example model switch (CLI)
 
-Create repeatable workflows by dropping markdown files in `.claude/commands/`:
+/model claude-opus
 
-```bash
-mkdir -p .claude/commands
-```
+Rule of thumb:
 
-Example: `.claude/commands/review.md`
-```markdown
+> Start with Sonnet. Switch to Opus when the problem gets hard.
+
+---
+
+# 4. 🛠 Common Use Cases
+
+## 🟢 Quick wins
+
+Sonnet usually works great for:
+
+- fixing bugs
+- writing unit tests
+- generating documentation
+- explaining unfamiliar code
+- reviewing pull requests
+
+Example:
+
+Find and fix the null pointer bug in AuthService
+
+---
+
+## 🟡 Medium complexity
+
+Still usually handled well by Sonnet:
+
+- feature implementation
+- codebase exploration
+- dependency upgrades
+- API migrations
+
+Example:
+
+Migrate these REST calls from API v1 to v2
+
+---
+
+## 🔴 Heavy lifting
+
+When problems require deeper reasoning, **Opus shines**.
+
+Examples:
+
+- architectural tradeoffs
+- debugging legacy code
+- large refactors
+- complex system design
+
+Example:
+
+Explain why this distributed transaction occasionally deadlocks
+
+---
+
+# 5. 🪙 Tokens, Limits & Pricing
+
+Unfortunately we have to talk about **tokens and limits**.
+
+---
+
+## What is a token?
+
+A token is roughly **¾ of a word**.
+
+Examples:
+
+| Content | Tokens |
+|-------|-------|
+| short prompt | ~20 |
+| long function | ~200 |
+| medium source file | 1k+ |
+
+Everything counts toward usage:
+
+- input prompts
+- files read
+- generated responses
+- tool outputs
+
+---
+
+## Claude.ai Plans
+
+Claude offers subscription plans for the hosted assistant.
+
+| Plan | Typical usage | Notes |
+|----|----|----|
+| Free | Limited usage | Lower priority access |
+| Pro | Higher limits | Popular individual plan |
+| Max | Much higher limits | Access to more compute |
+
+Important notes:
+
+- usage is **not defined by fixed token quotas**
+- limits depend on **model and workload**
+- usage resets periodically (rolling windows)
+
+Heavy tasks may consume more of your usage allowance.
+
+---
+
+## API Pricing
+
+The API uses **pay-per-token billing**.
+
+Typical structure:
+
+| Model | Cost Profile |
+|------|-------------|
+| Haiku | cheapest |
+| Sonnet | mid-range |
+| Opus | most expensive |
+
+Pricing depends on:
+
+- input tokens
+- output tokens
+- model used
+
+See official pricing for details.
+
+---
+
+## Practical token tips
+
+Things that reduce token usage:
+
+- clearing old context
+- using focused prompts
+- referencing specific files
+- avoiding long conversation chains
+
+---
+
+# 6. ✨ Customization & Automation
+
+This is where Claude Code becomes **extremely powerful**.
+
+---
+
+# 📄 CLAUDE.md — Your AI onboarding document
+
+Claude automatically reads a `CLAUDE.md` file at the root of your repository.
+
+Example:
+
+# Project Rules
+
+Always run tests before committing.
+
+Use TypeScript strict mode.
+
+Branch naming convention:
+feature/[ticket-id]-short-description
+
+Never edit files in /generated
+
+Think of it as **team onboarding instructions for your AI colleague**.
+
+Benefits:
+
+- consistent behavior
+- shared team conventions
+- reusable automation
+
+---
+
+# ⚡ Custom Slash Commands
+
+Claude supports custom commands defined in:
+
+.claude/commands/
+
+Example:
+
+.claude/commands/review.md
+
+Content:
+
 Review the staged changes for bugs and security issues only.
-Be concise. No style comments.
-```
+Ignore formatting and style comments.
 
-Then in any session:
-```bash
+Usage:
+
 /review
-```
-
-Parameterized version for tickets:
-```bash
-/fix-issue 1337
-```
 
 ---
 
-### 🪝 Hooks — The "always do this" automation layer
+# 🪝 Hooks
 
-Hooks run deterministic shell commands at specific lifecycle points. Unlike CLAUDE.md suggestions, hooks are rules that *always* fire.
+Hooks run **automatic commands during agent activity**.
 
-**Example: Auto-run Prettier after every file write**
-```json
+Example: run Prettier after file writes.
+
 {
   "hooks": {
     "PostToolUse": [{
       "matcher": "Write(*.ts)",
-      "hooks": [{ "type": "command", "command": "prettier --write $file" }]
+      "hooks": [{
+        "type": "command",
+        "command": "prettier --write $file"
+      }]
     }]
   }
 }
-```
 
-**Available hook events:** `UserPromptSubmit`, `PreToolUse`, `PostToolUse`, `Stop`, and more.
+Hooks enable:
 
-Configure them via the interactive `/hooks` command — no JSON editing required.
+- automatic linting
+- formatting
+- test execution
+- policy enforcement
 
 ---
 
-### 🔌 Plugins — Share it all as a bundle
+# 🔌 Plugins
 
-Plugins package slash commands + hooks + MCP servers into one installable unit. Great for team-wide consistency.
+Plugins bundle:
 
-```bash
+- commands
+- hooks
+- integrations
+
+This allows teams to share workflows.
+
+Example:
+
 /plugin install <plugin-name>
-```
 
 ---
 
-## 🎬 Live Demo (~3 min)
+# 7. 🧠 How Claude Code Actually Works
 
-> **What we'll do:** Start Claude Code in a small project, show CLAUDE.md in action, and fire a custom `/review` slash command.
+Claude Code is built around **tool-based agents**.
 
-Steps:
-1. `cd my-demo-project && claude`
-2. Show the auto-loaded CLAUDE.md context
-3. Ask Claude to find a bug
-4. Run `/review` on staged changes
-5. Watch it not hallucinate variable names 🤞
+Instead of directly editing files, Claude calls tools like:
+
+| Tool | Purpose |
+|----|----|
+| ReadFile | inspect source code |
+| WriteFile | modify code |
+| RunCommand | execute shell commands |
+| Search | explore repository |
+| Git tools | commit, diff, PR workflows |
+
+Workflow:
+
+User task
+↓
+Claude plans actions
+↓
+Claude uses tools
+↓
+Results returned
+↓
+Claude decides next step
+
+This enables **multi-step autonomous work**.
 
 ---
 
-## 🏁 Key Takeaways
+# Model Context Protocol (MCP)
 
-- Claude Code is **agentic** — it does things, not just suggests things
-- **Sonnet** for speed and daily work; **Opus** for hard problems (Max plan)
-- Usage runs on a **5-hour rolling window** — shared across all Claude surfaces
-- `CLAUDE.md` is the most impactful 15 minutes you'll spend on your AI setup
-- Custom slash commands + hooks = your personalized dev co-pilot
+Claude can also interact with **external tools via MCP servers**.
+
+Examples:
+
+- GitHub repositories
+- databases
+- documentation systems
+- internal APIs
+
+This allows Claude to **query external systems safely**.
 
 ---
 
-## 🔗 Resources
+# 🎬 Live Demo (~3 min)
 
-- Docs: https://docs.claude.com/en/docs/claude-code/overview
-- Awesome Claude Code (community): https://github.com/hesreallyhim/awesome-claude-code
-- Usage limits explained: https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits
+Example demo flow:
+
+1. Start Claude Code in a project
+
+claude
+
+2. Show `CLAUDE.md`
+
+3. Ask Claude to analyze a bug
+
+Find potential null pointer bugs in the auth module
+
+4. Stage a change
+
+5. Run custom command
+
+/review
+
+---
+
+# 🏁 Key Takeaways
+
+- Claude Code is an **AI coding agent**, not just an autocomplete tool
+- Model families: **Haiku, Sonnet, Opus**
+- Sonnet is ideal for **daily development**
+- Opus helps solve **hard reasoning problems**
+- `CLAUDE.md` dramatically improves results
+- Hooks and commands allow **automation of workflows**
+- Claude operates through **tools and agents**
+
+---
+
+# 🔗 Resources
+
+Official documentation  
+https://docs.claude.com/en/docs/claude-code/overview
+
+Model documentation  
+https://platform.claude.com/docs/en/about-claude/models
+
+Pricing  
+https://claude.com/pricing
+
+API  
+https://claude.com/platform/api
+
+Community resources  
+https://github.com/hesreallyhim/awesome-claude-code
 
 ---
 

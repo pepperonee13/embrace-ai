@@ -17,28 +17,17 @@ Slides must be **minimal, structured, visually consistent, and brand-accurate**.
 
 # Output
 
-Produce a **single self-contained HTML file**.
+Produce a **single self-contained HTML file** by filling in the `layout.html` template.
 
-Requirements:
+## How to generate
 
-- No external dependencies
-- No separate asset files
-- Everything must be embedded inside the HTML
+1. **Read** `layout.html` from this skill folder — it contains all CSS, design tokens, the logo, Reveal.js CDN links, and the full presentation shell
+2. **Read** `styleguide.html` from this skill folder — use it for all component HTML patterns
+3. **Plan** the slide structure based on the input content
+4. **Generate** only the `<section>` elements for each slide, using patterns from `styleguide.html` verbatim
+5. **Output** the complete file: take the full content of `layout.html`, replace `%%TITLE%%` with the presentation title and `<!-- %%SLIDES%% -->` with your generated `<section>` elements
 
-Assets must be embedded as follows:
-
-- Fonts: Google Fonts CDN or `@font-face`
-- Icons: inline SVG
-- Images: base64
-- Company logo (`TATLogo.png`): base64 data URI
-
-Slides must support:
-
-- keyboard navigation (left/right arrow keys)
-- on-screen navigation buttons
-- smooth transitions between slides
-
-The file must be **fully portable and presentation-ready**.
+Do **not** regenerate the CSS, design tokens, logo SVG, or Reveal.js setup — everything is already in `layout.html`.
 
 Do **not** include explanations or commentary — only the final HTML.
 
@@ -46,21 +35,48 @@ Do **not** include explanations or commentary — only the final HTML.
 
 # Design & Branding
 
-Strictly follow the design style guide defined in **`tgg-design-tokens.yaml`**.
+Strictly follow the design system defined in **`tgg-design-tokens.yaml`** and the component library in **`styleguide.html`** (in this same skill folder).
 
 You must:
 
-1. Parse the YAML design tokens.
-2. Convert tokens into CSS variables.
-3. Use semantic color and typography roles.
-4. Never invent colors or typography outside the tokens.
+1. **Use component HTML patterns verbatim from `styleguide.html`** — do not invent new class names, nesting structures, or inline styles for components that already exist in the styleguide.
+2. Never invent colors or typography outside the tokens already defined in `layout.html`.
+
+## Component Library
+
+The file `styleguide.html` (in this same skill folder) is the single source of truth for all slide components. Before writing any slide HTML, read it and use the patterns shown there. Components defined in the styleguide:
+
+| Component | Class / Pattern |
+|---|---|
+| Slide overline | `.section-label` |
+| Section heading | `.slide-title` + `.accent` span |
+| Hero title | `.display-title` + `.accent` |
+| Title eyebrow | `.eyebrow` |
+| Quote block | `.display-quote` |
+| Brand divider | `.divider` |
+| Arrow bullet list | `ul > li` (::before → arrow) |
+| Cards (4 variants) | `.card`, `.card.petrol`, `.card.orange`, `.card.red` |
+| Badges (4 colours) | `.badge-green`, `.badge-yellow`, `.badge-red`, `.badge-blue` |
+| Code blocks (3 variants) | `pre`, `pre.shell`, `pre.json` |
+| Inline code | `code` |
+| Data table | `table > thead + tbody` |
+| Two-column grid | `.two-col` |
+| Three-column grid | `.three-col` |
+| Agenda list | `.agenda-list > .agenda-item` |
+| Use-case cards | `.usecase-card` with `.uc-header` / `.uc-title` |
+| Numbered demo steps | `.demo-step` with `.demo-step-num` |
+| Takeaway rows | `.takeaway-item` with `.takeaway-icon` / `.takeaway-text` |
+| Resource rows | `.resource-item` with `.resource-icon` |
+| Info highlight box | `.highlight-info` |
+| Warm highlight box | `.highlight-warm` |
+
+Full slide shell templates (title slide, content slide, two-col, three-col) are also provided in the styleguide — use them as the starting structure for each slide type.
 
 Maintain **strong visual consistency** across all slides.
 
 Rules:
 
-- The **company logo must appear on every slide**
-- Logo placement must be consistent (e.g., fixed corner)
+- The company logo and its link are already provided by `layout.html` — do not add or move it
 - Use **clean modern layouts**
 - Emphasize **visual hierarchy**
 - Use **large typography**

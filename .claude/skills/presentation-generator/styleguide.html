@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGG Presentation Design System — Styleguide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --color-bg-dark:            #212931;
+  --color-bg-surface:         #303944;
+  --color-bg-card:            #3b4656;
+  --color-accent-primary:     #205ea7;
+  --color-accent-dark-blue:   #024b80;
+  --color-accent-secondary:   #09909c;
+  --color-accent-dark-petrol: #036b75;
+  --color-accent-warm:        #f08226;
+  --color-accent-dark-warm:   #d57112;
+  --color-text-primary:       #ffffff;
+  --color-text-secondary:     rgba(255,255,255,0.78);
+  --color-text-muted:         rgba(255,255,255,0.45);
+  --font-primary: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --gradient-brand: linear-gradient(to right, #205ea7 0%, #09909c 33%, #c8c87a 66%, #f08226 100%);
+}
+
+/* ── Page shell ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0d1117;
+  color: var(--color-text-secondary);
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 48px 24px 96px;
+}
+.page { max-width: 1060px; margin: 0 auto; }
+
+/* ── Page header ────────────────────────────────────────────────────────── */
+.page-title {
+  font-size: 2rem; font-weight: 800; color: white;
+  letter-spacing: -0.025em; margin-bottom: 6px;
+}
+.page-subtitle { font-size: 0.9375rem; color: var(--color-text-muted); margin-bottom: 48px; }
+.page-gradient-bar {
+  height: 3px; width: 80px;
+  background: var(--gradient-brand);
+  border-radius: 2px; margin-bottom: 14px;
+}
+
+/* ── Section headings ───────────────────────────────────────────────────── */
+.sg-section { margin-bottom: 64px; }
+.sg-section-title {
+  font-size: 0.6875rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-accent-warm);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sg-item { margin-bottom: 32px; }
+.sg-item-label {
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* ── Preview panel ──────────────────────────────────────────────────────── */
+.sg-preview {
+  background: var(--color-bg-dark);
+  border-radius: 8px;
+  padding: 32px 40px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font-primary);
+  color: var(--color-text-secondary);
+}
+.sg-preview.surface { background: var(--color-bg-surface); }
+.sg-preview.compact { padding: 20px 28px; }
+
+/* ── Code panel ─────────────────────────────────────────────────────────── */
+.sg-code {
+  background: #0d1117;
+  border: 1px solid rgba(32,94,167,0.3);
+  border-left: 3px solid var(--color-accent-primary);
+  border-radius: 6px;
+  padding: 14px 18px;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.8125rem; line-height: 1.7;
+  color: #e6edf3;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ── Color swatches ─────────────────────────────────────────────────────── */
+.swatch-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.swatch {
+  width: 100px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.swatch-color { height: 56px; }
+.swatch-label {
+  background: #1a2028;
+  padding: 6px 8px;
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+.swatch-name { color: white; font-weight: 600; font-size: 0.75rem; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   COMPONENT STYLES  (mirror slides.html exactly — keep in sync)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Typography */
+.section-label {
+  font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-accent-warm);
+  margin-bottom: 10px;
+}
+.slide-title {
+  font-size: 2.25rem; font-weight: 700;
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin-bottom: 28px; color: var(--color-text-primary);
+}
+.slide-title .accent { color: var(--color-accent-secondary); }
+.divider {
+  width: 44px; height: 3px;
+  background: var(--gradient-brand);
+  border-radius: 2px;
+  margin: 14px 0 24px;
+}
+.display-title {
+  font-size: 3.125rem; font-weight: 800;
+  line-height: 1.1; letter-spacing: -0.025em;
+  max-width: 780px; margin-bottom: 18px;
+  color: var(--color-text-primary);
+}
+.display-title .accent { color: var(--color-accent-secondary); }
+.display-quote {
+  font-size: 0.9375rem; font-style: italic;
+  color: var(--color-text-muted);
+  border-left: 3px solid var(--color-accent-warm);
+  padding-left: 18px; line-height: 1.65; max-width: 660px;
+}
+.eyebrow {
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-text-muted); margin-bottom: 24px;
+}
+
+/* Body text */
+.sg-preview p { font-size: 1rem; line-height: 1.65; color: var(--color-text-secondary); }
+.sg-preview strong { color: var(--color-text-primary); font-weight: 600; }
+.sg-preview em { color: var(--color-text-muted); font-style: italic; }
+
+/* Lists */
+.sg-preview ul { list-style: none; padding: 0; margin: 0; }
+.sg-preview ul li { padding: 5px 0 5px 22px; position: relative; margin: 0; font-size: 1rem; line-height: 1.65; color: var(--color-text-secondary); }
+.sg-preview ul li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-secondary); font-weight: 700; }
+
+/* Inline code */
+.sg-preview code {
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.875em;
+  background: rgba(32,94,167,0.15);
+  color: #79c0ff;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* Code blocks */
+.sg-preview pre {
+  background: #0d1117;
+  border: 1px solid rgba(32,94,167,0.35);
+  border-left: 3px solid var(--color-accent-primary);
+  border-radius: 6px;
+  padding: 14px 18px;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.8125rem; line-height: 1.65;
+  color: #e6edf3;
+  overflow-x: auto;
+  margin: 12px 0;
+  width: auto;
+  box-shadow: none;
+}
+.sg-preview pre.shell { border-left-color: var(--color-accent-warm); }
+.sg-preview pre.json  { border-left-color: var(--color-accent-secondary); }
+.sg-preview pre code  { background: none; padding: 0; color: inherit; font-size: inherit; border-radius: 0; }
+
+/* Cards */
+.card {
+  background: var(--color-bg-surface);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 10px 0;
+  border-left: 3px solid var(--color-accent-primary);
+}
+.card.orange { border-left-color: var(--color-accent-warm); }
+.card.petrol { border-left-color: var(--color-accent-secondary); }
+.card.red    { border-left-color: #e05555; }
+.card-title {
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 6px; color: var(--color-accent-primary);
+}
+.card.orange .card-title { color: var(--color-accent-warm); }
+.card.petrol .card-title { color: var(--color-accent-secondary); }
+.card.red    .card-title { color: #e05555; }
+
+/* Badges */
+.badge {
+  display: inline-block; padding: 2px 9px;
+  border-radius: 4px; font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.badge-green  { background: rgba(9,144,156,0.18);  color: #3dc5ce; border: 1px solid rgba(9,144,156,0.4); }
+.badge-yellow { background: rgba(240,130,38,0.15); color: #f4a24a; border: 1px solid rgba(240,130,38,0.4); }
+.badge-red    { background: rgba(220,60,60,0.15);  color: #f07575; border: 1px solid rgba(220,60,60,0.35); }
+.badge-blue   { background: rgba(32,94,167,0.18);  color: #6aadee; border: 1px solid rgba(32,94,167,0.4); }
+
+/* Table */
+.sg-preview table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.9375rem; }
+.sg-preview thead tr { background: var(--color-bg-surface); }
+.sg-preview th { padding: 11px 14px; text-align: left; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent-secondary); border-bottom: 2px solid rgba(32,94,167,0.5); }
+.sg-preview td { padding: 10px 14px; color: var(--color-text-secondary); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sg-preview tr:hover td { background: rgba(255,255,255,0.025); }
+.sg-preview td:first-child { font-weight: 600; color: var(--color-text-primary); }
+
+/* Grids */
+.two-col   { display: grid; grid-template-columns: 1fr 1fr;     gap: 22px; margin-top: 8px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 8px; }
+
+/* Agenda */
+.agenda-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.agenda-item {
+  display: flex; align-items: center; gap: 18px;
+  padding: 12px 18px;
+  background: var(--color-bg-surface); border-radius: 7px;
+  border-left: 3px solid transparent;
+}
+.agenda-item:nth-child(1) { border-left-color: #205ea7; }
+.agenda-item:nth-child(2) { border-left-color: #197aa8; }
+.agenda-item:nth-child(3) { border-left-color: #09909c; }
+.agenda-item:nth-child(4) { border-left-color: #3fa380; }
+.agenda-item:nth-child(5) { border-left-color: #f08226; }
+.agenda-item:nth-child(6) { border-left-color: #d57112; }
+.agenda-num   { font-size: 1.375rem; font-weight: 800; color: rgba(255,255,255,0.12); min-width: 36px; }
+.agenda-emoji { font-size: 1.125rem; min-width: 28px; }
+.agenda-text  { font-size: 0.9375rem; font-weight: 500; color: var(--color-text-secondary); }
+
+/* Use-case cards */
+.usecase-card { background: var(--color-bg-surface); border-radius: 8px; padding: 16px 18px; height: 100%; }
+.usecase-card .uc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.usecase-card .uc-title { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.usecase-card ul li { font-size: 0.875rem; padding: 3px 0 3px 18px; }
+
+/* Demo steps */
+.demo-step {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 16px;
+  background: var(--color-bg-surface); border-radius: 7px; margin-bottom: 8px;
+}
+.demo-step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--color-accent-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+  color: white;
+}
+.demo-step-text { font-size: 0.9375rem; color: var(--color-text-secondary); padding-top: 2px; }
+
+/* Takeaway items */
+.takeaway-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 18px; background: var(--color-bg-surface);
+  border-radius: 8px; margin-bottom: 10px;
+}
+.takeaway-icon {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(32,94,167,0.2); border: 1px solid rgba(32,94,167,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8125rem; flex-shrink: 0; margin-top: 1px;
+}
+.takeaway-text { font-size: 0.9375rem; line-height: 1.55; color: var(--color-text-secondary); }
+
+/* Resource items */
+.resource-item {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 22px; background: var(--color-bg-surface);
+  border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 12px;
+}
+.resource-icon {
+  width: 42px; height: 42px; border-radius: 8px;
+  background: rgba(32,94,167,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 1.25rem;
+}
+.resource-title { font-size: 0.9375rem; font-weight: 600; color: white; margin-bottom: 3px; }
+.resource-url   { font-size: 0.8rem; color: var(--color-accent-secondary); font-family: 'Courier New', monospace; }
+
+/* Highlight boxes (inline-style pattern) */
+.highlight-info {
+  padding: 14px 18px;
+  background: rgba(32,94,167,0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(32,94,167,0.25);
+}
+.highlight-warm {
+  padding: 16px 18px;
+  background: rgba(240,130,38,0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(240,130,38,0.2);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Page header ──────────────────────────────────────────────────────── -->
+  <div class="page-gradient-bar"></div>
+  <h1 class="page-title">TGG Presentation Design System</h1>
+  <p class="page-subtitle">Component reference for the <code style="font-family:monospace;background:rgba(255,255,255,0.07);padding:2px 7px;border-radius:4px;font-size:0.875em;">presentation-generator</code> skill — use these patterns verbatim in slides.html</p>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       1. DESIGN TOKENS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Design Tokens</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Color palette</div>
+      <div class="sg-preview compact">
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-color" style="background:#212931;"></div><div class="swatch-label"><div class="swatch-name">bg-dark</div>#212931</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#303944;"></div><div class="swatch-label"><div class="swatch-name">bg-surface</div>#303944</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#3b4656;"></div><div class="swatch-label"><div class="swatch-name">bg-card</div>#3b4656</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#205ea7;"></div><div class="swatch-label"><div class="swatch-name">accent-primary</div>#205ea7</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#09909c;"></div><div class="swatch-label"><div class="swatch-name">accent-secondary</div>#09909c</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#f08226;"></div><div class="swatch-label"><div class="swatch-name">accent-warm</div>#f08226</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#ffffff;"></div><div class="swatch-label"><div class="swatch-name">text-primary</div>#ffffff</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.78);"></div><div class="swatch-label"><div class="swatch-name">text-secondary</div>rgba(255,255,255,.78)</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.45);"></div><div class="swatch-label"><div class="swatch-name">text-muted</div>rgba(255,255,255,.45)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Brand gradient</div>
+      <div class="sg-preview compact">
+        <div style="height:12px;border-radius:6px;background:linear-gradient(to right,#205ea7 0%,#09909c 33%,#c8c87a 66%,#f08226 100%);"></div>
+        <p style="margin-top:10px;font-size:0.8125rem;color:var(--color-text-muted);">--gradient-brand · used for .divider and progress bar</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       2. TYPOGRAPHY
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Typography</div>
+
+    <!-- section-label -->
+    <div class="sg-item">
+      <div class="sg-item-label">.section-label — slide overline / eyebrow tag</div>
+      <div class="sg-preview compact"><div class="section-label">01 — Section Name</div></div>
+      <pre class="sg-code" id="code-section-label"></pre>
+    </div>
+
+    <!-- slide-title -->
+    <div class="sg-item">
+      <div class="sg-item-label">.slide-title — main section heading (with optional .accent)</div>
+      <div class="sg-preview compact">
+        <h2 class="slide-title">Section Heading <span class="accent">With Accent</span></h2>
+      </div>
+      <pre class="sg-code" id="code-slide-title"></pre>
+    </div>
+
+    <!-- divider -->
+    <div class="sg-item">
+      <div class="sg-item-label">.divider — brand gradient rule, used after title on title slide</div>
+      <div class="sg-preview compact"><div class="divider"></div></div>
+      <pre class="sg-code" id="code-divider"></pre>
+    </div>
+
+    <!-- display-title -->
+    <div class="sg-item">
+      <div class="sg-item-label">.display-title — hero title slide (large 3.1rem, weight 800)</div>
+      <div class="sg-preview compact">
+        <h1 class="display-title">Big Hero Title<br><span class="accent">With Accent Line</span></h1>
+      </div>
+      <pre class="sg-code" id="code-display-title"></pre>
+    </div>
+
+    <!-- eyebrow -->
+    <div class="sg-item">
+      <div class="sg-item-label">.eyebrow — title slide context line (e.g. event · duration)</div>
+      <div class="sg-preview compact"><div class="eyebrow">Learning &amp; Sharing Session &nbsp;·&nbsp; ~20 min</div></div>
+      <pre class="sg-code" id="code-eyebrow"></pre>
+    </div>
+
+    <!-- display-quote -->
+    <div class="sg-item">
+      <div class="sg-item-label">.display-quote — italic pull-quote, warm left border</div>
+      <div class="sg-preview compact">
+        <p class="display-quote">"A short memorable quote that sets the tone for the talk."</p>
+      </div>
+      <pre class="sg-code" id="code-display-quote"></pre>
+    </div>
+
+    <!-- body text -->
+    <div class="sg-item">
+      <div class="sg-item-label">Body text — p, strong, em</div>
+      <div class="sg-preview compact">
+        <p>Regular body text at 1rem / 1.65 line-height. <strong>Strong text is white.</strong> <em>Em text is muted.</em> Use <code>code</code> for inline technical terms.</p>
+      </div>
+      <pre class="sg-code" id="code-body-text"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       3. LISTS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Lists</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">ul > li — arrow bullet list (→ via ::before)</div>
+      <div class="sg-preview compact">
+        <ul>
+          <li>First list item with <strong>bold emphasis</strong></li>
+          <li>Second item referencing <code>some code</code></li>
+          <li>Third item — keep bullets to 4–6 items max per slide</li>
+        </ul>
+      </div>
+      <pre class="sg-code" id="code-list"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       4. CARDS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Cards</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.card — default (blue left border)</div>
+      <div class="sg-preview compact">
+        <div class="card">
+          <div class="card-title">Card Title</div>
+          <p style="font-size:0.9rem;">Card body text. Keep concise — one key idea per card.</p>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-card-blue"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.card.petrol — teal/petrol left border</div>
+      <div class="sg-preview compact">
+        <div class="card petrol">
+          <div class="card-title">Petrol Card</div>
+          <p style="font-size:0.9rem;">Use for primary insights, how-it-works, or key facts.</p>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-card-petrol"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.card.orange — warm/orange left border</div>
+      <div class="sg-preview compact">
+        <div class="card orange">
+          <div class="card-title">Orange Card</div>
+          <p style="font-size:0.9rem;">Use for tips, rules of thumb, or important caveats.</p>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-card-orange"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.card.red — red left border (warnings / anti-patterns)</div>
+      <div class="sg-preview compact">
+        <div class="card red">
+          <div class="card-title">Red Card</div>
+          <p style="font-size:0.9rem;">Use for warnings, anti-patterns, or things to avoid.</p>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-card-red"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       5. BADGES
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Badges</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">All badge variants — inline status / label chips</div>
+      <div class="sg-preview compact" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <span class="badge badge-green">Green</span>
+        <span class="badge badge-yellow">Yellow</span>
+        <span class="badge badge-red">Red</span>
+        <span class="badge badge-blue">Blue</span>
+      </div>
+      <pre class="sg-code" id="code-badges"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       6. CODE BLOCKS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Code Blocks</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">pre — default (blue left border, for generic code)</div>
+      <div class="sg-preview compact">
+        <pre>/model claude-opus-4-20250514</pre>
+      </div>
+      <pre class="sg-code" id="code-pre-default"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">pre.shell — shell commands (orange left border)</div>
+      <div class="sg-preview compact">
+        <pre class="shell">npm install -g @anthropic-ai/claude-code</pre>
+      </div>
+      <pre class="sg-code" id="code-pre-shell"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">pre.json — JSON / config (teal left border)</div>
+      <div class="sg-preview compact">
+        <pre class="json">{
+  "hooks": {
+    "PostToolUse": [{ "matcher": "Write(*.ts)" }]
+  }
+}</pre>
+      </div>
+      <pre class="sg-code" id="code-pre-json"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">code — inline (blue tint, monospace)</div>
+      <div class="sg-preview compact">
+        <p>Run <code>/clear</code> often and keep your <code>CLAUDE.md</code> tight.</p>
+      </div>
+      <pre class="sg-code" id="code-inline"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       7. TABLE
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Table</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Standard data table</div>
+      <div class="sg-preview compact">
+        <table>
+          <thead>
+            <tr>
+              <th>Column A</th>
+              <th>Column B</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Row one</td>
+              <td>Supporting detail</td>
+              <td><span class="badge badge-green">Active</span></td>
+            </tr>
+            <tr>
+              <td>Row two</td>
+              <td>Supporting detail</td>
+              <td><span class="badge badge-yellow">Limited</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="sg-code" id="code-table"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       8. GRID LAYOUTS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Grid Layouts</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.two-col — 1fr 1fr, gap 22px</div>
+      <div class="sg-preview compact">
+        <div class="two-col">
+          <div class="card petrol"><div class="card-title">Left column</div><p style="font-size:0.875rem;">Content or card.</p></div>
+          <div class="card orange"><div class="card-title">Right column</div><p style="font-size:0.875rem;">Content or card.</p></div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-two-col"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.three-col — 1fr 1fr 1fr, gap 18px</div>
+      <div class="sg-preview compact">
+        <div class="three-col">
+          <div class="card"><div class="card-title">Col 1</div><p style="font-size:0.875rem;">Content.</p></div>
+          <div class="card petrol"><div class="card-title">Col 2</div><p style="font-size:0.875rem;">Content.</p></div>
+          <div class="card orange"><div class="card-title">Col 3</div><p style="font-size:0.875rem;">Content.</p></div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-three-col"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       9. AGENDA LIST
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Agenda List</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.agenda-list — numbered items, each with emoji and label. Left border cycles through brand gradient colors via :nth-child.</div>
+      <div class="sg-preview compact">
+        <div class="agenda-list">
+          <div class="agenda-item">
+            <span class="agenda-num">01</span>
+            <span class="agenda-emoji">🐣</span>
+            <span class="agenda-text">First agenda topic</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-num">02</span>
+            <span class="agenda-emoji">🔥</span>
+            <span class="agenda-text">Second agenda topic</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-num">03</span>
+            <span class="agenda-emoji">🛠️</span>
+            <span class="agenda-text">Third agenda topic</span>
+          </div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-agenda"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       10. USE-CASE CARDS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Use-case Cards</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.usecase-card — typically used in .three-col, top border sets category color</div>
+      <div class="sg-preview compact">
+        <div class="three-col">
+          <div class="usecase-card" style="border-top:3px solid var(--color-accent-secondary);">
+            <div class="uc-header">
+              <span class="badge badge-green">Sonnet</span>
+              <span class="uc-title" style="color:var(--color-accent-secondary);">Quick Wins</span>
+            </div>
+            <ul>
+              <li>Bug fixing</li>
+              <li>Writing tests</li>
+              <li>Documentation</li>
+            </ul>
+          </div>
+          <div class="usecase-card" style="border-top:3px solid var(--color-accent-warm);">
+            <div class="uc-header">
+              <span class="badge badge-yellow">Sonnet / Opus</span>
+              <span class="uc-title" style="color:var(--color-accent-warm);">Medium</span>
+            </div>
+            <ul>
+              <li>Feature from ticket</li>
+              <li>API migration</li>
+            </ul>
+          </div>
+          <div class="usecase-card" style="border-top:3px solid #e05555;">
+            <div class="uc-header">
+              <span class="badge badge-red">Opus</span>
+              <span class="uc-title" style="color:#e05555;">Heavy Lifting</span>
+            </div>
+            <ul>
+              <li>Architecture decisions</li>
+              <li>Legacy code refactors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-usecase"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       11. DEMO STEPS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Demo Steps</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.demo-step — numbered step with circle badge</div>
+      <div class="sg-preview compact">
+        <div class="demo-step">
+          <div class="demo-step-num">1</div>
+          <div class="demo-step-text">Open a terminal and run <code>claude</code> in your project directory</div>
+        </div>
+        <div class="demo-step">
+          <div class="demo-step-num">2</div>
+          <div class="demo-step-text">Describe the task in plain English — no special syntax</div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-demo-step"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       12. TAKEAWAY ITEMS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Takeaway Items</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.takeaway-item — emoji icon + text row, used for key-takeaway and tip slides</div>
+      <div class="sg-preview compact">
+        <div class="takeaway-item">
+          <div class="takeaway-icon">🤖</div>
+          <div class="takeaway-text">Claude Code is <strong>agentic</strong> — it does things, not just suggests things</div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-icon">⚡</div>
+          <div class="takeaway-text"><strong>Sonnet</strong> for speed and daily work; <strong>Opus</strong> for hard problems</div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-takeaway"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       13. RESOURCE ITEMS
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Resource Items</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.resource-item — icon + title + URL row for resources/links slides</div>
+      <div class="sg-preview compact">
+        <div class="resource-item">
+          <div class="resource-icon">📚</div>
+          <div>
+            <div class="resource-title">Official Documentation</div>
+            <div class="resource-url">docs.example.com/overview</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="resource-icon">⭐</div>
+          <div>
+            <div class="resource-title">Community Resource</div>
+            <div class="resource-url">github.com/org/awesome-repo</div>
+          </div>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-resource"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       14. HIGHLIGHT BOXES
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Highlight Boxes</div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.highlight-info — blue tint box for tips / pro-tips</div>
+      <div class="sg-preview compact">
+        <div class="highlight-info">
+          <p style="font-size:0.875rem;">💡 <strong>Pro tip:</strong> Start with Sonnet. If it starts going in circles, switch to Opus.</p>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-highlight-info"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">.highlight-warm — orange tint box for key insight / vibe shift moments</div>
+      <div class="sg-preview compact">
+        <div class="highlight-warm">
+          <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+            <strong style="color:var(--color-accent-warm);">The key insight:</strong><br>
+            You go from <em>writing</em> code to <em>reviewing</em> code.
+          </p>
+        </div>
+      </div>
+      <pre class="sg-code" id="code-highlight-warm"></pre>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       15. FULL SLIDE TEMPLATES
+       ══════════════════════════════════════════════════════════════════════ -->
+  <div class="sg-section">
+    <div class="sg-section-title">Full Slide Templates</div>
+    <p style="font-size:0.875rem;color:var(--color-text-muted);margin-bottom:24px;">Copy these shell structures directly into &lt;section&gt; elements inside Reveal.js.</p>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Title slide — .slide--title</div>
+      <pre class="sg-code" id="code-tpl-title"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Standard content slide — section-label + slide-title + body</div>
+      <pre class="sg-code" id="code-tpl-content"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Two-column slide</div>
+      <pre class="sg-code" id="code-tpl-two-col"></pre>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Three-column use-case slide</div>
+      <pre class="sg-code" id="code-tpl-three-col"></pre>
+    </div>
+  </div>
+
+</div><!-- /.page -->
+
+<script>
+// Populate code snippets using textContent to avoid HTML-escaping issues
+const set = (id, code) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = code.trim();
+};
+
+set('code-section-label', `<div class="section-label">01 — Section Name</div>`);
+
+set('code-slide-title', `<h2 class="slide-title">Section Heading <span class="accent">With Accent</span></h2>`);
+
+set('code-divider', `<div class="divider"></div>`);
+
+set('code-display-title', `<h1 class="display-title">
+  Big Hero Title<br>
+  <span class="accent">With Accent Line</span>
+</h1>`);
+
+set('code-eyebrow', `<div class="eyebrow">Event Name &nbsp;·&nbsp; ~20 min</div>`);
+
+set('code-display-quote', `<p class="display-quote">"A short memorable quote that sets the tone."</p>`);
+
+set('code-body-text', `<p>Regular body text. <strong>Strong text is white.</strong> <em>Em is muted.</em> Use <code>code</code> for inline technical terms.</p>`);
+
+set('code-list', `<ul>
+  <li>First item with <strong>emphasis</strong></li>
+  <li>Second item referencing <code>some code</code></li>
+  <li>Third item — keep to 4–6 bullets max</li>
+</ul>`);
+
+set('code-card-blue', `<div class="card">
+  <div class="card-title">Card Title</div>
+  <p style="font-size:0.9rem;">Card body text.</p>
+</div>`);
+
+set('code-card-petrol', `<div class="card petrol">
+  <div class="card-title">Card Title</div>
+  <p style="font-size:0.9rem;">Card body text.</p>
+</div>`);
+
+set('code-card-orange', `<div class="card orange">
+  <div class="card-title">Card Title</div>
+  <p style="font-size:0.9rem;">Card body text.</p>
+</div>`);
+
+set('code-card-red', `<div class="card red">
+  <div class="card-title">Card Title</div>
+  <p style="font-size:0.9rem;">Card body text.</p>
+</div>`);
+
+set('code-badges', `<span class="badge badge-green">Green</span>
+<span class="badge badge-yellow">Yellow</span>
+<span class="badge badge-red">Red</span>
+<span class="badge badge-blue">Blue</span>`);
+
+set('code-pre-default', `<pre>/model claude-opus-4-20250514</pre>`);
+
+set('code-pre-shell', `<pre class="shell">npm install -g @anthropic-ai/claude-code</pre>`);
+
+set('code-pre-json', `<pre class="json">{
+  "hooks": {
+    "PostToolUse": [{ "matcher": "Write(*.ts)" }]
+  }
+}</pre>`);
+
+set('code-inline', `<p>Run <code>/clear</code> and keep your <code>CLAUDE.md</code> tight.</p>`);
+
+set('code-table', `<table>
+  <thead>
+    <tr>
+      <th>Column A</th>
+      <th>Column B</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Row one</td>
+      <td>Supporting detail</td>
+      <td><span class="badge badge-green">Active</span></td>
+    </tr>
+  </tbody>
+</table>`);
+
+set('code-two-col', `<div class="two-col">
+  <div><!-- left column content --></div>
+  <div><!-- right column content --></div>
+</div>`);
+
+set('code-three-col', `<div class="three-col">
+  <div><!-- col 1 --></div>
+  <div><!-- col 2 --></div>
+  <div><!-- col 3 --></div>
+</div>`);
+
+set('code-agenda', `<div class="agenda-list">
+  <div class="agenda-item">
+    <span class="agenda-num">01</span>
+    <span class="agenda-emoji">🐣</span>
+    <span class="agenda-text">First topic</span>
+  </div>
+  <div class="agenda-item">
+    <span class="agenda-num">02</span>
+    <span class="agenda-emoji">🔥</span>
+    <span class="agenda-text">Second topic</span>
+  </div>
+</div>`);
+
+set('code-usecase', `<div class="three-col">
+  <div class="usecase-card" style="border-top:3px solid var(--color-accent-secondary);">
+    <div class="uc-header">
+      <span class="badge badge-green">Sonnet</span>
+      <span class="uc-title" style="color:var(--color-accent-secondary);">Quick Wins</span>
+    </div>
+    <ul>
+      <li>Bug fixing</li>
+      <li>Writing tests</li>
+    </ul>
+  </div>
+  <!-- repeat for additional columns -->
+</div>`);
+
+set('code-demo-step', `<div class="demo-step">
+  <div class="demo-step-num">1</div>
+  <div class="demo-step-text">Run <code>claude</code> in your project</div>
+</div>
+<div class="demo-step">
+  <div class="demo-step-num">2</div>
+  <div class="demo-step-text">Describe the task in plain English</div>
+</div>`);
+
+set('code-takeaway', `<div class="takeaway-item">
+  <div class="takeaway-icon">🤖</div>
+  <div class="takeaway-text">Claude Code is <strong>agentic</strong> — it does things</div>
+</div>
+<div class="takeaway-item">
+  <div class="takeaway-icon">⚡</div>
+  <div class="takeaway-text"><strong>Sonnet</strong> for speed; <strong>Opus</strong> for hard problems</div>
+</div>`);
+
+set('code-resource', `<div class="resource-item">
+  <div class="resource-icon">📚</div>
+  <div>
+    <div class="resource-title">Resource Name</div>
+    <div class="resource-url">example.com/path</div>
+  </div>
+</div>`);
+
+set('code-highlight-info', `<div class="highlight-info">
+  <p style="font-size:0.875rem;">💡 <strong>Pro tip:</strong> Your tip text here.</p>
+</div>`);
+
+set('code-highlight-warm', `<div class="highlight-warm">
+  <p style="font-size:0.875rem; color:var(--color-text-secondary); line-height:1.6;">
+    <strong style="color:var(--color-accent-warm);">Key insight:</strong><br>
+    Your insight text here.
+  </p>
+</div>`);
+
+set('code-tpl-title', `<!-- TITLE SLIDE -->
+<section class="slide--title">
+  <div class="eyebrow">Event Name &nbsp;·&nbsp; ~20 min</div>
+  <h1 class="display-title">
+    Presentation Title<br>
+    <span class="accent">Subtitle Line</span>
+  </h1>
+  <div class="divider"></div>
+  <p class="display-quote">"An optional memorable quote."</p>
+</section>`);
+
+set('code-tpl-content', `<!-- STANDARD CONTENT SLIDE -->
+<section>
+  <div class="section-label">01 — Section Name</div>
+  <h2 class="slide-title">Slide Title <span class="accent">With Accent</span></h2>
+  <ul>
+    <li>Key point one with <strong>emphasis</strong></li>
+    <li>Key point two referencing <code>some code</code></li>
+    <li>Key point three — keep it brief</li>
+  </ul>
+</section>`);
+
+set('code-tpl-two-col', `<!-- TWO-COLUMN SLIDE -->
+<section>
+  <div class="section-label">02 — Section</div>
+  <h2 class="slide-title">Slide Title <span class="accent">Here</span></h2>
+  <div class="two-col" style="align-items:start;">
+    <div>
+      <!-- Left: list, code block, or card -->
+      <ul>
+        <li>Point one</li>
+        <li>Point two</li>
+      </ul>
+    </div>
+    <div>
+      <!-- Right: card, code block, or table -->
+      <div class="card petrol">
+        <div class="card-title">Key Insight</div>
+        <p style="font-size:0.9rem;">Supporting detail text.</p>
+      </div>
+    </div>
+  </div>
+</section>`);
+
+set('code-tpl-three-col', `<!-- THREE-COLUMN USE-CASE SLIDE -->
+<section>
+  <div class="section-label">03 — Use Cases</div>
+  <h2 class="slide-title">What to Use It <span class="accent">For</span></h2>
+  <div class="three-col">
+    <div class="usecase-card" style="border-top:3px solid var(--color-accent-secondary);">
+      <div class="uc-header">
+        <span class="badge badge-green">Tier 1</span>
+        <span class="uc-title" style="color:var(--color-accent-secondary);">Category A</span>
+      </div>
+      <ul><li>Item one</li><li>Item two</li></ul>
+    </div>
+    <div class="usecase-card" style="border-top:3px solid var(--color-accent-warm);">
+      <div class="uc-header">
+        <span class="badge badge-yellow">Tier 2</span>
+        <span class="uc-title" style="color:var(--color-accent-warm);">Category B</span>
+      </div>
+      <ul><li>Item one</li><li>Item two</li></ul>
+    </div>
+    <div class="usecase-card" style="border-top:3px solid #e05555;">
+      <div class="uc-header">
+        <span class="badge badge-red">Tier 3</span>
+        <span class="uc-title" style="color:#e05555;">Category C</span>
+      </div>
+      <ul><li>Item one</li><li>Item two</li></ul>
+    </div>
+  </div>
+  <div class="highlight-info" style="margin-top:18px;">
+    <p style="font-size:0.875rem;">💡 <strong>Pro tip:</strong> Tip text here.</p>
+  </div>
+</section>`);
+</script>
+</body>
+</html>

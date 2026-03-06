@@ -1,0 +1,73 @@
+##
+## TGG Presentation Design Tokens
+## Single source of truth for all colors, typography, and gradients
+## used across layout.html, styleguide.html, and generated presentations.
+##
+
+color:
+  bg:
+    dark:    "#212931"   # main slide background
+    surface: "#303944"   # cards, agenda items, table headers
+    card:    "#3b4656"   # elevated card background
+
+  accent:
+    primary:      "#205ea7"   # blue  — default borders, links, code highlight
+    dark-blue:    "#024b80"   # deep blue
+    secondary:    "#09909c"   # teal/petrol — arrow bullets, .accent text, petrol cards
+    dark-petrol:  "#036b75"   # deep petrol
+    warm:         "#f08226"   # orange — section-label, .card.orange, shell pre border
+    dark-warm:    "#d57112"   # deep orange
+
+  text:
+    primary:   "#ffffff"              # headings, strong, td:first-child
+    secondary: "rgba(255,255,255,0.78)"  # body text, list items
+    muted:     "rgba(255,255,255,0.45)"  # em, slide-number, eyebrow, display-quote
+
+gradient:
+  brand: "linear-gradient(to right, #205ea7 0%, #09909c 33%, #c8c87a 66%, #f08226 100%)"
+  # Used for: .divider bar, Reveal.js progress bar
+
+typography:
+  font-primary: "'Inter', 'Helvetica Neue', Arial, sans-serif"
+  font-mono:    "'Courier New', Consolas, monospace"
+
+  scale:
+    display-title: "3.125rem / weight 800"   # hero title slide
+    slide-title:   "2.25rem  / weight 700"   # section headings
+    body:          "1rem     / weight 400"   # paragraph, list items
+    small:         "0.9375rem"               # table cells, agenda-text
+    label:         "0.75rem  / weight 600 / uppercase / ls 0.06em"  # card-title
+    overline:      "0.6875rem / weight 600 / uppercase / ls 0.1em"  # section-label, th
+
+badge:
+  green:  { bg: "rgba(9,144,156,0.18)",  text: "#3dc5ce", border: "rgba(9,144,156,0.4)"  }
+  yellow: { bg: "rgba(240,130,38,0.15)", text: "#f4a24a", border: "rgba(240,130,38,0.4)" }
+  red:    { bg: "rgba(220,60,60,0.15)",  text: "#f07575", border: "rgba(220,60,60,0.35)" }
+  blue:   { bg: "rgba(32,94,167,0.18)",  text: "#6aadee", border: "rgba(32,94,167,0.4)"  }
+
+agenda-border-colors:
+  - "#205ea7"   # item 1
+  - "#197aa8"   # item 2
+  - "#09909c"   # item 3
+  - "#3fa380"   # item 4
+  - "#f08226"   # item 5
+  - "#d57112"   # item 6
+  - "#a05d10"   # item 7
+
+code-block:
+  background:      "#0d1117"
+  text:            "#e6edf3"
+  border-default:  "#205ea7"   # generic code
+  border-shell:    "#f08226"   # shell commands  (pre.shell)
+  border-json:     "#09909c"   # JSON / config   (pre.json)
+  inline-bg:       "rgba(32,94,167,0.15)"
+  inline-text:     "#79c0ff"
+
+logo:
+  file: "logo.svg"
+  link: "https://www.timetoact-group.at/"
+  display-width:  "172px"
+  display-height: "42px"
+  bg:             "rgba(255,255,255,0.92)"
+  border-radius:  "6px"
+  viewBox:        "74 740 1780 440"

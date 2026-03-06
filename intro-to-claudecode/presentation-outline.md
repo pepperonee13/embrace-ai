@@ -1,8 +1,3 @@
-Use latest info from official sources:
-- https://platform.claude.com/docs/en/home
-- https://claude.com/pricing
-- https://claude.com/platform/api
-
 # 🤖 Claude Code: What I Learned So You Don't Have To
 ### Learning & Sharing Session — ~20 min
 
@@ -110,27 +105,29 @@ reviewing AI-generated code → refining
 
 Claude models come in **three families**, each optimized for different workloads.
 
-| Model | Personality | Best For |
-|------|-------------|----------|
-| **Haiku** | Very fast, inexpensive | Automation, tooling, simple tasks |
-| **Sonnet** | Balanced performance | Daily coding tasks |
-| **Opus** | Highest reasoning ability | Complex architecture & debugging |
+| Model | Version | Personality | Best For |
+|------|---------|-------------|----------|
+| **Haiku** | 4.5 | Very fast, inexpensive | Automation, tooling, simple tasks |
+| **Sonnet** | 4.6 | Balanced performance, near-Opus coding ability | Daily coding tasks |
+| **Opus** | 4.6 | Highest reasoning ability, 1M token context | Complex architecture & debugging |
+
+> **Note:** Sonnet 4.6 now outperforms previous-generation Opus on many coding benchmarks (94% computer use accuracy), making it the daily-driver choice for most developers.
 
 Typical workflow:
 
-- **Haiku** → automation scripts
-- **Sonnet** → daily coding tasks
-- **Opus** → difficult reasoning problems
+- **Haiku 4.5** → automation scripts
+- **Sonnet 4.6** → daily coding tasks
+- **Opus 4.6** → difficult reasoning problems, massive context (up to 1M tokens)
 
 ---
 
 ## Example model switch (CLI)
 
-/model claude-opus
+/model claude-opus-4-6
 
 Rule of thumb:
 
-> Start with Sonnet. Switch to Opus when the problem gets hard.
+> Start with Sonnet 4.6. Switch to Opus 4.6 when the problem gets hard.
 
 ---
 
@@ -138,7 +135,7 @@ Rule of thumb:
 
 ## 🟢 Quick wins
 
-Sonnet usually works great for:
+Haiku 4.5 is ideal for:
 
 - fixing bugs
 - writing unit tests
@@ -169,7 +166,7 @@ Migrate these REST calls from API v1 to v2
 
 ## 🔴 Heavy lifting
 
-When problems require deeper reasoning, **Opus shines**.
+When problems require deeper reasoning, **Opus 4.6 shines** (50% task-completion horizon of ~14.5 hours per METR benchmarks).
 
 Examples:
 
@@ -215,11 +212,13 @@ Everything counts toward usage:
 
 Claude offers subscription plans for the hosted assistant.
 
-| Plan | Typical usage | Notes |
-|----|----|----|
-| Free | Limited usage | Lower priority access |
-| Pro | Higher limits | Popular individual plan |
-| Max | Much higher limits | Access to more compute |
+| Plan | Price | Typical usage | Notes |
+|----|----|----|-----|
+| Free | $0/mo | Limited usage | Lower priority access |
+| Pro | $20/mo | Higher limits | Popular individual plan |
+| **Team** | **$25/seat/mo** | **Shared team workspace** | **Min. 5 members** |
+| Max | $100–$200/mo | Much higher limits | Access to more compute |
+| Enterprise | Custom | Unlimited seats | SSO, admin controls |
 
 Important notes:
 
@@ -431,9 +430,9 @@ Find potential null pointer bugs in the auth module
 # 🏁 Key Takeaways
 
 - Claude Code is an **AI coding agent**, not just an autocomplete tool
-- Model families: **Haiku, Sonnet, Opus**
-- Sonnet is ideal for **daily development**
-- Opus helps solve **hard reasoning problems**
+- Model families: **Haiku 4.5, Sonnet 4.6, Opus 4.6**
+- Sonnet 4.6 is ideal for **daily development** (near-Opus quality at lower cost)
+- Opus 4.6 helps solve **hard reasoning problems** (up to 1M token context)
 - `CLAUDE.md` dramatically improves results
 - Hooks and commands allow **automation of workflows**
 - Claude operates through **tools and agents**
@@ -445,8 +444,8 @@ Find potential null pointer bugs in the auth module
 Official documentation  
 https://docs.claude.com/en/docs/claude-code/overview
 
-Model documentation  
-https://platform.claude.com/docs/en/about-claude/models
+Model documentation
+https://platform.claude.com/docs/en/about-claude/models/overview
 
 Pricing  
 https://claude.com/pricing
@@ -460,3 +459,20 @@ https://github.com/hesreallyhim/awesome-claude-code
 ---
 
 *Made with Claude Code. Obviously.*
+
+---
+
+# 📚 Sources
+
+Information in this presentation was verified against the following official and reference sources as of **March 2026**:
+
+| Source | URL |
+|--------|-----|
+| Claude Code overview (official docs) | https://docs.claude.com/en/docs/claude-code/overview |
+| Claude models overview (official docs) | https://platform.claude.com/docs/en/about-claude/models/overview |
+| Model deprecations (official docs) | https://platform.claude.com/docs/en/about-claude/model-deprecations |
+| Claude pricing (official) | https://claude.com/pricing |
+| Introducing Claude Haiku 4.5 (Anthropic blog) | https://www.anthropic.com/news/claude-haiku-4-5 |
+| Every Claude Model — complete guide | https://claudefa.st/blog/models |
+| Anthropic Claude Models guide (CodeGPT) | https://www.codegpt.co/blog/anthropic-claude-models-complete-guide |
+| Awesome Claude Code (community resources) | https://github.com/hesreallyhim/awesome-claude-code |

@@ -26,18 +26,26 @@
   --font-primary: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   --gradient-brand: linear-gradient(to right, #205ea7 0%, #09909c 33%, #c8c87a 66%, #f08226 100%);
 
-  /* ── Reveal.js theme variable overrides ── */
-  --r-background-color:       #212931;
-  --r-main-font:              'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --r-main-font-size:         16px;
-  --r-main-color:             rgba(255,255,255,0.78);
-  --r-heading-font:           'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --r-heading-color:          #ffffff;
-  --r-heading-text-transform: none;
-  --r-heading-font-weight:    700;
-  --r-heading-line-height:    1.15;
-  --r-code-font:              'Courier New', Consolas, monospace;
-  --r-block-margin:           0px;
+}
+
+/* ── Reveal.js base theme (no theme CSS loaded — apply manually) ─────────── */
+.reveal-viewport {
+  background: var(--color-bg-dark);
+}
+.reveal {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  color: var(--color-text-secondary);
+}
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-transform: none;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-shadow: none;
 }
 
 /* ── Fixed chrome ────────────────────────────────────────────────────────── */

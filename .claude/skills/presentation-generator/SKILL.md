@@ -21,22 +21,85 @@ Produce a **single self-contained HTML file**.
 
 Requirements:
 
-- No external dependencies
 - No separate asset files
-- Everything must be embedded inside the HTML
+- Everything must be embedded or loaded via CDN inside the HTML
 
 Assets must be embedded as follows:
 
 - Fonts: Google Fonts CDN or `@font-face`
 - Icons: inline SVG
 - Images: base64
-- Company logo (`TATLogo.png`): base64 data URI
+- Company logo (`TAT-Logo-4c.svg`): inline SVG (preferred) — fall back to `TAT-Logo.png` as base64 data URI only if the SVG is unavailable
 
-Slides must support:
+## Slide Framework: Reveal.js
 
-- keyboard navigation (left/right arrow keys)
-- on-screen navigation buttons
-- smooth transitions between slides
+Use **Reveal.js v5** via CDN for all slide navigation and transitions.
+Do **not** hand-roll navigation JavaScript or CSS transitions.
+
+Load via CDN in `<head>`:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+```
+
+Load the script before `</body>` and initialise:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    center: false,
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    controls: true,
+    progress: true,
+    slideNumber: 'c/t',
+  });
+</script>
+```
+
+**Do not** load a Reveal theme CSS file — apply all visual styling yourself using the design tokens.
+
+Override Reveal's default CSS variables to match the brand:
+
+```css
+:root {
+  --r-background-color: #212931;
+  --r-main-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --r-main-font-size: 16px;
+  --r-main-color: rgba(255,255,255,0.78);
+  --r-heading-font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --r-heading-color: #ffffff;
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 700;
+  --r-code-font: 'Courier New', Consolas, monospace;
+}
+```
+
+Wrap slides in the Reveal structure:
+
+```html
+<div class="reveal">
+  <div class="slides">
+    <section>Slide content</section>
+    <section>Slide content</section>
+  </div>
+</div>
+```
+
+Style `.reveal .slides section` for left-aligned, top-anchored content with brand padding:
+
+```css
+.reveal .slides section {
+  text-align: left;
+  padding: 52px 72px 80px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+```
 
 The file must be **fully portable and presentation-ready**.
 

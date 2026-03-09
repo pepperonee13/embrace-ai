@@ -97,7 +97,7 @@ The file `styleguide.html` (in this same skill folder) is the single source of t
 | Quote block | `.display-quote` |
 | Brand divider | `.divider` |
 | Arrow bullet list | `ul > li` (::before → arrow) |
-| Cards (4 variants) | `.card`, `.card.petrol`, `.card.orange`, `.card.red` |
+| Cards (4 variants) | `.card`, `.card.petrol`, `.card.orange`, `.card.dark-orange` |
 | Badges (4 colours) | `.badge-green`, `.badge-yellow`, `.badge-red`, `.badge-blue` |
 | Code blocks (3 variants) | `pre`, `pre.shell`, `pre.json` |
 | Inline code | `code` |
@@ -105,7 +105,7 @@ The file `styleguide.html` (in this same skill folder) is the single source of t
 | Two-column grid | `.two-col` |
 | Three-column grid | `.three-col` |
 | Agenda list | `.agenda-list > .agenda-item` |
-| Use-case cards | `.usecase-card` with `.uc-header` / `.uc-title` |
+| Use-case cards | `.usecase-card.petrol`, `.usecase-card.warm`, or `.usecase-card.blue` with `.uc-header` / `.uc-title` — **a color modifier is required; bare `.usecase-card` is never allowed** |
 | Numbered demo steps | `.demo-step` with `.demo-step-num` |
 | Takeaway rows | `.takeaway-item` with `.takeaway-icon` / `.takeaway-text` |
 | Resource rows | `.resource-item` with `.resource-icon` |

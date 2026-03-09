@@ -204,7 +204,7 @@ body {
 }
 .card.orange { border-left-color: var(--color-accent-warm); }
 .card.petrol { border-left-color: var(--color-accent-secondary); }
-.card.red    { border-left-color: #e05555; }
+.card.dark-orange { border-left-color: var(--color-accent-dark-warm); }
 .card-title {
   font-size: 0.75rem; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
@@ -212,7 +212,7 @@ body {
 }
 .card.orange .card-title { color: var(--color-accent-warm); }
 .card.petrol .card-title { color: var(--color-accent-secondary); }
-.card.red    .card-title { color: #e05555; }
+.card.dark-orange .card-title { color: var(--color-accent-dark-warm); }
 
 /* Badges */
 .badge {
@@ -333,8 +333,10 @@ p.author-name { margin-top: 1.5rem; }
 .usecase-card.petrol .uc-title { color: var(--color-accent-secondary); }
 .usecase-card.warm   { border-top: 3px solid var(--color-accent-warm); }
 .usecase-card.warm   .uc-title { color: var(--color-accent-warm); }
-.usecase-card.red    { border-top: 3px solid #e05555; }
-.usecase-card.red    .uc-title { color: #e05555; }
+.usecase-card.blue        { border-top: 3px solid var(--color-accent-primary); }
+.usecase-card.blue        .uc-title { color: var(--color-accent-primary); }
+.usecase-card.dark-orange { border-top: 3px solid var(--color-accent-dark-warm); }
+.usecase-card.dark-orange .uc-title { color: var(--color-accent-dark-warm); }
 
 /* ── Inline source link ─────────────────────────────────────────────────── */
 .slide-source { margin-top: auto; padding-top: 12px; font-size: 0.6875rem; color: var(--color-text-muted); }
@@ -375,11 +377,39 @@ p.author-name { margin-top: 1.5rem; }
           <div class="swatch"><div class="swatch-color" style="background:#303944;"></div><div class="swatch-label"><div class="swatch-name">bg-surface</div>#303944</div></div>
           <div class="swatch"><div class="swatch-color" style="background:#3b4656;"></div><div class="swatch-label"><div class="swatch-name">bg-card</div>#3b4656</div></div>
           <div class="swatch"><div class="swatch-color" style="background:#205ea7;"></div><div class="swatch-label"><div class="swatch-name">accent-primary</div>#205ea7</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#024b80;"></div><div class="swatch-label"><div class="swatch-name">accent-dark-blue</div>#024b80</div></div>
           <div class="swatch"><div class="swatch-color" style="background:#09909c;"></div><div class="swatch-label"><div class="swatch-name">accent-secondary</div>#09909c</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#036b75;"></div><div class="swatch-label"><div class="swatch-name">accent-dark-petrol</div>#036b75</div></div>
           <div class="swatch"><div class="swatch-color" style="background:#f08226;"></div><div class="swatch-label"><div class="swatch-name">accent-warm</div>#f08226</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#d57112;"></div><div class="swatch-label"><div class="swatch-name">accent-dark-warm</div>#d57112</div></div>
           <div class="swatch"><div class="swatch-color" style="background:#ffffff;"></div><div class="swatch-label"><div class="swatch-name">text-primary</div>#ffffff</div></div>
           <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.78);"></div><div class="swatch-label"><div class="swatch-name">text-secondary</div>rgba(255,255,255,.78)</div></div>
           <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.45);"></div><div class="swatch-label"><div class="swatch-name">text-muted</div>rgba(255,255,255,.45)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-item">
+      <div class="sg-item-label">Secondary brand scales (reference only — not applied tokens)</div>
+      <div class="sg-preview compact">
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-color" style="background:#3b7bbf;"></div><div class="swatch-label"><div class="swatch-name">blue-2</div>#3b7bbf</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#5a9bd5;"></div><div class="swatch-label"><div class="swatch-name">blue-3</div>#5a9bd5</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#7fbce0;"></div><div class="swatch-label"><div class="swatch-name">blue-4</div>#7fbce0</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#a8d8ea;"></div><div class="swatch-label"><div class="swatch-name">blue-5</div>#a8d8ea</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#2da8a8;"></div><div class="swatch-label"><div class="swatch-name">petrol-2</div>#2da8a8</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#5cbfb8;"></div><div class="swatch-label"><div class="swatch-name">petrol-3</div>#5cbfb8</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#8fd4c8;"></div><div class="swatch-label"><div class="swatch-name">petrol-4</div>#8fd4c8</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#b8e6d8;"></div><div class="swatch-label"><div class="swatch-name">petrol-5</div>#b8e6d8</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#b8c44a;"></div><div class="swatch-label"><div class="swatch-name">pistachio</div>#b8c44a</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#c8cf6e;"></div><div class="swatch-label"><div class="swatch-name">pistachio-2</div>#c8cf6e</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#d5d88a;"></div><div class="swatch-label"><div class="swatch-name">pistachio-3</div>#d5d88a</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#e0e0a4;"></div><div class="swatch-label"><div class="swatch-name">pistachio-4</div>#e0e0a4</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#eae8be;"></div><div class="swatch-label"><div class="swatch-name">pistachio-5</div>#eae8be</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#e6a05c;"></div><div class="swatch-label"><div class="swatch-name">orange-2</div>#e6a05c</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#d8a07a;"></div><div class="swatch-label"><div class="swatch-name">orange-3</div>#d8a07a</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#cc9488;"></div><div class="swatch-label"><div class="swatch-name">orange-4</div>#cc9488</div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#c08e90;"></div><div class="swatch-label"><div class="swatch-name">orange-5</div>#c08e90</div></div>
         </div>
       </div>
     </div>
@@ -516,10 +546,10 @@ p.author-name { margin-top: 1.5rem; }
     </div>
 
     <div class="sg-item">
-      <div class="sg-item-label">.card.red — red left border (warnings / anti-patterns)</div>
+      <div class="sg-item-label">.card.dark-orange — dark orange left border (warnings / anti-patterns)</div>
       <div class="sg-preview compact">
-        <div class="card red">
-          <div class="card-title">Red Card</div>
+        <div class="card dark-orange">
+          <div class="card-title">Dark Orange Card</div>
           <p class="card-body">Use for warnings, anti-patterns, or things to avoid.</p>
         </div>
       </div>
@@ -715,7 +745,7 @@ p.author-name { margin-top: 1.5rem; }
               <li>API migration</li>
             </ul>
           </div>
-          <div class="usecase-card red">
+          <div class="usecase-card dark-orange">
             <div class="uc-header">
               <span class="badge badge-red">Opus</span>
               <span class="uc-title">Heavy Lifting</span>
@@ -1107,7 +1137,7 @@ set('code-tpl-three-col', `<!-- THREE-COLUMN USE-CASE SLIDE -->
       </div>
       <ul><li>Item one</li><li>Item two</li></ul>
     </div>
-    <div class="usecase-card red">
+    <div class="usecase-card dark-orange">
       <div class="uc-header">
         <span class="badge badge-red">Tier 3</span>
         <span class="uc-title">Category C</span>

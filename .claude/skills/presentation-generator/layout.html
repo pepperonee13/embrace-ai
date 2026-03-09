@@ -277,6 +277,29 @@
 }
 .resource-title { font-size: 0.9375rem; font-weight: 600; color: white; margin-bottom: 3px; }
 .resource-url   { font-size: 0.8rem; color: var(--color-accent-secondary); font-family: 'Courier New', monospace; }
+
+/* ── Author row (title & thank-you slides) ───────────────────────────────── */
+.author-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+.author-avatar { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; border: 3px solid var(--color-accent-primary); flex-shrink: 0; }
+.author-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.author-name { font-size: 1.1rem; color: var(--color-text-muted); }
+p.author-name { margin-top: 1.5rem; }
+
+/* ── Use-case card color variants ────────────────────────────────────────── */
+.usecase-card.petrol { border-top: 3px solid var(--color-accent-secondary); }
+.usecase-card.petrol .uc-title { color: var(--color-accent-secondary); }
+.usecase-card.warm   { border-top: 3px solid var(--color-accent-warm); }
+.usecase-card.warm   .uc-title { color: var(--color-accent-warm); }
+.usecase-card.red    { border-top: 3px solid #e05555; }
+.usecase-card.red    .uc-title { color: #e05555; }
+
+/* ── Inline source link ──────────────────────────────────────────────────── */
+.slide-source { margin-top: auto; padding-top: 12px; font-size: 0.6875rem; color: var(--color-text-muted); }
+.slide-source a { color: var(--color-accent-secondary); text-decoration: none; }
+.slide-source a:hover { text-decoration: underline; }
+
+/* ── highlight-warm strong ───────────────────────────────────────────────── */
+.reveal .highlight-warm strong { color: var(--color-accent-warm); }
 </style>
 </head>
 <body>
@@ -310,11 +333,11 @@
       </h1>
       <div class="divider"></div>
       <p class="display-quote">"An optional memorable quote."</p>
-      <div style="display:flex;align-items:center;gap:1rem;margin-top:1.5rem;">
-        <div class="author-avatar" style="width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid var(--color-accent-primary);flex-shrink:0;">
-          <img src="AUTHOR_PHOTO" alt="AUTHOR_NAME" style="width:100%;height:100%;object-fit:cover;">
+      <div class="author-row">
+        <div class="author-avatar">
+          <img src="AUTHOR_PHOTO" alt="AUTHOR_NAME">
         </div>
-        <span style="font-size:1.1rem;color:var(--color-text-muted);">by AUTHOR_NAME</span>
+        <span class="author-name">by AUTHOR_NAME</span>
       </div>
     </section>
     -->
@@ -331,11 +354,11 @@
       </h1>
       <div class="divider"></div>
       <p class="display-quote">Obviously.</p>
-      <div style="display:flex;align-items:center;gap:1rem;margin-top:1.5rem;">
-        <div class="author-avatar" style="width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid var(--color-accent-primary);flex-shrink:0;">
-          <img src="AUTHOR_PHOTO" alt="AUTHOR_NAME" style="width:100%;height:100%;object-fit:cover;">
+      <div class="author-row">
+        <div class="author-avatar">
+          <img src="AUTHOR_PHOTO" alt="AUTHOR_NAME">
         </div>
-        <span style="font-size:1.1rem;color:var(--color-text-muted);">by AUTHOR_NAME</span>
+        <span class="author-name">by AUTHOR_NAME</span>
       </div>
     </section>
     -->

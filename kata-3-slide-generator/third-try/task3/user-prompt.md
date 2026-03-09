@@ -1,0 +1,1 @@
+Introduce Enterprise RAG Challenge to aspiring developers based on slide.txt

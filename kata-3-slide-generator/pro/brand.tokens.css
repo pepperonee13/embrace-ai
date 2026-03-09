@@ -1,0 +1,68 @@
+/* brand.tokens.css
+ * Generated from brand YAML.
+ * Sections: colors, typography, layout, slides
+ * Deterministic rules: kebab-case keys, lexicographic order, 2-space indent
+ */
+:root {
+  /* colors */
+  --brand-colors-gradient-linear: ['#205ea7', '#09909c', '#f08226'];
+  --brand-colors-gradient-radial: ['#024b80', '#036b75', '#d57112'];
+  --brand-colors-primary-blue: #205ea7;
+  --brand-colors-primary-dark-blue: #024b80;
+  --brand-colors-primary-dark-gunmetal: #212931;
+  --brand-colors-primary-dark-orange: #d57112;
+  --brand-colors-primary-dark-petrol: #036b75;
+  --brand-colors-primary-gunmetal: #303944;
+  --brand-colors-primary-orange: #f08226;
+  --brand-colors-primary-petrol: #09909c;
+  --brand-colors-secondary-blue-2: #205ea7;
+  --brand-colors-secondary-blue-3: #024b80;
+  --brand-colors-secondary-blue-4: #09909c;
+  --brand-colors-secondary-blue-5: #036b75;
+  --brand-colors-secondary-orange-2: #024b80;
+  --brand-colors-secondary-orange-3: #09909c;
+  --brand-colors-secondary-orange-4: #036b75;
+  --brand-colors-secondary-orange-5: #036b75;
+  --brand-colors-secondary-petrol-2: #205ea7;
+  --brand-colors-secondary-petrol-3: #024b80;
+  --brand-colors-secondary-petrol-4: #09909c;
+  --brand-colors-secondary-petrol-5: #036b75;
+  --brand-colors-secondary-pistachio: #205ea7;
+  --brand-colors-secondary-pistachio-2: #024b80;
+  --brand-colors-secondary-pistachio-3: #09909c;
+  --brand-colors-secondary-pistachio-4: #036b75;
+  --brand-colors-secondary-pistachio-5: #205ea7;
+
+  /* typography */
+  --brand-typography-body-line-height: 1.6;
+  --brand-typography-body-size-rem: 1.0rem;
+  --brand-typography-body-weight: 400;
+  --brand-typography-caption-line-height: 1.4;
+  --brand-typography-caption-size-rem: 0.85rem;
+  --brand-typography-caption-weight: 400;
+  --brand-typography-font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --brand-typography-headings-h1-line-height: 1.1;
+  --brand-typography-headings-h1-size-rem: 2.8rem;
+  --brand-typography-headings-h1-weight: 700;
+  --brand-typography-headings-h2-line-height: 1.2;
+  --brand-typography-headings-h2-size-rem: 2.0rem;
+  --brand-typography-headings-h2-weight: 600;
+  --brand-typography-headings-h3-line-height: 1.3;
+  --brand-typography-headings-h3-size-rem: 1.4rem;
+  --brand-typography-headings-h3-weight: 600;
+
+  /* layout */
+  --brand-layout-aspect-ratio: 16:9;
+  --brand-layout-container-padding: 96px;
+  --brand-layout-grid-unit: 8px;
+  --brand-layout-logo-safe-margin: 24px;
+  --brand-layout-max-text-width: 70%;
+
+  /* slides */
+  --brand-slides-accent-color: #205ea7;
+  --brand-slides-background: #ffffff;
+  --brand-slides-bullet-symbol: •;
+  --brand-slides-link-color: #205ea7;
+  --brand-slides-quote-color: #036b75;
+  --brand-slides-text-color: #212931;
+}

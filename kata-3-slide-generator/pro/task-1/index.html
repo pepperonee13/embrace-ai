@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LLM Benchmark – April 2025 Executive Summary</title>
+  <link rel="stylesheet" href="./brand.tokens.css" />
+</head>
+<body data-lang="en">
+
+    <section class="slide" role="region" aria-label="Slide 1">
+      <header>
+        <h1>LLM Benchmark 2025</h1><p>Insights for Executives – April Edition</p>
+      </header>
+      <main>
+        
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 2">
+      <header>
+        <h2>Key Highlights</h2>
+      </header>
+      <main>
+        <ul><li>New OpenAI models (o3-mini, o4-mini, GPT-4.1) dominate reasoning benchmarks.</li><li>Qwen3 models redefine on-premises AI performance.</li><li>Google Gemini 2.5 series gains traction in enterprise scenarios.</li><li>Practical learnings from the “Embrace AI” initiative show productivity boosts through prompt mastery.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 3">
+      <header>
+        <h2>OpenAI Models – Strong but Costly</h2>
+      </header>
+      <main>
+        <ul><li>o3-mini and o4-mini rank at the top for reasoning quality.</li><li>GPT-4.1 variants (base and mini) remain strong but not top tier.</li><li>Cost of usage remains a key drawback compared to competitors.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 4">
+      <header>
+        <h2>Qwen3 – State-of-the-Art for Local AI</h2>
+      </header>
+      <main>
+        <ul><li>Major leap from Qwen 2.5 to Qwen3, with 32.8B parameter flagship models.</li><li>MoE architecture (Qwen3-30B-A3B) activates only 3.3B parameters per token, improving efficiency.</li><li>Enterprise-grade accuracy suitable for overnight or batch workloads.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 5">
+      <header>
+        <h2>Google Gemini 2.5 – The Rising Contender</h2>
+      </header>
+      <main>
+        <ul><li>Gemini 2.5 Pro and Flash models enter top-10 leaderboard.</li><li>Outperform OpenAI on price–stability ratio.</li><li>Excels in large-context tasks (200k–500k tokens) and document understanding.</li><li>Best-in-class for complex, multi-page compliance document processing.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 6">
+      <header>
+        <h2>Market Implications</h2>
+      </header>
+      <main>
+        <ul><li>Google rapidly closing the gap with OpenAI.</li><li>Qwen3 threatens cloud dominance with on-prem performance.</li><li>Model selection increasingly depends on workflow type and context size.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 7">
+      <header>
+        <h2>AI Coding Insights – Embrace AI Initiative</h2>
+      </header>
+      <main>
+        <ul><li>Senior engineers shifting from OpenAI and Claude 3.7 to Gemini 2.5 Pro.</li><li>Decision drivers: context size, quality, speed, and cost.</li><li>Practical kata shows that skilled prompt engineering beats multi-agent IDEs.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 8">
+      <header>
+        <h2>Prompt Distillation Case Study</h2>
+      </header>
+      <main>
+        <ul><li>Task: build a simple WebUI LLM app using prompt-only methods.</li><li>Best results: 15-minute completions using GPT-o1 Pro and Gemini 2.5 Pro.</li><li>70-token distilled prompts proved effective across multiple models.</li><li>Demonstrates the power of concise, model-agnostic prompt design.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 9">
+      <header>
+        <h2>Key Takeaways for Leaders</h2>
+      </header>
+      <main>
+        <ul><li>AI productivity depends more on practitioner skill than tooling complexity.</li><li>Claude 3.7 Sonnet and Gemini 2.5 Pro are current favorites for AI Coding.</li><li>Strategic investment should balance model capability, cost, and workflow fit.</li><li>Continuous skill development (“prompt literacy”) drives sustainable advantage.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+
+    <section class="slide" role="region" aria-label="Slide 10">
+      <header>
+        <h2>From Benchmark to Business Value</h2>
+      </header>
+      <main>
+        <ul><li>Move from experimentation to enterprise-ready deployment.</li><li>Focus on context-rich workflows, document intelligence, and human-AI synergy.</li><li>Turning AI potential into measurable business impact.</li></ul>
+      </main>
+      <footer><img class="logo" src="./logo.svg" alt="Company logo" /></footer>
+    </section>
+    
+<script>
+
+      (function(){
+        var slides=[].slice.call(document.querySelectorAll('.slide'));
+        var i=0;
+        function show(n){ i=Math.max(0,Math.min(slides.length-1,n));
+          slides.forEach((s,idx)=>s.style.display=idx===i?'grid':'none'); }
+        addEventListener('keydown',function(e){
+          if(['ArrowRight','PageDown',' '].includes(e.key)) show(i+1);
+          if(['ArrowLeft','PageUp','Backspace'].includes(e.key)) show(i-1);
+        });
+        show(0);
+      })();
+
+</script>
+</body>
+</html>

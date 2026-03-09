@@ -1,0 +1,198 @@
+# TIMETOACT GROUP Brand Style Guide
+brand:
+  name: "TIMETOACT GROUP"
+  guide_version: "1.0"
+
+colors:
+  primary:
+    - name: "Blue"
+      hex: "#205ea7"
+      rgb: "32/94/167"
+      cmyk: "90/62/2/0"
+      
+    - name: "Dark Blue"
+      hex: "#024b80"
+      rgb: "2/75/128"
+      cmyk: "99/71/23/8"
+      
+    - name: "Petrol"
+      hex: "#09909c"
+      rgb: "9/144/156"
+      cmyk: "80/22/36/5"
+      
+    - name: "Dark Petrol"
+      hex: "#036b75"
+      rgb: "3/107/117"
+      cmyk: "86/35/43/24"
+      
+    - name: "Orange"
+      hex: "#f08226"
+      rgb: "240/130/38"
+      cmyk: "0/58/90/0"
+      
+    - name: "Dark Orange"
+      hex: "#d57112"
+      rgb: "213/113/18"
+      cmyk: "13/63/100/3"
+      
+    - name: "Gunmetal"
+      hex: "#303944"
+      rgb: "48/57/68"
+      cmyk: "80/64/49/52"
+      
+    - name: "Dark Gunmetal"
+      hex: "#212931"
+      rgb: "33/41/49"
+      cmyk: "80/64/49/70"
+
+  secondary:
+    blue_variants:
+      - name: "Blue 2"
+        hex: "#205ea7"
+        rgb: "32/94/167"
+        cmyk: "90/62/2/0"
+        
+      - name: "Blue 3"
+        hex: "#024b80"
+        rgb: "2/75/128"
+        cmyk: "99/71/23/8"
+        
+      - name: "Blue 4"
+        hex: "#09909c"
+        rgb: "9/144/156"
+        cmyk: "80/22/36/5"
+        
+      - name: "Blue 5"
+        hex: "#036b75"
+        rgb: "3/107/117"
+        cmyk: "86/35/43/24"
+    
+    petrol_variants:
+      - name: "Petrol 2"
+        hex: "#205ea7"
+        rgb: "32/94/167"
+        cmyk: "90/62/2/0"
+        
+      - name: "Petrol 3"
+        hex: "#024b80"
+        rgb: "2/75/128"
+        cmyk: "99/71/23/8"
+        
+      - name: "Petrol 4"
+        hex: "#09909c"
+        rgb: "9/144/156"
+        cmyk: "80/22/36/5"
+        
+      - name: "Petrol 5"
+        hex: "#036b75"
+        rgb: "3/107/117"
+        cmyk: "86/35/43/24"
+    
+    pistachio_variants:
+      - name: "Pistachio"
+        hex: "#205ea7"
+        rgb: "32/94/167"
+        cmyk: "90/62/2/0"
+        
+      - name: "Pistachio 2"
+        hex: "#024b80"
+        rgb: "2/75/128"
+        cmyk: "99/71/23/8"
+        
+      - name: "Pistachio 3"
+        hex: "#09909c"
+        rgb: "9/144/156"
+        cmyk: "80/22/36/5"
+        
+      - name: "Pistachio 4"
+        hex: "#036b75"
+        rgb: "3/107/117"
+        cmyk: "86/35/43/24"
+        
+      - name: "Pistachio 5"
+        hex: "#205ea7"
+        rgb: "32/94/167"
+        cmyk: "90/62/2/0"
+    
+    orange_variants:
+      - name: "Orange 2"
+        hex: "#024b80"
+        rgb: "2/75/128"
+        cmyk: "99/71/23/8"
+        
+      - name: "Orange 3"
+        hex: "#09909c"
+        rgb: "9/144/156"
+        cmyk: "80/22/36/5"
+        
+      - name: "Orange 4"
+        hex: "#036b75"
+        rgb: "3/107/117"
+        cmyk: "86/35/43/24"
+        
+      - name: "Orange 5"
+        hex: "#036b75"
+        rgb: "3/107/117"
+        cmyk: "86/35/43/24"
+
+gradients:
+  linear:
+    description: "Linear gradient progression from Blue through Petrol and Pistachio to Orange"
+    stops:
+      - color: "Blue"
+        position: "0%"
+      - color: "Petrol"
+        position: "33%"
+      - color: "Pistachio"
+        position: "66%"
+      - color: "Orange"
+        position: "100%"
+  
+  radial:
+    description: "Radial gradient with four-color blend"
+    center_blend: true
+    colors:
+      - "Blue"
+      - "Petrol"
+      - "Pistachio"
+      - "Orange"
+
+color_usage:
+  primary_colors:
+    purpose: "Main brand colors for primary elements and key messaging"
+    applications:
+      - "Logo and brand marks"
+      - "Headlines and key text"
+      - "Primary UI elements"
+      - "Call-to-action buttons"
+  
+  secondary_colors:
+    purpose: "Supporting colors for depth and variety"
+    applications:
+      - "Backgrounds and overlays"
+      - "Secondary UI elements"
+      - "Data visualization"
+      - "Accent elements"
+  
+  gradients:
+    purpose: "Dynamic color transitions for modern, energetic feel"
+    applications:
+      - "Hero sections"
+      - "Background elements"
+      - "Transitional elements"
+      - "Special emphasis areas"
+
+accessibility:
+  contrast_recommendations:
+    - text_on_dark: "Use light colors (Pistachio variants) for text on dark backgrounds"
+    - text_on_light: "Use dark colors (Dark Gunmetal, Dark Petrol, Dark Blue) for text on light backgrounds"
+    - minimum_contrast: "Maintain WCAG AA standard (4.5:1 for normal text, 3:1 for large text)"
+
+file_formats:
+  supported:
+    - "RGB (Screen/Digital)"
+    - "CMYK (Print)"
+    - "HEX (Web)"
+    - "Pantone (Special printing)"
+    - "HKS (German printing standard)"
+    - "RAL (Industrial coatings)"

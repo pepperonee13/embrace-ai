@@ -1,0 +1,1 @@
+Create a presentation about my current project in Finanzwesen for the Schleupen company. Company infos can be found in Schleupen_AG_Company_Overview.txt

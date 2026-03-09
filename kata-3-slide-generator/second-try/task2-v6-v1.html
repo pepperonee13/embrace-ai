@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TIMETOACT GROUP Presentation - Partners & Customers</title>
+    <style>
+        /* Inline CSS from component-library.html */
+        :root {
+            --tta-blue: #205ea7;
+            --tta-dark-blue: #024b80;
+            --tta-petrol: #09909c;
+            --tta-dark-petrol: #036b75;
+            --tta-orange: #f08226;
+            --tta-dark-orange: #d57112;
+            --tta-gunmetal: #303944;
+            --tta-dark-gunmetal: #212931;
+            --tta-gradient-linear: linear-gradient(90deg,
+                var(--tta-blue) 0%,
+                var(--tta-petrol) 33%,
+                var(--tta-pistachio, #205ea7) 66%,
+                var(--tta-orange) 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f0f0f0;
+            margin: 0;
+            padding: 20px 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .slide-container {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 20px auto;
+            position: relative;
+            padding: 80px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .tta-bg-gradient-linear { background: var(--tta-gradient-linear); color: white; }
+        .tta-bg-blue { background: var(--tta-blue); color: white; }
+        .tta-bg-petrol { background: var(--tta-petrol); color: white; }
+        .tta-logo-large { width: 400px; height: auto; position: absolute; top: 40px; right: 80px; }
+        .tta-logo-small { width: 150px; height: auto; position: absolute; top: 40px; right: 80px; }
+        .tta-title-primary { font-size: 56px; font-weight: 700; color: var(--tta-dark-blue); margin-bottom: 30px; }
+        .tta-title-secondary { font-size: 42px; font-weight: 600; color: var(--tta-dark-blue); margin-bottom: 25px; }
+        .tta-subtitle { font-size: 24px; font-weight: 500; color: var(--tta-dark-petrol); border-left: 4px solid var(--tta-orange); padding-left: 20px; margin-bottom: 40px; }
+        .tta-list { list-style: none; padding: 0; }
+        .tta-list-item { font-size: 20px; color: var(--tta-gunmetal); margin-bottom: 15px; padding-left: 35px; position: relative; line-height: 1.6; }
+        .tta-list-item::before { content: ""; position: absolute; left: 0; top: 10px; width: 12px; height: 12px; background: var(--tta-orange); border-radius: 50%; }
+        .tta-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+        .tta-stat-card { background: white; padding: 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-top: 4px solid var(--tta-blue); }
+        .tta-stat-number { font-size: 64px; font-weight: 700; color: var(--tta-orange); }
+        .tta-stat-label { font-size: 20px; color: var(--tta-gunmetal); }
+        .tta-quote { background: var(--tta-petrol); color: white; padding: 100px; border-radius: 12px; text-align: center; font-size: 32px; font-weight: 500; font-style: italic; }
+        .tta-quote-author { margin-top: 30px; font-size: 20px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide-container tta-bg-gradient-linear">
+        <svg class="tta-logo-large"></svg>
+        <h1 class="tta-title-primary" style="color:white;">TIMETOACT GROUP</h1>
+        <div class="tta-subtitle" style="border-color:white; color:white;">Empowering Digital Business Transformation</div>
+    </div>
+
+    <!-- Slide 2: Mission -->
+    <div class="slide-container">
+        <svg class="tta-logo-small"></svg>
+        <h1 class="tta-title-secondary">Our Mission</h1>
+        <ul class="tta-list">
+            <li class="tta-list-item">Design pragmatic, innovative IT solutions and implement digital business models for clients—acting as “drivers and doers.”</li>
+            <li class="tta-list-item">Keep customer profitability and competitiveness at the core—our team succeeds only when our customers succeed.</li>
+            <li class="tta-list-item">Deliver integrated, high-quality outcomes through shared knowledge, entrepreneurial spirit, and a positive, action-oriented culture.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 3: Unique Value Proposition -->
+    <div class="slide-container">
+        <svg class="tta-logo-small"></svg>
+        <h1 class="tta-title-secondary">Our Unique Value Proposition</h1>
+        <ul class="tta-list">
+            <li class="tta-list-item"><strong>Local Vienna competence center</strong> backed by 1,400+ experts in 22 DACH cities—combining proximity and deep regional reach.</li>
+            <li class="tta-list-item"><strong>Vendor-agnostic consulting</strong> across IBM, Microsoft, Google, Atlassian, and open-source stacks—always aligned with client needs.</li>
+            <li class="tta-list-item"><strong>End-to-end support</strong> from strategy to implementation and managed services—ensuring faster time-to-value.</li>
+            <li class="tta-list-item"><strong>Cutting-edge AI & data leadership</strong>—from LLM Benchmarks to the Enterprise RAG Challenge.</li>
+            <li class="tta-list-item"><strong>Strategic growth through acquisitions</strong> like the 2024 Trustbit merger, expanding digital transformation expertise.</li>
+        </ul>
+    </div>
+
+    <!-- Slide 4: Key Figures -->
+    <div class="slide-container">
+        <svg class="tta-logo-small"></svg>
+        <h1 class="tta-title-secondary">Key Figures</h1>
+        <div class="tta-stats-grid">
+            <div class="tta-stat-card">
+                <div class="tta-stat-number">1,400+</div>
+                <div class="tta-stat-label">Experts</div>
+            </div>
+            <div class="tta-stat-card">
+                <div class="tta-stat-number">22</div>
+                <div class="tta-stat-label">DACH Cities</div>
+            </div>
+            <div class="tta-stat-card">
+                <div class="tta-stat-number">100%</div>
+                <div class="tta-stat-label">Customer Focus</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Quote -->
+    <div class="slide-container tta-bg-petrol">
+        <svg class="tta-logo-small"></svg>
+        <div class="tta-quote">
+            “The best time to act is now. We are drivers and doers, creating innovative solutions for our clients.”
+            <div class="tta-quote-author">— TIMETOACT GROUP Mission</div>
+        </div>
+    </div>
+
+</body>
+</html>

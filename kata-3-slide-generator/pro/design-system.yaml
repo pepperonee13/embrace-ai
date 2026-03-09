@@ -1,0 +1,111 @@
+brand: "TIMETOACT GROUP"
+version: 1.0.0
+description: >
+  Core design tokens derived from the TIMETOACT GROUP Brand Guide.
+  Defines color palette, typography, spacing, and layout standards for automated slide generation.
+
+colors:
+  # === PRIMARY PALETTE ===
+  primary:
+    dark-gunmetal:  "#212931"
+    dark-petrol:    "#036b75"
+    dark-orange:    "#d57112"
+    dark-blue:      "#024b80"
+    gunmetal:       "#303944"
+    petrol:         "#09909c"
+    orange:         "#f08226"
+    blue:           "#205ea7"
+
+  # === SECONDARY / GRADIENT COLORS ===
+  secondary:
+    pistachio:        "#205ea7"
+    pistachio-2:      "#024b80"
+    pistachio-3:      "#09909c"
+    pistachio-4:      "#036b75"
+    pistachio-5:      "#205ea7"
+
+    blue-2:           "#205ea7"
+    blue-3:           "#024b80"
+    blue-4:           "#09909c"
+    blue-5:           "#036b75"
+
+    petrol-2:         "#205ea7"
+    petrol-3:         "#024b80"
+    petrol-4:         "#09909c"
+    petrol-5:         "#036b75"
+
+    orange-2:         "#024b80"
+    orange-3:         "#09909c"
+    orange-4:         "#036b75"
+    orange-5:         "#036b75"
+
+  gradient:
+    linear: ["#205ea7", "#09909c", "#f08226"]
+    radial: ["#024b80", "#036b75", "#d57112"]
+
+typography:
+  font-family: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+  headings:
+    h1:
+      size-rem: 2.8
+      line-height: 1.1
+      weight: 700
+    h2:
+      size-rem: 2.0
+      line-height: 1.2
+      weight: 600
+    h3:
+      size-rem: 1.4
+      line-height: 1.3
+      weight: 600
+  body:
+    size-rem: 1.0
+    line-height: 1.6
+    weight: 400
+  caption:
+    size-rem: 0.85
+    line-height: 1.4
+    weight: 400
+
+layout:
+  grid-unit: 8px
+  container-padding: 96px
+  logo-safe-margin: 24px
+  aspect-ratio: "16:9"
+  max-text-width: "70%"
+
+logo:
+  svg: "./TIMETOACT-AT_logo.svg"
+  placement: "bottom-right"
+  min-size: 96px
+  clearspace: "1x logo height"
+  background: "transparent"
+
+language:
+  supported: ["en", "de"]
+  default: "en"
+
+tone:
+  en:
+    voice: "Professional, confident, collaborative"
+    style: "Concise and active tone with short sentences"
+  de:
+    voice: "Professionell, selbstbewusst, partnerschaftlich"
+    style: "Sachlich, klar, und direkt — ohne Floskeln"
+
+slides:
+  background: "#ffffff"
+  text-color: "#212931"
+  accent-color: "#205ea7"
+  link-color: "#205ea7"
+  quote-color: "#036b75"
+  bullet-symbol: "•"
+
+accessibility:
+  contrast-ratio-min: "AA (4.5:1)"
+  prefers-reduced-motion: true
+
+meta:
+  created-from: "brandbook.pdf + TIMETOACT-AT_logo.svg"
+  extracted-by: "AI-assisted parser"
+  reviewed: false

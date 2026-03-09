@@ -1,0 +1,14 @@
+## Mission
+* Design pragmatic, innovative IT solutions and implement digital business models for clients—acting as “drivers and doers” because **the best time to act is now**. ([timetoact-group.at][1])
+* Keep customer profitability and competitiveness at the core; **the team succeeds only when its customers succeed**. ([timetoact-group.at][1])
+* Deliver integrated, high-quality outcomes through shared knowledge, entrepreneurial spirit, and a positive, action-oriented culture. ([timetoact-group.at][1])
+## Unique Value Proposition
+* **Local Vienna competence center backed by 1,400+ experts in 22 DACH cities**—giving clients both proximity and deep regional reach. ([timetoact-group.at][2])
+* **Vendor-agnostic consulting** across IBM, Microsoft, Google, Atlassian and open-source stacks, ensuring technology choices match client needs—not vendor agendas. ([timetoact-group.at][2])
+* **End-to-end support** (strategy → implementation → operation & managed services) for faster time-to-value and one-stop accountability. ([timetoact-group.at][2])
+* **Cutting-edge AI & data leadership**—publishes LLM Benchmarks and runs the Enterprise RAG Challenge, translating research directly into client projects. ([timetoact-group.at][2])
+* **Strategic growth through acquisitions** (e.g., 2024 merger with Trustbit) keeps expertise current and expands digital-transformation depth. ([Timetoact Group][3])
+* Holistic, senior-level consulting and **customized, efficient solutions** that measurably improve business processes. ([timetoact-group.at][2])
+[1]: https://www.timetoact-group.at/en/about-us/our-values-our-aspiration "Our Values – Our Aspiration | This is what we stand for"
+[2]: https://www.timetoact-group.at/en/about-us "Your service provider for high-quality IT services"
+[3]: https://www.timetoact-group.com/en/news/2024/trustbit-becomes-part-of-timetoact-group?utm_source=chatgpt.com "Trustbit becomes part of TIMETOACT GROUP"

@@ -1,0 +1,1 @@
+Summarise findings of our LLM Benchmark for April 2025 for a presentation to the executives. Light background. PDF is attached "kata-3-slide-generator\task-1\Benchmark April.pdf"

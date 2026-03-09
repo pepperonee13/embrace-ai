@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMETOACT GROUP - Slide Component Library</title>
+    <style>
+        /* ===== ROOT VARIABLES - TIMETOACT BRAND COLORS ===== */
+        :root {
+            /* Primary Colors */
+            --tta-blue: #205ea7;
+            --tta-dark-blue: #024b80;
+            --tta-petrol: #09909c;
+            --tta-dark-petrol: #036b75;
+            --tta-orange: #f08226;
+            --tta-dark-orange: #d57112;
+            --tta-gunmetal: #303944;
+            --tta-dark-gunmetal: #212931;
+
+            /* Secondary Colors - Blue Variants */
+            --tta-blue-2: #205ea7;
+            --tta-blue-3: #024b80;
+            --tta-blue-4: #09909c;
+            --tta-blue-5: #036b75;
+
+            /* Secondary Colors - Petrol Variants */
+            --tta-petrol-2: #205ea7;
+            --tta-petrol-3: #024b80;
+            --tta-petrol-4: #09909c;
+            --tta-petrol-5: #036b75;
+
+            /* Secondary Colors - Pistachio Variants */
+            --tta-pistachio: #205ea7;
+            --tta-pistachio-2: #024b80;
+            --tta-pistachio-3: #09909c;
+            --tta-pistachio-4: #036b75;
+            --tta-pistachio-5: #205ea7;
+
+            /* Secondary Colors - Orange Variants */
+            --tta-orange-2: #024b80;
+            --tta-orange-3: #09909c;
+            --tta-orange-4: #036b75;
+            --tta-orange-5: #036b75;
+
+            /* Gradients */
+            --tta-gradient-linear: linear-gradient(90deg,
+                var(--tta-blue) 0%,
+                var(--tta-petrol) 33%,
+                var(--tta-pistachio) 66%,
+                var(--tta-orange) 100%);
+
+            --tta-gradient-radial: radial-gradient(circle,
+                var(--tta-blue),
+                var(--tta-petrol),
+                var(--tta-pistachio),
+                var(--tta-orange));
+
+            /* Typography */
+            --tta-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            /* Slide Dimensions */
+            --slide-width: 1920px;
+            --slide-height: 1080px;
+        }
+
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--tta-font-family);
+            background: #f0f0f0;
+            color: var(--tta-dark-gunmetal);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            color: var(--tta-dark-blue);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            color: var(--tta-gunmetal);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: var(--tta-dark-blue);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid var(--tta-orange);
+            font-weight: 700;
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: var(--tta-gunmetal);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        /* ===== COLOR PALETTE DISPLAY ===== */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .color-swatch {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .color-swatch-color {
+            height: 120px;
+            width: 100%;
+        }
+
+        .color-swatch-info {
+            padding: 15px;
+        }
+
+        .color-swatch-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--tta-dark-gunmetal);
+            margin-bottom: 8px;
+        }
+
+        .color-swatch-hex {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--tta-gunmetal);
+        }
+
+        /* ===== COMPONENT SHOWCASE ===== */
+        .component-showcase {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .component-title {
+            font-size: 24px;
+            color: var(--tta-dark-blue);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .component-description {
+            font-size: 14px;
+            color: var(--tta-gunmetal);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .component-example {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 40px;
+            background: #fafafa;
+        }
+
+        .code-block {
+            background: var(--tta-dark-gunmetal);
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* ===== SLIDE COMPONENTS ===== */
+
+        /* Logo Component */
+        .tta-logo {
+            width: 250px;
+            height: auto;
+            display: block;
+        }
+
+        .tta-logo-small {
+            width: 150px;
+            height: auto;
+            display: block;
+        }
+
+        .tta-logo-large {
+            width: 400px;
+            height: auto;
+            display: block;
+        }
+
+        .tta-logo-position-top-left {
+            position: absolute;
+            top: 40px;
+            left: 80px;
+        }
+
+        .tta-logo-position-top-right {
+            position: absolute;
+            top: 40px;
+            right: 80px;
+        }
+
+        .tta-logo-position-bottom-left {
+            position: absolute;
+            bottom: 40px;
+            left: 80px;
+        }
+
+        .tta-logo-position-bottom-right {
+            position: absolute;
+            bottom: 40px;
+            right: 80px;
+        }
+
+        /* Title Component */
+        .tta-title-primary {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--tta-dark-blue);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .tta-title-secondary {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--tta-dark-blue);
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .tta-subtitle {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--tta-dark-petrol);
+            line-height: 1.4;
+            border-left: 4px solid var(--tta-orange);
+            padding-left: 20px;
+        }
+
+        /* Section Header Component */
+        .tta-section-header {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--tta-blue);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tta-section-header::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--tta-orange);
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        /* Content Card Component */
+        .tta-card {
+            background: linear-gradient(135deg, rgba(32,94,167,0.05) 0%, rgba(9,144,156,0.05) 100%);
+            border-left: 3px solid var(--tta-petrol);
+            border-radius: 0 8px 8px 0;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+        }
+
+        .tta-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--tta-dark-blue);
+            margin-bottom: 8px;
+        }
+
+        .tta-card-content {
+            font-size: 18px;
+            color: var(--tta-gunmetal);
+            line-height: 1.5;
+        }
+
+        /* Highlight Box Component */
+        .tta-highlight-box {
+            background: var(--tta-orange);
+            color: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .tta-highlight-number {
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .tta-highlight-text {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        /* Button Component */
+        .tta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: var(--tta-font-family);
+        }
+
+        .tta-btn-primary {
+            background: var(--tta-blue);
+            color: white;
+        }
+
+        .tta-btn-primary:hover {
+            background: var(--tta-dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(32,94,167,0.3);
+        }
+
+        .tta-btn-secondary {
+            background: var(--tta-orange);
+            color: white;
+        }
+
+        .tta-btn-secondary:hover {
+            background: var(--tta-dark-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(240,130,38,0.3);
+        }
+
+        .tta-btn-outline {
+            background: transparent;
+            color: var(--tta-blue);
+            border: 2px solid var(--tta-blue);
+        }
+
+        .tta-btn-outline:hover {
+            background: var(--tta-blue);
+            color: white;
+        }
+
+        /* Bullet List Component */
+        .tta-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tta-list-item {
+            font-size: 20px;
+            color: var(--tta-gunmetal);
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .tta-list-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 12px;
+            height: 12px;
+            background: var(--tta-orange);
+            border-radius: 50%;
+        }
+
+        /* Stats Component */
+        .tta-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .tta-stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--tta-blue);
+        }
+
+        .tta-stat-number {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--tta-orange);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .tta-stat-label {
+            font-size: 18px;
+            color: var(--tta-gunmetal);
+            font-weight: 500;
+        }
+
+        /* Quote Component */
+        .tta-quote {
+            background: var(--tta-petrol);
+            color: white;
+            padding: 50px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .tta-quote-text {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .tta-quote-author {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .tta-quote-text::before {
+            content: '"';
+            font-size: 80px;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        /* Gradient Backgrounds */
+        .tta-bg-gradient-linear {
+            background: var(--tta-gradient-linear);
+            color: white;
+        }
+
+        .tta-bg-gradient-radial {
+            background: var(--tta-gradient-radial);
+            color: white;
+        }
+
+        .tta-bg-blue {
+            background: var(--tta-blue);
+            color: white;
+        }
+
+        .tta-bg-petrol {
+            background: var(--tta-petrol);
+            color: white;
+        }
+
+        .tta-bg-orange {
+            background: var(--tta-orange);
+            color: white;
+        }
+
+        /* Badge Component */
+        .tta-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tta-badge-blue {
+            background: var(--tta-blue);
+            color: white;
+        }
+
+        .tta-badge-orange {
+            background: var(--tta-orange);
+            color: white;
+        }
+
+        .tta-badge-petrol {
+            background: var(--tta-petrol);
+            color: white;
+        }
+
+        /* Divider Component */
+        .tta-divider {
+            height: 2px;
+            background: linear-gradient(90deg,
+                var(--tta-blue) 0%,
+                var(--tta-petrol) 50%,
+                var(--tta-orange) 100%);
+            margin: 40px 0;
+            border: none;
+        }
+
+        .tta-divider-thin {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 20px 0;
+            border: none;
+        }
+
+        /* Icon Placeholder */
+        .tta-icon-placeholder {
+            width: 80px;
+            height: 80px;
+            background: var(--tta-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        /* Two Column Layout */
+        .tta-two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        /* Accent Line */
+        .tta-accent-line-left {
+            border-left: 4px solid var(--tta-orange);
+            padding-left: 20px;
+        }
+
+        .tta-accent-line-top {
+            border-top: 4px solid var(--tta-orange);
+            padding-top: 20px;
+        }
+
+        /* Text Utilities */
+        .tta-text-blue { color: var(--tta-blue); }
+        .tta-text-dark-blue { color: var(--tta-dark-blue); }
+        .tta-text-petrol { color: var(--tta-petrol); }
+        .tta-text-dark-petrol { color: var(--tta-dark-petrol); }
+        .tta-text-orange { color: var(--tta-orange); }
+        .tta-text-dark-orange { color: var(--tta-dark-orange); }
+        .tta-text-gunmetal { color: var(--tta-gunmetal); }
+        .tta-text-dark-gunmetal { color: var(--tta-dark-gunmetal); }
+
+        .tta-highlight {
+            color: var(--tta-orange);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>TIMETOACT GROUP</h1>
+        <p>Slide Component Library - Reusable HTML/CSS components based on the official brand guidelines</p>
+    </div>
+
+    <!-- LOGO COMPONENT SECTION -->
+    <section class="section">
+        <h2 class="section-title">Logo Component</h2>
+        <p class="section-description">
+            The TIMETOACT GROUP logo MUST appear on every slide. Use the provided size classes and positioning utilities
+            to place the logo correctly. Never distort, rotate, or alter the logo colors.
+        </p>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Logo Sizes</h3>
+            <p class="component-description">Three predefined sizes for different slide contexts.</p>
+            <div class="component-example" style="display: flex; flex-direction: column; gap: 40px; align-items: flex-start;">
+                <div>
+                    <p style="color: var(--tta-gunmetal); margin-bottom: 15px; font-weight: 600;">Small (150px) - For slides with dense content</p>
+                    <img src="logo.svg" class="tta-logo-small" alt="TIMETOACT GROUP" />
+                </div>
+
+                <div>
+                    <p style="color: var(--tta-gunmetal); margin-bottom: 15px; font-weight: 600;">Default (250px) - Standard size for most slides</p>
+                    <img src="logo.svg" class="tta-logo" alt="TIMETOACT GROUP" />
+                </div>
+
+                <div>
+                    <p style="color: var(--tta-gunmetal); margin-bottom: 15px; font-weight: 600;">Large (400px) - For title slides or featured slides</p>
+                    <img src="logo.svg" class="tta-logo-large" alt="TIMETOACT GROUP" />
+                </div>
+            </div>
+            <div class="code-block">&lt;svg class="tta-logo-small" ...&gt;...&lt;/svg&gt;
+&lt;svg class="tta-logo" ...&gt;...&lt;/svg&gt;
+&lt;svg class="tta-logo-large" ...&gt;...&lt;/svg&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Logo Positioning</h3>
+            <p class="component-description">Use positioning utilities for absolute placement on slides. Combine size and position classes.</p>
+            <div class="component-example">
+                <p style="color: var(--tta-gunmetal); margin-bottom: 15px;">Available position classes:</p>
+                <ul class="tta-list">
+                    <li class="tta-list-item"><code>tta-logo-position-top-left</code> - Top left corner (40px, 80px)</li>
+                    <li class="tta-list-item"><code>tta-logo-position-top-right</code> - Top right corner (recommended)</li>
+                    <li class="tta-list-item"><code>tta-logo-position-bottom-left</code> - Bottom left corner</li>
+                    <li class="tta-list-item"><code>tta-logo-position-bottom-right</code> - Bottom right corner</li>
+                </ul>
+            </div>
+            <div class="code-block">&lt;!-- Positioned logo example --&gt;
+&lt;svg class="tta-logo-small tta-logo-position-top-right" ...&gt;...&lt;/svg&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Using Logo from External File</h3>
+            <p class="component-description">For easier maintenance, reference the logo SVG file directly.</p>
+            <div class="code-block">&lt;!-- Using img tag with external SVG --&gt;
+&lt;img src="data/TIMETOACT-AT_logo.svg" class="tta-logo" alt="TIMETOACT GROUP"&gt;
+
+&lt;!-- Positioned example --&gt;
+&lt;img src="data/TIMETOACT-AT_logo.svg"
+     class="tta-logo-small tta-logo-position-top-right"
+     alt="TIMETOACT GROUP"&gt;</div>
+        </div>
+    </section>
+
+    <!-- COLOR PALETTE SECTION -->
+    <section class="section">
+        <h2 class="section-title">Primary Color Palette</h2>
+        <p class="section-description">
+            These are the official TIMETOACT GROUP primary colors. Use these colors for main brand elements,
+            key messaging, headlines, and primary UI elements. Always maintain WCAG AA contrast standards (4.5:1 for normal text).
+        </p>
+
+        <div class="color-grid">
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #205ea7;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Blue</div>
+                    <div class="color-swatch-hex">#205ea7</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #024b80;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Dark Blue</div>
+                    <div class="color-swatch-hex">#024b80</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #09909c;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Petrol</div>
+                    <div class="color-swatch-hex">#09909c</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #036b75;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Dark Petrol</div>
+                    <div class="color-swatch-hex">#036b75</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #f08226;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Orange</div>
+                    <div class="color-swatch-hex">#f08226</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #d57112;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Dark Orange</div>
+                    <div class="color-swatch-hex">#d57112</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #303944;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Gunmetal</div>
+                    <div class="color-swatch-hex">#303944</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: #212931;"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Dark Gunmetal</div>
+                    <div class="color-swatch-hex">#212931</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GRADIENT SECTION -->
+    <section class="section">
+        <h2 class="section-title">Brand Gradients</h2>
+        <p class="section-description">
+            Use gradients for backgrounds, hero sections, or emphasis areas to create a dynamic, modern feel.
+        </p>
+
+        <div class="color-grid">
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: linear-gradient(90deg, #205ea7 0%, #09909c 33%, #205ea7 66%, #f08226 100%);"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Linear Gradient</div>
+                    <div class="color-swatch-hex">Blue → Petrol → Pistachio → Orange</div>
+                </div>
+            </div>
+
+            <div class="color-swatch">
+                <div class="color-swatch-color" style="background: radial-gradient(circle, #205ea7, #09909c, #a8d5ba, #f08226);"></div>
+                <div class="color-swatch-info">
+                    <div class="color-swatch-name">Radial Gradient</div>
+                    <div class="color-swatch-hex">Four-color center blend</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TYPOGRAPHY COMPONENTS -->
+    <section class="section">
+        <h2 class="section-title">Typography Components</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Primary Title</h3>
+            <p class="component-description">Use for main slide titles. Large, bold, and authoritative.</p>
+            <div class="component-example">
+                <h1 class="tta-title-primary">LLM Benchmark Report</h1>
+            </div>
+            <div class="code-block">&lt;h1 class="tta-title-primary"&gt;LLM Benchmark Report&lt;/h1&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Secondary Title</h3>
+            <p class="component-description">Use for section headers or secondary emphasis.</p>
+            <div class="component-example">
+                <h2 class="tta-title-secondary">Key Findings from April 2025</h2>
+            </div>
+            <div class="code-block">&lt;h2 class="tta-title-secondary"&gt;Key Findings from April 2025&lt;/h2&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Subtitle with Accent</h3>
+            <p class="component-description">Subtitle with orange left border accent. Perfect for descriptive text under main titles.</p>
+            <div class="component-example">
+                <div class="tta-subtitle">Comprehensive Performance Analysis</div>
+            </div>
+            <div class="code-block">&lt;div class="tta-subtitle"&gt;Comprehensive Performance Analysis&lt;/div&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Section Header</h3>
+            <p class="component-description">Section headers with orange bullet indicator.</p>
+            <div class="component-example">
+                <div class="tta-section-header">Model Performance Leaders</div>
+            </div>
+            <div class="code-block">&lt;div class="tta-section-header"&gt;Model Performance Leaders&lt;/div&gt;</div>
+        </div>
+    </section>
+
+    <!-- CONTENT COMPONENTS -->
+    <section class="section">
+        <h2 class="section-title">Content Components</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Content Card</h3>
+            <p class="component-description">Gradient-backed card with left border accent. Perfect for key points and findings.</p>
+            <div class="component-example">
+                <div class="tta-card">
+                    <div class="tta-card-title">OpenAI Dominance</div>
+                    <div class="tta-card-content">
+                        <span class="tta-highlight">o3-mini and o4-mini</span> secure top positions with 76.7% overall score,
+                        though cost remains a concern
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-card"&gt;
+  &lt;div class="tta-card-title"&gt;OpenAI Dominance&lt;/div&gt;
+  &lt;div class="tta-card-content"&gt;
+    &lt;span class="tta-highlight"&gt;o3-mini and o4-mini&lt;/span&gt; secure top positions...
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Bullet List</h3>
+            <p class="component-description">Branded bullet list with orange circular markers.</p>
+            <div class="component-example">
+                <ul class="tta-list">
+                    <li class="tta-list-item">Design pragmatic, innovative IT solutions</li>
+                    <li class="tta-list-item">Keep customer profitability at the core</li>
+                    <li class="tta-list-item">Deliver integrated, high-quality outcomes</li>
+                </ul>
+            </div>
+            <div class="code-block">&lt;ul class="tta-list"&gt;
+  &lt;li class="tta-list-item"&gt;Design pragmatic solutions&lt;/li&gt;
+  &lt;li class="tta-list-item"&gt;Customer profitability&lt;/li&gt;
+&lt;/ul&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Quote Block</h3>
+            <p class="component-description">Large quote with author attribution on petrol background.</p>
+            <div class="component-example">
+                <div class="tta-quote">
+                    <div class="tta-quote-text">
+                        The best time to act is now. We are drivers and doers, creating innovative solutions for our clients.
+                    </div>
+                    <div class="tta-quote-author">— TIMETOACT GROUP Mission</div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-quote"&gt;
+  &lt;div class="tta-quote-text"&gt;The best time to act is now...&lt;/div&gt;
+  &lt;div class="tta-quote-author"&gt;— Author Name&lt;/div&gt;
+&lt;/div&gt;</div>
+        </div>
+    </section>
+
+    <!-- DATA VISUALIZATION COMPONENTS -->
+    <section class="section">
+        <h2 class="section-title">Data & Statistics Components</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Highlight Box</h3>
+            <p class="component-description">Eye-catching orange box for key statistics or numbers.</p>
+            <div class="component-example">
+                <div class="tta-highlight-box">
+                    <div class="tta-highlight-number">76.7%</div>
+                    <div class="tta-highlight-text">Overall Performance Score</div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-highlight-box"&gt;
+  &lt;div class="tta-highlight-number"&gt;76.7%&lt;/div&gt;
+  &lt;div class="tta-highlight-text"&gt;Performance Score&lt;/div&gt;
+&lt;/div&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Stats Grid</h3>
+            <p class="component-description">Grid layout for displaying multiple statistics.</p>
+            <div class="component-example">
+                <div class="tta-stats-grid">
+                    <div class="tta-stat-card">
+                        <div class="tta-stat-number">1,400+</div>
+                        <div class="tta-stat-label">Experts</div>
+                    </div>
+                    <div class="tta-stat-card">
+                        <div class="tta-stat-number">22</div>
+                        <div class="tta-stat-label">DACH Cities</div>
+                    </div>
+                    <div class="tta-stat-card">
+                        <div class="tta-stat-number">100%</div>
+                        <div class="tta-stat-label">Client Focus</div>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-stats-grid"&gt;
+  &lt;div class="tta-stat-card"&gt;
+    &lt;div class="tta-stat-number"&gt;1,400+&lt;/div&gt;
+    &lt;div class="tta-stat-label"&gt;Experts&lt;/div&gt;
+  &lt;/div&gt;
+  ...
+&lt;/div&gt;</div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE COMPONENTS -->
+    <section class="section">
+        <h2 class="section-title">Interactive Components</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Buttons</h3>
+            <p class="component-description">Call-to-action buttons in different styles.</p>
+            <div class="component-example" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <button class="tta-btn tta-btn-primary">Primary Action</button>
+                <button class="tta-btn tta-btn-secondary">Secondary Action</button>
+                <button class="tta-btn tta-btn-outline">Outlined Button</button>
+            </div>
+            <div class="code-block">&lt;button class="tta-btn tta-btn-primary"&gt;Primary Action&lt;/button&gt;
+&lt;button class="tta-btn tta-btn-secondary"&gt;Secondary Action&lt;/button&gt;
+&lt;button class="tta-btn tta-btn-outline"&gt;Outlined Button&lt;/button&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Badges</h3>
+            <p class="component-description">Small labeled indicators for categories or status.</p>
+            <div class="component-example" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <span class="tta-badge tta-badge-blue">Featured</span>
+                <span class="tta-badge tta-badge-orange">New</span>
+                <span class="tta-badge tta-badge-petrol">Premium</span>
+            </div>
+            <div class="code-block">&lt;span class="tta-badge tta-badge-blue"&gt;Featured&lt;/span&gt;
+&lt;span class="tta-badge tta-badge-orange"&gt;New&lt;/span&gt;
+&lt;span class="tta-badge tta-badge-petrol"&gt;Premium&lt;/span&gt;</div>
+        </div>
+    </section>
+
+    <!-- LAYOUT COMPONENTS -->
+    <section class="section">
+        <h2 class="section-title">Layout Components</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Two Column Layout</h3>
+            <p class="component-description">Equal-width two-column grid for side-by-side content.</p>
+            <div class="component-example">
+                <div class="tta-two-column">
+                    <div>
+                        <div class="tta-section-header">Column One</div>
+                        <p style="color: var(--tta-gunmetal);">Content for the first column goes here. This layout is perfect for comparisons or organizing related information side by side.</p>
+                    </div>
+                    <div>
+                        <div class="tta-section-header">Column Two</div>
+                        <p style="color: var(--tta-gunmetal);">Content for the second column goes here. The grid automatically adjusts to maintain equal widths.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-two-column"&gt;
+  &lt;div&gt;...Column 1...&lt;/div&gt;
+  &lt;div&gt;...Column 2...&lt;/div&gt;
+&lt;/div&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Dividers</h3>
+            <p class="component-description">Horizontal dividers for visual separation.</p>
+            <div class="component-example">
+                <p style="color: var(--tta-gunmetal);">Content above divider</p>
+                <hr class="tta-divider">
+                <p style="color: var(--tta-gunmetal);">Content below gradient divider</p>
+                <hr class="tta-divider-thin">
+                <p style="color: var(--tta-gunmetal);">Content below thin divider</p>
+            </div>
+            <div class="code-block">&lt;hr class="tta-divider"&gt;
+&lt;hr class="tta-divider-thin"&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Accent Lines</h3>
+            <p class="component-description">Orange accent borders for emphasis.</p>
+            <div class="component-example">
+                <div class="tta-accent-line-left">
+                    <p style="color: var(--tta-gunmetal); margin: 0;">This content has an orange left border accent to draw attention.</p>
+                </div>
+                <br>
+                <div class="tta-accent-line-top">
+                    <p style="color: var(--tta-gunmetal); margin: 0;">This content has an orange top border accent.</p>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-accent-line-left"&gt;...&lt;/div&gt;
+&lt;div class="tta-accent-line-top"&gt;...&lt;/div&gt;</div>
+        </div>
+    </section>
+
+    <!-- BACKGROUND UTILITIES -->
+    <section class="section">
+        <h2 class="section-title">Background Utilities</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Colored Backgrounds</h3>
+            <p class="component-description">Apply brand colors as backgrounds for slides or sections.</p>
+            <div class="component-example" style="display: grid; gap: 20px;">
+                <div class="tta-bg-blue" style="padding: 30px; border-radius: 8px;">
+                    <h3 style="margin: 0 0 10px 0;">Blue Background</h3>
+                    <p style="margin: 0;">Perfect for header slides and primary emphasis.</p>
+                </div>
+                <div class="tta-bg-petrol" style="padding: 30px; border-radius: 8px;">
+                    <h3 style="margin: 0 0 10px 0;">Petrol Background</h3>
+                    <p style="margin: 0;">Great for quotes and featured content.</p>
+                </div>
+                <div class="tta-bg-orange" style="padding: 30px; border-radius: 8px;">
+                    <h3 style="margin: 0 0 10px 0;">Orange Background</h3>
+                    <p style="margin: 0;">Eye-catching for calls-to-action and highlights.</p>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-bg-blue"&gt;...&lt;/div&gt;
+&lt;div class="tta-bg-petrol"&gt;...&lt;/div&gt;
+&lt;div class="tta-bg-orange"&gt;...&lt;/div&gt;</div>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Gradient Backgrounds</h3>
+            <p class="component-description">Dynamic gradient backgrounds for modern, energetic slides.</p>
+            <div class="component-example" style="display: grid; gap: 20px;">
+                <div class="tta-bg-gradient-linear" style="padding: 40px; border-radius: 8px; text-align: center;">
+                    <h3 style="margin: 0 0 10px 0;">Linear Gradient Background</h3>
+                    <p style="margin: 0;">Blue → Petrol → Pistachio → Orange</p>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="tta-bg-gradient-linear"&gt;...&lt;/div&gt;
+&lt;div class="tta-bg-gradient-radial"&gt;...&lt;/div&gt;</div>
+        </div>
+    </section>
+
+    <!-- TEXT UTILITIES -->
+    <section class="section">
+        <h2 class="section-title">Text Utilities</h2>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Text Colors</h3>
+            <p class="component-description">Apply brand colors to text elements.</p>
+            <div class="component-example">
+                <p class="tta-text-blue" style="font-size: 20px; margin: 10px 0;">Blue text for primary messaging</p>
+                <p class="tta-text-dark-blue" style="font-size: 20px; margin: 10px 0;">Dark blue for emphasis</p>
+                <p class="tta-text-petrol" style="font-size: 20px; margin: 10px 0;">Petrol for secondary elements</p>
+                <p class="tta-text-orange" style="font-size: 20px; margin: 10px 0;">Orange for highlights and CTAs</p>
+                <p class="tta-text-gunmetal" style="font-size: 20px; margin: 10px 0;">Gunmetal for body text</p>
+                <p style="font-size: 18px; margin: 20px 0;">Regular text with <span class="tta-highlight">highlighted keywords</span> in orange</p>
+            </div>
+            <div class="code-block">&lt;p class="tta-text-blue"&gt;Blue text&lt;/p&gt;
+&lt;p class="tta-text-orange"&gt;Orange text&lt;/p&gt;
+&lt;span class="tta-highlight"&gt;Highlighted&lt;/span&gt;</div>
+        </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+        <h2 class="section-title">Usage Guidelines</h2>
+        <div class="component-showcase">
+            <h3 class="component-title">Accessibility & Contrast</h3>
+            <ul class="tta-list">
+                <li class="tta-list-item">Always maintain WCAG AA contrast standards (4.5:1 for normal text, 3:1 for large text)</li>
+                <li class="tta-list-item">Use dark colors (Dark Gunmetal, Dark Petrol, Dark Blue) on light backgrounds</li>
+                <li class="tta-list-item">Use light colors on dark backgrounds</li>
+                <li class="tta-list-item">Test color combinations for readability before deploying</li>
+            </ul>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">Best Practices</h3>
+            <ul class="tta-list">
+                <li class="tta-list-item">Include the TIMETOACT logo on every slide</li>
+                <li class="tta-list-item">Use Orange sparingly for maximum impact on highlights and CTAs</li>
+                <li class="tta-list-item">Maintain generous whitespace for clean, professional layouts</li>
+                <li class="tta-list-item">Limit bullet points to 5-6 per slide for readability</li>
+                <li class="tta-list-item">Use gradients for hero sections and emphasis areas</li>
+                <li class="tta-list-item">Keep slides focused on a single main idea</li>
+            </ul>
+        </div>
+
+        <div class="component-showcase">
+            <h3 class="component-title">CSS Variables Reference</h3>
+            <p class="component-description">All components use CSS custom properties for easy customization:</p>
+            <div class="code-block">/* Primary Colors */
+--tta-blue: #205ea7;
+--tta-dark-blue: #024b80;
+--tta-petrol: #09909c;
+--tta-dark-petrol: #036b75;
+--tta-orange: #f08226;
+--tta-dark-orange: #d57112;
+--tta-gunmetal: #303944;
+--tta-dark-gunmetal: #212931;
+
+/* Gradients */
+--tta-gradient-linear: linear-gradient(90deg, ...);
+--tta-gradient-radial: radial-gradient(circle, ...);
+
+/* Typography */
+--tta-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', ...;</div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 60px 20px; color: var(--tta-gunmetal);">
+        <hr class="tta-divider" style="max-width: 600px; margin: 0 auto 40px;">
+        <p style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">TIMETOACT GROUP</p>
+        <p style="font-size: 14px;">Component Library v1.0 - Based on Official Brand Guidelines</p>
+    </footer>
+</body>
+</html>

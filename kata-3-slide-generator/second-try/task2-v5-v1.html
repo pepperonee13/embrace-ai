@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TIMETOACT GROUP – Partner & Customer Intro Deck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* ===== ROOT VARIABLES - TIMETOACT BRAND COLORS (from component-library.html) ===== */
+    :root {
+      /* Primary Colors */
+      --tta-blue: #205ea7;
+      --tta-dark-blue: #024b80;
+      --tta-petrol: #09909c;
+      --tta-dark-petrol: #036b75;
+      --tta-orange: #f08226;
+      --tta-dark-orange: #d57112;
+      --tta-gunmetal: #303944;
+      --tta-dark-gunmetal: #212931;
+
+      /* Secondary (kept for completeness) */
+      --tta-blue-2: #205ea7;
+      --tta-blue-3: #024b80;
+      --tta-blue-4: #09909c;
+      --tta-blue-5: #036b75;
+
+      --tta-petrol-2: #205ea7;
+      --tta-petrol-3: #024b80;
+      --tta-petrol-4: #09909c;
+      --tta-petrol-5: #036b75;
+
+      --tta-pistachio: #205ea7;
+      --tta-pistachio-2: #024b80;
+      --tta-pistachio-3: #09909c;
+      --tta-pistachio-4: #036b75;
+      --tta-pistachio-5: #205ea7;
+
+      --tta-orange-2: #024b80;
+      --tta-orange-3: #09909c;
+      --tta-orange-4: #036b75;
+      --tta-orange-5: #036b75;
+
+      /* Gradients */
+      --tta-gradient-linear: linear-gradient(
+        90deg,
+        var(--tta-blue) 0%,
+        var(--tta-petrol) 33%,
+        var(--tta-pistachio) 66%,
+        var(--tta-orange) 100%
+      );
+
+      --tta-gradient-radial: radial-gradient(
+        circle,
+        var(--tta-blue),
+        var(--tta-petrol),
+        var(--tta-pistachio),
+        var(--tta-orange)
+      );
+
+      /* Typography */
+      --tta-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+      /* Slide Dimensions */
+      --slide-width: 1920px;
+      --slide-height: 1080px;
+    }
+
+    /* ===== BASE STYLES (from component-library.html) ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--tta-font-family);
+      background: #000; /* canvas around slides */
+      color: var(--tta-dark-gunmetal);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden; /* keep deck centered without page scroll */
+    }
+
+    /* ===== SLIDE COMPONENTS (from component-library.html) ===== */
+
+    /* Logo Component */
+    .tta-logo { width: 250px; height: auto; display: block; }
+    .tta-logo-small { width: 150px; height: auto; display: block; }
+    .tta-logo-large { width: 400px; height: auto; display: block; }
+    .tta-logo-position-top-left { position: absolute; top: 40px; left: 80px; }
+    .tta-logo-position-top-right { position: absolute; top: 40px; right: 80px; }
+    .tta-logo-position-bottom-left { position: absolute; bottom: 40px; left: 80px; }
+    .tta-logo-position-bottom-right { position: absolute; bottom: 40px; right: 80px; }
+
+    /* Title Component */
+    .tta-title-primary {
+      font-size: 56px; font-weight: 700; color: var(--tta-dark-blue); line-height: 1.2; margin-bottom: 20px;
+    }
+    .tta-title-secondary {
+      font-size: 42px; font-weight: 600; color: var(--tta-dark-blue); line-height: 1.3; margin-bottom: 15px;
+    }
+    .tta-subtitle {
+      font-size: 24px; font-weight: 500; color: var(--tta-dark-petrol); line-height: 1.4;
+      border-left: 4px solid var(--tta-orange); padding-left: 20px;
+    }
+
+    /* Section Header */
+    .tta-section-header {
+      font-size: 28px; font-weight: 600; color: var(--tta-blue); margin-bottom: 25px; display: flex; align-items: center;
+    }
+    .tta-section-header::before {
+      content: ""; width: 8px; height: 8px; background: var(--tta-orange); border-radius: 50%; margin-right: 12px;
+    }
+
+    /* Content Card */
+    .tta-card {
+      background: linear-gradient(135deg, rgba(32,94,167,0.05) 0%, rgba(9,144,156,0.05) 100%);
+      border-left: 3px solid var(--tta-petrol);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 25px; margin-bottom: 20px;
+    }
+    .tta-card-title { font-size: 20px; font-weight: 600; color: var(--tta-dark-blue); margin-bottom: 8px; }
+    .tta-card-content { font-size: 18px; color: var(--tta-gunmetal); line-height: 1.5; }
+
+    /* Highlight Box */
+    .tta-highlight-box { background: var(--tta-orange); color: #fff; padding: 30px 40px; border-radius: 12px; text-align: center; }
+    .tta-highlight-number { font-size: 72px; font-weight: 700; line-height: 1; margin-bottom: 10px; }
+    .tta-highlight-text { font-size: 24px; font-weight: 500; }
+
+    /* Buttons */
+    .tta-btn { display: inline-block; padding: 15px 40px; font-size: 18px; font-weight: 600; text-decoration: none;
+      border-radius: 8px; transition: all .3s ease; border: none; cursor: pointer; font-family: var(--tta-font-family); }
+    .tta-btn-primary { background: var(--tta-blue); color: #fff; }
+    .tta-btn-primary:hover { background: var(--tta-dark-blue); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(32,94,167,.3); }
+    .tta-btn-secondary { background: var(--tta-orange); color: #fff; }
+    .tta-btn-secondary:hover { background: var(--tta-dark-orange); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(240,130,38,.3); }
+    .tta-btn-outline { background: transparent; color: var(--tta-blue); border: 2px solid var(--tta-blue); }
+    .tta-btn-outline:hover { background: var(--tta-blue); color: #fff; }
+
+    /* Bullet List */
+    .tta-list { list-style: none; padding: 0; }
+    .tta-list-item {
+      font-size: 20px; color: var(--tta-gunmetal); margin-bottom: 15px; padding-left: 35px; position: relative; line-height: 1.6;
+    }
+    .tta-list-item::before { content: ""; position: absolute; left: 0; top: 10px; width: 12px; height: 12px; background: var(--tta-orange); border-radius: 50%; }
+
+    /* Stats Grid */
+    .tta-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    .tta-stat-card {
+      background: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      border-top: 4px solid var(--tta-blue);
+    }
+    .tta-stat-number { font-size: 56px; font-weight: 700; color: var(--tta-orange); line-height: 1; margin-bottom: 10px; }
+    .tta-stat-label { font-size: 18px; color: var(--tta-gunmetal); font-weight: 500; }
+
+    /* Quote */
+    .tta-quote { background: var(--tta-petrol); color: #fff; padding: 50px; border-radius: 12px; position: relative; }
+    .tta-quote-text { font-size: 32px; font-weight: 500; line-height: 1.5; font-style: italic; margin-bottom: 20px; }
+    .tta-quote-author { font-size: 20px; font-weight: 600; text-align: right; }
+    .tta-quote-text::before { content: '"'; font-size: 80px; position: absolute; top: 20px; left: 30px; opacity: .3; line-height: 1; }
+
+    /* Background Utilities */
+    .tta-bg-gradient-linear { background: var(--tta-gradient-linear); color: #fff; }
+    .tta-bg-gradient-radial { background: var(--tta-gradient-radial); color: #fff; }
+    .tta-bg-blue { background: var(--tta-blue); color: #fff; }
+    .tta-bg-petrol { background: var(--tta-petrol); color: #fff; }
+    .tta-bg-orange { background: var(--tta-orange); color: #fff; }
+
+    /* Dividers */
+    .tta-divider {
+      height: 2px; background: linear-gradient(90deg, var(--tta-blue) 0%, var(--tta-petrol) 50%, var(--tta-orange) 100%);
+      margin: 40px 0; border: none;
+    }
+    .tta-divider-thin { height: 1px; background: #e0e0e0; margin: 20px 0; border: none; }
+
+    /* Two Column */
+    .tta-two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+    /* Accent Lines */
+    .tta-accent-line-left { border-left: 4px solid var(--tta-orange); padding-left: 20px; }
+    .tta-accent-line-top { border-top: 4px solid var(--tta-orange); padding-top: 20px; }
+
+    /* Text Utilities */
+    .tta-text-blue { color: var(--tta-blue); }
+    .tta-text-dark-blue { color: var(--tta-dark-blue); }
+    .tta-text-petrol { color: var(--tta-petrol); }
+    .tta-text-dark-petrol { color: var(--tta-dark-petrol); }
+    .tta-text-orange { color: var(--tta-orange); }
+    .tta-text-dark-orange { color: var(--tta-dark-orange); }
+    .tta-text-gunmetal { color: var(--tta-gunmetal); }
+    .tta-text-dark-gunmetal { color: var(--tta-dark-gunmetal); }
+    .tta-highlight { color: var(--tta-orange); font-weight: 600; }
+
+    /* ===== DECK / SLIDE LAYOUT (deck wrapper + slide containers) ===== */
+    .deck {
+      width: var(--slide-width);
+      height: var(--slide-height);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      background: #fff;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      padding: 80px;
+      display: none;
+    }
+    .slide.active { display: block; animation: fadeIn .35s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Keep content within a 12-col grid feel (optional helper) */
+    .content-max { max-width: 1520px; }
+
+    /* ===== NAVIGATION UI ===== */
+    .nav-hint {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      font-size: 14px; color: rgba(255,255,255,.9);
+      background: rgba(0,0,0,.35); padding: 8px 14px; border-radius: 14px;
+      letter-spacing: .3px;
+    }
+    .controls {
+      position: absolute; top: 50%; left: 0; right: 0; display: flex; justify-content: space-between; pointer-events: none;
+    }
+    .ctrl-btn {
+      pointer-events: all;
+      background: rgba(0,0,0,.35);
+      color: #fff; border: none; width: 56px; height: 56px; border-radius: 50%;
+      font-size: 26px; line-height: 56px; text-align: center; cursor: pointer;
+      margin: 0 24px; transition: background .2s ease;
+    }
+    .ctrl-btn:hover { background: rgba(0,0,0,.5); }
+
+    .progress-dots {
+      position: absolute; bottom: 24px; right: 28px; display: flex; gap: 10px;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.6);
+    }
+    .dot.active { background: #fff; }
+
+    /* Ensure titles are white on dark/gradient slides for AA contrast */
+    .slide.dark h1.tta-title-primary,
+    .slide.dark h2.tta-title-secondary,
+    .slide.dark .tta-subtitle { color: #fff; border-color: rgba(255,255,255,.9); }
+  </style>
+</head>
+<body>
+  <div id="deck" class="deck" aria-live="polite">
+    <!-- ======================= SLIDE 1: INTRO ======================= -->
+    <section class="slide tta-bg-gradient-linear dark active" data-index="0" role="group" aria-roledescription="slide" aria-label="Introducing TIMETOACT GROUP">
+      <!-- Logo -->
+      <svg class="tta-logo-large tta-logo-position-top-right" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 430.6" aria-label="TIMETOACT GROUP logo">
+        <style type="text/css">
+          .st0{fill:#1E5EA8}.st1{fill:#054A80}.st2{fill:#088F9B}.st3{fill:#006B75}.st4{fill:#F08223}.st5{fill:#D47113}.st6{fill:#2F3944}.st8{fill:#225EA9}
+        </style>
+        <g>
+          <polygon class="st0" points="311.6,205 192.9,136.6 192.9,0 311.6,68.4"/>
+          <polygon class="st1" points="311.6,205 192.9,136.6 74.3,205 193,273.4"/>
+          <polygon class="st2" points="335.3,205 454,136.6 454,0 335.3,68.4"/>
+          <polygon class="st3" points="335.3,205 454,136.6 572.6,205 453.9,273.4"/>
+          <polygon class="st4" points="323.4,362.1 204.9,430.6 204.9,293.8 323.4,225.3"/>
+          <polygon class="st5" points="323.4,362.1 441.9,430.6 441.9,293.8 323.4,225.3"/>
+        </g>
+        <g id="TIMETOACT">
+          <path class="st8" d="M1021.3,134.2h74.1v-31.5h-74.1V68.6h82.4V35.7H984.4v165.5h121.9v-32.7h-85L1021.3,134.2z M724.2,201.2h36.9V35.7h-36.9V201.2z M1478.7,35.7l-71.5,165.5h39.3l15.4-35.7h69.4l15.4,35.7h39.3l-71.5-165.5H1478.7z M1475.9,133 l20.8-48.1l20.6,48.1H1475.9z M578.4,67.7h46.9v133.5h36.9V67.7h46.9v-32H578.4V67.7z M872.8,126.6l-42.6-90.9h-50v165.5h36.9V97.1 l44.5,90.4h22l44.7-90.4v104.2h36.9V35.7h-49.7L872.8,126.6z M1113.6,67.7h46.9v133.5h36.9V67.7h46.9v-32h-130.7L1113.6,67.7z M1394.2,56.5c-16.7-16.3-37.3-24.5-61.8-24.5s-45.1,8.2-61.8,24.5c-16.7,16.3-25.1,36.7-25.1,61s8.4,44.6,25.1,61 c16.7,16.3,37.3,24.5,61.8,24.5s45.1-8.2,61.8-24.5c16.7-16.3,25.1-36.7,25.1-61C1419.3,93.1,1410.9,72.8,1394.2,56.5z"/>
+        </g>
+      </svg>
+
+      <div class="content-max" style="margin-top: 120px;">
+        <h1 class="tta-title-primary" style="color:#fff;">Introducing TIMETOACT GROUP</h1>
+        <div class="tta-subtitle" style="color:#fff;border-color:rgba(255,255,255,.9);max-width:1200px;">
+          Driving digital transformation — because <span class="tta-highlight" style="color:#fff;">the best time to act is now</span>.
+        </div>
+      </div>
+
+      <div class="controls" aria-hidden="true">
+        <button class="ctrl-btn" id="prevBtn" title="Previous (←)">&#8592;</button>
+        <button class="ctrl-btn" id="nextBtn" title="Next (→)">&#8594;</button>
+      </div>
+      <div class="progress-dots" aria-hidden="true">
+        <div class="dot active" data-dot="0"></div>
+        <div class="dot" data-dot="1"></div>
+        <div class="dot" data-dot="2"></div>
+      </div>
+      <div class="nav-hint" aria-hidden="true">Use ← and → to navigate</div>
+    </section>
+
+    <!-- ======================= SLIDE 2: MISSION ======================= -->
+    <section class="slide" style="background:#fff;" data-index="1" role="group" aria-roledescription="slide" aria-label="Our Mission">
+      <!-- Logo -->
+      <svg class="tta-logo-small tta-logo-position-top-right" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 430.6" aria-label="TIMETOACT GROUP logo">
+        <style type="text/css">
+          .st0{fill:#1E5EA8}.st1{fill:#054A80}.st2{fill:#088F9B}.st3{fill:#006B75}.st4{fill:#F08223}.st5{fill:#D47113}
+        </style>
+        <g>
+          <polygon class="st0" points="311.6,205 192.9,136.6 192.9,0 311.6,68.4"/>
+          <polygon class="st1" points="311.6,205 192.9,136.6 74.3,205 193,273.4"/>
+          <polygon class="st2" points="335.3,205 454,136.6 454,0 335.3,68.4"/>
+          <polygon class="st3" points="335.3,205 454,136.6 572.6,205 453.9,273.4"/>
+          <polygon class="st4" points="323.4,362.1 204.9,430.6 204.9,293.8 323.4,225.3"/>
+          <polygon class="st5" points="323.4,362.1 441.9,430.6 441.9,293.8 323.4,225.3"/>
+        </g>
+      </svg>
+
+      <div class="content-max">
+        <h2 class="tta-title-secondary" style="margin-bottom: 32px;">Our Mission</h2>
+        <ul class="tta-list" style="max-width: 1300px;">
+          <li class="tta-list-item">
+            Design pragmatic, innovative IT solutions and implement digital business models for clients — as <strong>drivers and doers</strong>.
+          </li>
+          <li class="tta-list-item">
+            Keep customer profitability and competitiveness at the core — <strong>we succeed only when our customers succeed</strong>.
+          </li>
+          <li class="tta-list-item">
+            Deliver integrated, high-quality outcomes through shared knowledge, entrepreneurial spirit, and a positive, action-oriented culture.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= SLIDE 3: VALUE PROPOSITION ======================= -->
+    <section class="slide" style="background:#fff;" data-index="2" role="group" aria-roledescription="slide" aria-label="Our Unique Value Proposition">
+      <!-- Logo -->
+      <svg class="tta-logo-small tta-logo-position-top-right" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 430.6" aria-label="TIMETOACT GROUP logo">
+        <style type="text/css">
+          .st0{fill:#1E5EA8}.st1{fill:#054A80}.st2{fill:#088F9B}.st3{fill:#006B75}.st4{fill:#F08223}.st5{fill:#D47113}
+        </style>
+        <g>
+          <polygon class="st0" points="311.6,205 192.9,136.6 192.9,0 311.6,68.4"/>
+          <polygon class="st1" points="311.6,205 192.9,136.6 74.3,205 193,273.4"/>
+          <polygon class="st2" points="335.3,205 454,136.6 454,0 335.3,68.4"/>
+          <polygon class="st3" points="335.3,205 454,136.6 572.6,205 453.9,273.4"/>
+          <polygon class="st4" points="323.4,362.1 204.9,430.6 204.9,293.8 323.4,225.3"/>
+          <polygon class="st5" points="323.4,362.1 441.9,430.6 441.9,293.8 323.4,225.3"/>
+        </g>
+      </svg>
+
+      <div class="content-max">
+        <h2 class="tta-title-secondary" style="margin-bottom: 34px;">Our Unique Value Proposition</h2>
+
+        <div class="tta-stats-grid" style="margin-bottom: 48px;">
+          <div class="tta-stat-card">
+            <div class="tta-stat-number">1,400+</div>
+            <div class="tta-stat-label">Experts</div>
+          </div>
+          <div class="tta-stat-card">
+            <div class="tta-stat-number">22</div>
+            <div class="tta-stat-label">Cities in DACH</div>
+          </div>
+          <div class="tta-stat-card">
+            <div class="tta-stat-number">100%</div>
+            <div class="tta-stat-label">Client Focus</div>
+          </div>
+        </div>
+
+        <div class="tta-card">
+          <div class="tta-card-title">Vendor-Agnostic Consulting</div>
+          <div class="tta-card-content">
+            Independent across IBM, Microsoft, Google, Atlassian, and open-source stacks — technology tailored to your needs, not vendor agendas.
+          </div>
+        </div>
+
+        <div class="tta-card">
+          <div class="tta-card-title">End-to-End Support</div>
+          <div class="tta-card-content">
+            Strategy → implementation → operations &amp; managed services — faster time-to-value and one-stop accountability.
+          </div>
+        </div>
+
+        <div class="tta-card">
+          <div class="tta-card-title">Cutting-Edge AI &amp; Data Leadership</div>
+          <div class="tta-card-content">
+            We publish LLM Benchmarks and host the Enterprise RAG Challenge — translating research directly into impactful client results.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      let idx = 0;
+
+      function show(i) {
+        idx = (i + slides.length) % slides.length;
+        slides.forEach((s, j) => s.classList.toggle('active', j === idx));
+        dots.forEach((d, j) => d.classList.toggle('active', j === idx));
+      }
+
+      function onKey(e) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') { show(idx + 1); }
+        if (e.key === 'ArrowLeft'  || e.key === 'PageUp')   { show(idx - 1); }
+        if (e.key === 'Home') { show(0); }
+        if (e.key === 'End')  { show(slides.length - 1); }
+      }
+
+      prev && prev.addEventListener('click', () => show(idx - 1));
+      next && next.addEventListener('click', () => show(idx + 1));
+      window.addEventListener('keydown', onKey);
+
+      dots.forEach((d) => d.addEventListener('click', () => show(+d.dataset.dot)));
+
+      // Resize guard to keep the deck centered when window is smaller/larger than 1920x1080
+      function fit() {
+        const deck = document.getElementById('deck');
+        const sw = 1920, sh = 1080;
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const scale = Math.min(vw / sw, vh / sh);
+        deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        deck.style.transformOrigin = 'center center';
+      }
+      window.addEventListener('resize', fit);
+      fit();
+    })();
+  </script>
+</body>
+</html>

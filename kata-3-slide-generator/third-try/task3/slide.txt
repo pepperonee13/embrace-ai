@@ -1,0 +1,19 @@
+### Slide Title: Enterprise RAG Challenge: Innovate with AI
+
+#### 1. Header Section
+* Title: "Enterprise RAG Challenge: Innovate with AI"
+* Subtitle: "Compete, Learn, and Advance AI Solutions"
+
+#### 2. Introduction
+* Brief Overview: A friendly competition comparing different Retrieval-Augmented Generation (RAG) architectures.
+* Objective: Build AI-driven systems capable of answering questions about company annual reports.
+
+#### 3. Benefits for Developers
+* Skill Enhancement: Gain hands-on experience with RAG architectures and AI-driven document analysis.
+* Networking: Connect with a community of AI enthusiasts and professionals.
+* Recognition: Showcase your solutions and gain visibility in the AI community.
+* Resource Access: Utilize open-source tools and datasets for experimentation.
+
+#### 4. Call to Action
+* Get Involved: Visit the official [Enterprise RAG Challenge page](https://www.timetoact-group.at/landingpages/enterprise-rag-challenge) to learn more and participate.
+* Explore Solutions: Review winning strategies and source code from past challenges.

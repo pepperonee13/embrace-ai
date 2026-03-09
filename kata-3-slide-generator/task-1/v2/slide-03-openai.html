@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Model Performance</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 150px;
+            height: auto;
+        }
+        .slide-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding-top: 40px;
+        }
+        .title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #024b80;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .performance-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .model-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #f08226;
+            text-align: center;
+        }
+        .model-card.top-performer {
+            border-top-color: #d57112;
+            background: linear-gradient(135deg, #fff8f0 0%, #fef3e6 100%);
+        }
+        .model-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #024b80;
+            margin-bottom: 8px;
+        }
+        .model-rank {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f08226;
+            margin-bottom: 5px;
+        }
+        .model-rank.top {
+            color: #d57112;
+        }
+        .model-score {
+            font-size: 0.9rem;
+            color: #303944;
+            margin-bottom: 10px;
+        }
+        .cost-warning {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .cost-warning h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+        .cost-warning p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+        .benchmark-table {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+        .table-header {
+            font-weight: 600;
+            color: #024b80;
+            background: #e9ecef;
+            padding: 12px 0;
+            border-bottom: 2px solid #024b80;
+        }
+        .highlight-row {
+            background: rgba(240, 130, 38, 0.1);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <img src="../../TIMETOACT-AT_logo.svg" alt="TIMETOACT Logo" class="logo">
+    <div class="slide-container">
+        <h1 class="title">OpenAI: Continued Leadership with Caveats</h1>
+        
+        <div class="performance-section">
+            <div class="model-grid">
+                <div class="model-card top-performer">
+                    <div class="model-name">o3-mini</div>
+                    <div class="model-rank top">#1</div>
+                    <div class="model-score">76.7% Score</div>
+                    <div style="font-size: 0.8rem; color: #666;">100% Code, 74% Reasoning</div>
+                </div>
+                
+                <div class="model-card top-performer">
+                    <div class="model-name">o4-mini</div>
+                    <div class="model-rank top">#2</div>
+                    <div class="model-score">76.7% Score</div>
+                    <div style="font-size: 0.8rem; color: #666;">100% Code, 74% Reasoning</div>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-name">GPT-4.1</div>
+                    <div class="model-rank">#8</div>
+                    <div class="model-score">67.2% Score</div>
+                    <div style="font-size: 0.8rem; color: #666;">77% Code, 67% Reasoning</div>
+                </div>
+            </div>
+            
+            <div class="benchmark-table">
+                <div class="table-row table-header">
+                    <div>Model</div>
+                    <div>Rank</div>
+                    <div>Score</div>
+                    <div>Key Strength</div>
+                </div>
+                <div class="table-row highlight-row">
+                    <div>openai/o3-mini-2025-01-31</div>
+                    <div>1st</div>
+                    <div>76.7%</div>
+                    <div>Reasoning</div>
+                </div>
+                <div class="table-row highlight-row">
+                    <div>openai/o4-mini-2025-04-16</div>
+                    <div>2nd</div>
+                    <div>76.7%</div>
+                    <div>Reasoning</div>
+                </div>
+                <div class="table-row">
+                    <div>openai/gpt-4.1-2025-04-14</div>
+                    <div>8th</div>
+                    <div>67.2%</div>
+                    <div>Cost-Effective</div>
+                </div>
+                <div class="table-row">
+                    <div>openai/gpt-4.1-mini-2025-04-14</div>
+                    <div>13th</div>
+                    <div>61.1%</div>
+                    <div>Budget Option</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cost-warning">
+            <h3>⚠️ Critical Cost Consideration</h3>
+            <p>While o3-mini and o4-mini deliver superior performance, operational costs are significantly higher than alternatives. Cost optimization becomes essential for enterprise deployment.</p>
+        </div>
+    </div>
+</body>
+</html>

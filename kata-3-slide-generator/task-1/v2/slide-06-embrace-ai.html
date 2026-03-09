@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embrace AI Initiative Insights</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 150px;
+            height: auto;
+        }
+        .slide-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding-top: 40px;
+        }
+        .title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #024b80;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #303944;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        .experiment-section {
+            background: linear-gradient(135deg, #f08226 0%, #d57112 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .experiment-section h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+        }
+        .timing-comparison {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .timing-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .timing-card.best {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        .time-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        .time-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        .insights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .insight-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #09909c;
+        }
+        .insight-card h3 {
+            color: #024b80;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        .productivity-stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        .prompt-evolution {
+            background: linear-gradient(135deg, #036b75 0%, #024b80 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+        .evolution-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .evolution-step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .step-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .step-time {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f08226;
+            margin-bottom: 5px;
+        }
+        .step-tokens {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .conclusion-box {
+            background: linear-gradient(135deg, #205ea7 0%, #024b80 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .conclusion-points {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .conclusion-point {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <img src="../../TIMETOACT-AT_logo.svg" alt="TIMETOACT Logo" class="logo">
+    <div class="slide-container">
+        <h1 class="title">Embrace AI Initiative</h1>
+        <p class="subtitle">Training Senior Engineers • Practical AI Insights • Real-World Performance</p>
+        
+        <div class="experiment-section">
+            <h3>🧪 Productivity Experiment: WebUI Development Tool</h3>
+            <p style="margin: 0 0 15px 0;">Task: Build tool to send LLM requests while appending file contents</p>
+            
+            <div class="timing-comparison">
+                <div class="timing-card">
+                    <span class="time-number">2h</span>
+                    <div class="time-label">Complex AI Tools<br/>(Median Result)</div>
+                </div>
+                <div class="timing-card">
+                    <span class="time-number">30min</span>
+                    <div class="time-label">Claude with Tools<br/>(Many Prompts)</div>
+                </div>
+                <div class="timing-card best">
+                    <span class="time-number">15min</span>
+                    <div class="time-label">Prompt Distillation<br/>(432 tokens)</div>
+                </div>
+                <div class="timing-card">
+                    <span class="time-number">Few hrs</span>
+                    <div class="time-label">Manual Coding<br/>(No AI)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="insights-grid">
+            <div class="insight-card">
+                <h3>🎯 Key Finding: Prompt Engineering > Complex Tools</h3>
+                <p>Expert prompt engineering consistently outperforms sophisticated AI tooling by 50% in productivity gains.</p>
+                
+                <div class="productivity-stats">
+                    <div class="stat-row">
+                        <span>Best AI Solution</span>
+                        <span><strong>15 minutes</strong></span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Median AI Solution</span>
+                        <span><strong>1.5-2 hours</strong></span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Manual Development</span>
+                        <span><strong>Few hours</strong></span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Productivity Improvement</span>
+                        <span style="color: #f08226;"><strong>50%</strong></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <h3>🔄 Model Preference Shift</h3>
+                <p><strong>From:</strong> OpenAI & Sonnet 3.7<br/>
+                <strong>To:</strong> Gemini 2.5 Pro</p>
+                
+                <p><strong>Reasons:</strong></p>
+                <ul style="margin: 10px 0; color: #303944;">
+                    <li>Superior context size handling</li>
+                    <li>Better speed/quality balance</li>
+                    <li>Lower operational costs</li>
+                    <li>More reliable performance</li>
+                </ul>
+                
+                <p style="font-size: 0.9rem; color: #666; margin-top: 15px;"><em>Note: Shift observed among experienced engineers with multi-provider access</em></p>
+            </div>
+        </div>
+        
+        <div class="prompt-evolution">
+            <h3 style="margin: 0 0 10px 0;">🚀 Prompt Optimization Evolution</h3>
+            <p style="margin: 0 0 20px 0;">From complex tooling to ultra-efficient prompts</p>
+            
+            <div class="evolution-steps">
+                <div class="evolution-step">
+                    <div class="step-number">1st</div>
+                    <div class="step-time">15 min</div>
+                    <div class="step-tokens">432 tokens</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">Prompt Distillation via ChatGPT o1</div>
+                </div>
+                <div class="evolution-step">
+                    <div class="step-number">2nd</div>
+                    <div class="step-time">15 min</div>
+                    <div class="step-tokens">1191 tokens</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">Gemini 2.5 Pro Distillation</div>
+                </div>
+                <div class="evolution-step">
+                    <div class="step-number">Best</div>
+                    <div class="step-time">7 min</div>
+                    <div class="step-tokens">70 tokens</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">Manual optimization (313 chars)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="conclusion-box">
+            <h3 style="margin: 0 0 15px 0;">💡 Strategic Conclusions</h3>
+            
+            <div class="conclusion-points">
+                <div class="conclusion-point">
+                    <strong>Modern AI Coding</strong><br/>
+                    Real productivity gains when used properly
+                </div>
+                <div class="conclusion-point">
+                    <strong>Experience Beats Tools</strong><br/>
+                    Practice outperforms fancy tooling
+                </div>
+                <div class="conclusion-point">
+                    <strong>Model Preferences</strong><br/>
+                    Claude 3.7 & Gemini 2.5 Pro preferred
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

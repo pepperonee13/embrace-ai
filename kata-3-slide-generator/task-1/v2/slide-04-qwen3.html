@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwen3: Local Model Revolution</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 150px;
+            height: auto;
+        }
+        .slide-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding-top: 40px;
+        }
+        .title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #024b80;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .performance-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #09909c;
+        }
+        .model-comparison {
+            background: linear-gradient(135deg, #09909c 0%, #036b75 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        .model-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .model-card:last-child {
+            margin-bottom: 0;
+        }
+        .model-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .model-specs {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        .key-advantages {
+            margin-top: 30px;
+        }
+        .advantage-list {
+            list-style: none;
+            padding: 0;
+        }
+        .advantage-list li {
+            background: rgba(240, 130, 38, 0.1);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #f08226;
+            font-size: 1rem;
+        }
+        .advantage-list li strong {
+            color: #024b80;
+        }
+        .ranking-highlight {
+            background: linear-gradient(135deg, #f08226 0%, #d57112 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .ranking-highlight h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+        }
+        .ranking-highlight .rank {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .enterprise-box {
+            background: linear-gradient(135deg, #036b75 0%, #024b80 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+        .enterprise-box h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.6rem;
+        }
+    </style>
+</head>
+<body>
+    <img src="../../TIMETOACT-AT_logo.svg" alt="TIMETOACT Logo" class="logo">
+    <div class="slide-container">
+        <h1 class="title">Qwen3: Enterprise-Grade Local AI Revolution</h1>
+        
+        <div class="ranking-highlight">
+            <h3>Leaderboard Performance</h3>
+            <div class="rank">5th Place</div>
+            <p style="margin: 5px 0 0 0; font-size: 1.1rem;">71.1% Score - Competing with top cloud models</p>
+        </div>
+        
+        <div class="content-grid">
+            <div class="performance-section">
+                <h3 style="color: #024b80; margin-top: 0;">Recommended Models</h3>
+                
+                <ul class="advantage-list">
+                    <li>
+                        <strong>Data Security:</strong> Complete on-premises deployment eliminates cloud data exposure risks
+                    </li>
+                    <li>
+                        <strong>Cost Control:</strong> No per-token charges after initial infrastructure investment
+                    </li>
+                    <li>
+                        <strong>Performance:</strong> Accuracy comparable to best cloud models for enterprise tasks
+                    </li>
+                    <li>
+                        <strong>Compliance:</strong> Meets strict regulatory requirements for sensitive industries
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="model-comparison">
+                <h3 style="margin-top: 0;">Top Qwen3 Models</h3>
+                
+                <div class="model-card">
+                    <div class="model-name">Qwen3-32B</div>
+                    <div class="model-specs">
+                        • 32.8B parameters<br>
+                        • 32k native context, 131k extended<br>
+                        • Best overall performance
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <div class="model-name">Qwen3-30B-A3B</div>
+                    <div class="model-specs">
+                        • 30.5B parameters (3.3B active)<br>
+                        • Mixture-of-Experts architecture<br>
+                        • Faster inference, lower compute
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.9;">
+                    <strong>Processing Trade-off:</strong> Longer processing time but enterprise-grade accuracy for overnight batch jobs
+                </div>
+            </div>
+        </div>
+        
+        <div class="enterprise-box">
+            <h3>🏢 Strategic Impact for TIMETOACT</h3>
+            <p>Qwen3 enables us to offer clients enterprise AI solutions with complete data sovereignty, predictable costs, and performance that rivals cloud providers - a significant competitive advantage in sensitive industries.</p>
+        </div>
+    </div>
+</body>
+</html>

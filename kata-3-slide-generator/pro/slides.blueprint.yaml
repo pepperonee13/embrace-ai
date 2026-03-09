@@ -1,0 +1,83 @@
+# slides.blueprint.yaml
+version: 1
+
+deck:
+  min_slides: 8
+  max_slides: 20
+  required_sequence:
+    - type: Title
+    - any_of: [Section, Bullets]
+  allow_types: [Title, Section, Bullets, TwoCol, Quote]
+  defaults:
+    prefer_types: [Bullets, TwoCol]
+    avoid_types: [Quote]
+  splitting:
+    max_chars_per_slide: 900
+
+slides:
+  Title:
+    required_fields: [title]
+    optional_fields: [subtitle]
+    limits:
+      title_max: 80
+      subtitle_max: 120
+    uniqueness:
+      title_unique: true
+
+  Section:
+    required_fields: [title]
+    limits:
+      title_max: 60
+
+  Bullets:
+    required_fields: [items]
+    optional_fields: [title]
+    limits:
+      min_items: 3
+      max_items: 6
+      item_max: 110
+      title_max: 60
+    style:
+      enforce_parallelism: true
+      ban_weasel_words: true
+
+  TwoCol:
+    required_fields: [leftItems, rightItems]
+    optional_fields: [title]
+    limits:
+      left_min: 2
+      left_max: 6
+      right_min: 2
+      right_max: 6
+      title_max: 60
+
+  Quote:
+    required_fields: [text]
+    optional_fields: [author]
+    limits:
+      text_max: 180
+      author_max: 40
+    usage:
+      max_count: 1
+
+locale:
+  detect: true
+  supported: [en, de]
+  typography:
+    en:
+      percent: "15%"
+      thousands: "1,000"
+      quotes: "smart"
+    de:
+      percent: "15 %"
+      thousands: "1 000"
+      quotes: "german"
+      nbsp_units: true
+
+style:
+  voice_en: "Professional, concise, confident"
+  voice_de: "Professionell, klar, verbindlich"
+  bullets:
+    sentence_case: true
+    no_terminal_periods: true
+    one_idea_per_bullet: true

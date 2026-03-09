@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Benchmark Report - April 2025 Executive Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden;
+        }
+        
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            padding: 60px;
+            display: none;
+            animation: slideIn 0.5s ease-in-out;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        h1 {
+            color: #1a365d;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            color: #2c5282;
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+        }
+        
+        h3 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+        
+        p, li {
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .key-finding {
+            background: #f7fafc;
+            border-left: 5px solid #4299e1;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.3);
+        }
+        
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .metric-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c5282;
+        }
+        
+        .metric-label {
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .ranking-table th {
+            background: #2c5282;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .ranking-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .ranking-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        
+        .rank-1 { background: #ffd700 !important; }
+        .rank-2 { background: #c0c0c0 !important; }
+        .rank-3 { background: #cd7f32 !important; }
+        
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c5282;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">LLM Benchmark Report • April 2025</div>
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">7</span>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active">
+            <h1>LLM Benchmark Report - April 2025</h1>
+            <h2>Executive Summary for Leadership</h2>
+            <div class="highlight">
+                <p><strong>Comprehensive analysis of the latest Large Language Models for digital product development</strong></p>
+            </div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">20+</div>
+                    <div class="metric-label">Models Tested</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">4</div>
+                    <div class="metric-label">Key Categories</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Major Providers</div>
+                </div>
+            </div>
+            <p style="margin-top: 40px; text-align: center; color: #718096;">
+                Prepared by: AI Strategy + Research Hub • TIMETOACT GROUP Austria
+            </p>
+        </div>
+        
+        <!-- Slide 2: Executive Summary -->
+        <div class="slide">
+            <h1>Executive Summary</h1>
+            <div class="key-finding">
+                <h3>Key Market Developments</h3>
+                <ul>
+                    <li><strong>OpenAI maintains leadership</strong> with o3-mini and o4-mini at the top of reasoning benchmarks</li>
+                    <li><strong>Google closing the gap</strong> - Gemini 2.5 models consistently in TOP-10, beating OpenAI on price/stability</li>
+                    <li><strong>Local models breakthrough</strong> - Qwen3 achieves enterprise-grade accuracy for on-premise deployments</li>
+                    <li><strong>Practitioner shift</strong> - Engineers moving from OpenAI to Google Gemini 2.5 Pro for AI coding tasks</li>
+                </ul>
+            </div>
+            <div class="highlight">
+                <h3>Strategic Implications</h3>
+                <p>The LLM landscape is becoming more competitive with viable alternatives to OpenAI emerging, offering organizations more flexibility in vendor selection and deployment options.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 3: OpenAI Performance -->
+        <div class="slide">
+            <h1>OpenAI Models Performance</h1>
+            <h2>New Models Dominate Rankings</h2>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Model</th>
+                        <th>Overall Score</th>
+                        <th>Key Strength</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-1">
+                        <td>#1</td>
+                        <td>o3-mini</td>
+                        <td>76.7%</td>
+                        <td>Superior Reasoning</td>
+                    </tr>
+                    <tr class="rank-2">
+                        <td>#2</td>
+                        <td>o4-mini</td>
+                        <td>76.7%</td>
+                        <td>Superior Reasoning</td>
+                    </tr>
+                    <tr>
+                        <td>#8</td>
+                        <td>GPT-4.1</td>
+                        <td>67.2%</td>
+                        <td>Balanced Performance</td>
+                    </tr>
+                    <tr>
+                        <td>#13</td>
+                        <td>GPT-4.1-mini</td>
+                        <td>61.1%</td>
+                        <td>Cost-Effective</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="key-finding">
+                <p><strong>Critical Finding:</strong> While OpenAI models lead in performance, the <strong>cost of running these models</strong> remains a significant consideration for enterprise deployment.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Qwen3 Local Models -->
+        <div class="slide">
+            <h1>Qwen3: Local Model Revolution</h1>
+            <h2>Enterprise-Grade On-Premise Solutions</h2>
+            <div class="highlight">
+                <h3>Breakthrough Performance</h3>
+                <p>Qwen3 models achieve <strong>accuracy comparable to best cloud models</strong> while running entirely on-premise, making them ideal for enterprises with data sovereignty requirements.</p>
+            </div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">71.1%</div>
+                    <div class="metric-label">Qwen3-32B Score</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">32K</div>
+                    <div class="metric-label">Native Context</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">131K</div>
+                    <div class="metric-label">Extended Context</div>
+                </div>
+            </div>
+            <div class="key-finding">
+                <h3>Recommended Models</h3>
+                <ul>
+                    <li><strong>Qwen3-32B:</strong> 32.8B parameters, best for accuracy-critical tasks</li>
+                    <li><strong>Qwen3-30B-A3B:</strong> Mixture-of-Experts, only 3.3B active parameters for faster inference</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Use Case:</strong> Suitable for overnight batch processing jobs requiring high accuracy without cloud dependencies.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 5: Google Gemini Position -->
+        <div class="slide">
+            <h1>Google Gemini: Strategic Competitor</h1>
+            <h2>Consistent TOP-10 Performance</h2>
+            <div class="key-finding">
+                <p>Google has transformed from a late entrant to a <strong>serious competitor</strong>, consistently delivering models in the TOP-10 range while <strong>beating OpenAI on price and stability</strong>.</p>
+            </div>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Model</th>
+                        <th>Score</th>
+                        <th>Advantage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-3">
+                        <td>#3</td>
+                        <td>Gemini-2.5-Flash-Preview (thinking)</td>
+                        <td>71.2%</td>
+                        <td>Best Google model</td>
+                    </tr>
+                    <tr>
+                        <td>#4</td>
+                        <td>Gemini-2.5-Pro-Preview</td>
+                        <td>71.1%</td>
+                        <td>Large context handling</td>
+                    </tr>
+                    <tr>
+                        <td>#10</td>
+                        <td>Gemini-2.5-Pro-Preview-05</td>
+                        <td>65.6%</td>
+                        <td>Cost-effective</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight">
+                <h3>Real-World Advantages</h3>
+                <ul>
+                    <li><strong>Superior document processing:</strong> Handles complex PDFs reliably across page boundaries</li>
+                    <li><strong>Extended context:</strong> Engineers work with 200k-500k token contexts effectively</li>
+                    <li><strong>Preferred for AI Coding:</strong> Experienced engineers shifting from OpenAI/Claude to Gemini 2.5 Pro</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 6: AI Coding Insights -->
+        <div class="slide">
+            <h1>Practical Insights: AI Coding</h1>
+            <h2>Embrace AI Initiative Findings</h2>
+            <div class="key-finding">
+                <h3>Developer Preference Shift</h3>
+                <p>Senior engineers are <strong>gradually shifting from OpenAI and Claude Sonnet to Google Gemini 2.5 Pro</strong> for daily coding tasks due to superior context handling, speed, quality, and cost combination.</p>
+            </div>
+            <div class="highlight">
+                <h3>Key Learning: Simplicity Beats Complexity</h3>
+                <p>In a controlled experiment, engineers achieved better results with <strong>simple, well-crafted prompts</strong> than with complex AI coding tools:</p>
+                <ul>
+                    <li>Complex AI tools with agents: 1.5-2 hours</li>
+                    <li>Simple prompt engineering: 15 minutes</li>
+                    <li>Manual optimized prompt: 7 minutes (70 tokens)</li>
+                </ul>
+            </div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-value">4x</div>
+                    <div class="metric-label">Faster with proper prompting</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">70</div>
+                    <div class="metric-label">Tokens for optimal prompt</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 7: Key Takeaways -->
+        <div class="slide">
+            <h1>Strategic Recommendations</h1>
+            <h2>Action Items for Leadership</h2>
+            <div class="key-finding">
+                <h3>1. Diversify LLM Strategy</h3>
+                <ul>
+                    <li>Don't rely solely on OpenAI - evaluate Google Gemini for document-heavy workflows</li>
+                    <li>Consider Qwen3 for on-premise deployments with data sovereignty requirements</li>
+                </ul>
+            </div>
+            <div class="key-finding">
+                <h3>2. Optimize AI Tooling Investment</h3>
+                <ul>
+                    <li>Focus on training engineers in prompt engineering fundamentals</li>
+                    <li>Complex AI coding tools may reduce productivity - evaluate carefully</li>
+                </ul>
+            </div>
+            <div class="key-finding">
+                <h3>3. Cost-Performance Optimization</h3>
+                <ul>
+                    <li>OpenAI's newest models (o3/o4) offer best performance but at premium cost</li>
+                    <li>Google Gemini provides best value for most enterprise use cases</li>
+                    <li>Local models (Qwen3) offer one-time cost with no usage fees</li>
+                </ul>
+            </div>
+            <div class="highlight" style="margin-top: 40px;">
+                <p style="text-align: center;"><strong>Bottom Line:</strong> The LLM market is maturing with viable alternatives. Organizations should adopt a multi-vendor strategy based on specific use case requirements.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button id="prev-btn" onclick="changeSlide(-1)">Previous</button>
+        <button id="next-btn" onclick="changeSlide(1)">Next</button>
+    </div>
+    
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+        
+        function showSlide(n) {
+            const slides = document.getElementsByClassName('slide');
+            
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide;
+            
+            // Update button states
+            document.getElementById('prev-btn').disabled = currentSlide === 1;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+        }
+        
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+        
+        // Initialize
+        showSlide(1);
+    </script>
+</body>
+</html>

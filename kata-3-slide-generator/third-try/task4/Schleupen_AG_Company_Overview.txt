@@ -1,0 +1,43 @@
+Schleupen SE / Schleupen AG — Company Overview
+
+1. Company Identity & History
+- Schleupen started in 1970 as a software firm (Softwarehaus).
+- It now operates under the name Schleupen SE (formerly AG) and is a leading IT / software provider for the utilities / energy & water sectors in Germany.
+- The company has ~500–600 employees across multiple sites.
+- In 2023, revenue was approximately €82.7 million.
+- In 2022, their reported turnover was approximately €72.6 million.
+
+2. Market Focus & Positioning
+- Schleupen specializes in software and IT solutions for energy and water utilities (“Versorgungswirtschaft”) in Germany.
+- They offer an end‑to‑end solution suite covering billing, market communication, energy logistics, finance/controlling, and resource planning in grid operations.
+- They also have a business line for Governance, Risk & Compliance (GRC) software, including risk management, internal control, compliance, and information security.
+
+3. Core Products / Platforms
+- Their flagship product platform is Schleupen.CS, a modular software platform for utilities to automate major business processes.
+- For GRC, they market the R2C (risk‑to‑chance) software family for risk management, compliance, and audit.
+- They offer both on‑premises and cloud / SaaS deployment models (e.g. via their GRC Cloud).
+- They integrate with smart meter / gateway protocols and security infrastructures (e.g. Smart Meter PKI certificates).
+
+4. Services & Customer Support
+- Beyond software licensing, Schleupen provides consulting, customization, training, installation, updates, and benchmarking services.
+- They support customers through regulatory changes in the energy/water sector.
+- They maintain data centers in Germany compliant with ISO 27001 and similar standards.
+
+5. Scale & Reach
+- They serve approximately every fourth German municipal utility with their solutions.
+- In the energy sector alone, more than 300 utility companies are customers.
+- Their user base for some systems includes more than 15,000 active users.
+
+6. Challenges & Strategic Context
+- The energy sector is under high regulatory pressure, with rapid digitization, smart grids, and evolving customer expectations.
+- Schleupen must continuously evolve its software to stay compliant and competitive.
+- Integration with cybersecurity, data protection, and compliance requirements is critical.
+- Maintaining scalability and flexibility for customers of all sizes is a strategic focus.
+
+7. Recent / Notable Developments
+- Integration of data services (e.g. energy exchange pricing) into their platforms for dynamic tariffs.
+- Participation in smart meter rollouts, gateway administration, and cybersecurity compliance.
+- AI and automation initiatives (e.g. AI assistant “MAIA”).
+- Collaboration with security companies like Securosys for PKI and key management.
+
+Overall, Schleupen SE plays a crucial role in digital transformation within the German energy and water sectors, combining decades of industry expertise with modern IT, compliance, and automation solutions.

@@ -1,0 +1,3 @@
+Your task: write a prompt, that can take a human description of a slide, turning it into an actual slide. Slide should adhere to the [TimeToAct brand guide](../../data/style-guide.yaml), at least somehow. Use the [TimeToAct Logo](../../data/TIMETOACT-AT_logo.svg) on each slide. Do your best to create a single slide.
+
+The output should be a pdf unless prompted otherwise. You can still use other technologies for intermediate steps as long as you can convert them to the final output format.

@@ -107,18 +107,39 @@ a big part of why it has grown so fast.
 
 ## 4. Core Capabilities — What Can It Do?
 
-Describe what you want in plain language. Claude Code plans the approach, writes the code, and verifies it works.
+*It handles what slows you down, so you can focus on what matters.*
 
-- **Build features:** "Build a new API endpoint that returns user profiles and write the tests for it."
-- **Fix bugs:** Paste an error message or describe the symptom — Claude traces the issue, identifies root cause, and implements a fix.
-- **Understand code:** "Walk me through how our authentication system works."
-- **Tedious tasks:** Writing tests, fixing lint errors, resolving merge conflicts, updating dependencies, writing release notes.
-- **Git workflows:** Stage changes, write commit messages, create branches, open pull requests — all from natural language.
-- **Multi-file editing:** Refactor across many files in a single session.
+Describe what you want in plain language. Claude Code plans the approach, writes the 
+code, and verifies it works. Its capabilities fall into two natural categories.
+
+### Claude does it *for* you
+Routine, well-defined work you'd rather not spend time on:
+
+- **Tedious tasks:** Writing tests, fixing lint errors, resolving merge conflicts, 
+  updating dependencies, writing release notes.
+- **Git workflows:** Stage changes, write commit messages, create branches, open pull 
+  requests — all from natural language. Claude can even monitor CI results and 
+  auto-fix failing checks.
+- **Multi-file refactoring:** Rename, restructure, or modernise patterns across an 
+  entire codebase in a single session.
+
+### Claude does it *with* you
+Higher-order work where you stay in the loop:
+
+- **Build features:** "Build a new API endpoint that returns user profiles and write 
+  the tests for it." Claude plans the approach, finds the relevant files, follows your 
+  existing conventions, and implements — you review and steer.
+- **Fix bugs:** Paste an error message or describe the symptom — Claude traces the 
+  issue through the codebase, identifies the root cause, and proposes a fix.
+- **Understand code:** "Walk me through how our authentication system works." Useful 
+  for onboarding, code reviews, or picking up an unfamiliar part of the codebase.
+- **Plan before coding:** Plan Mode lets Claude analyse the codebase and map out an 
+  approach before touching anything — you approve the plan, then it executes.
 
 **Sources:**
-- Official overview (use cases): https://code.claude.com/docs/en/overview
-- Comprehensive guide with examples: https://www.eesel.ai/blog/claude-code-overview-docs
+- Common workflows: https://code.claude.com/docs/en/common-workflows
+- Best practices: https://code.claude.com/docs/en/best-practices
+- Official overview: https://code.claude.com/docs/en/overview
 
 ---
 

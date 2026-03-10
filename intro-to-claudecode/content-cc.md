@@ -162,22 +162,22 @@ Announced February 20, 2026, Claude Code Security is a new capability that scans
 
 ---
 
-## 10. Getting Started — Try It Now
+## 10. Getting Started — The Cost of Entry is Low
 
-You need a Pro subscription ($20/month) or an API key — that's it. Claude Code is not available on the free tier, but the entry point is intentionally low, and most developers find Pro sufficient to get started.
+You need a Pro subscription ($20/month) or an API key — Claude Code is not available on the free tier. But the entry point is intentionally low. Pro gives you access to all models including Opus 4.6 and is sufficient for most developers getting started. If you hit usage limits with heavy daily use, Max plans are available at $100/month (5x Pro usage) or $200/month (20x Pro usage) — the difference between tiers is purely usage volume, not model access.
 
-macOS/Linux: `brew install --cask claude-code`
-Windows (recommended): `irm https://claude.ai/install.ps1 | iex` in PowerShell
-Windows (alternative): `winget install Anthropic.ClaudeCode`
+- **macOS/Linux:** `brew install --cask claude-code`
+- **Windows (recommended):** `irm https://claude.ai/install.ps1 | iex` in PowerShell
+- **Windows (alternative):** `winget install Anthropic.ClaudeCode`
 
+> Note: the old `npm install -g @anthropic-ai/claude-code` method still circulates in older tutorials but is now deprecated — use one of the above instead.
 
-Note: the old `npm install -g @anthropic-ai/claude-code` method still circulates in older tutorials but is now deprecated — use one of the above instead.
+Navigate to your project, run `claude`, and start talking to your codebase. Most people are up and running in under 2 minutes.
 
-Navigate to your project, run claude, and start talking to your codebase.
-Or skip local setup entirely at `claude.ai/code`.
+Or skip local setup entirely at **claude.ai/code** — no installation needed.
 
 **Sources:**
-
 - Official setup docs: https://code.claude.com/docs/en/setup
 - Plans & pricing: https://claude.com/pricing
-- Official overview / quickstart: https://code.claude.com/docs/en/overview
+- Opus 4.6 availability: https://www.anthropic.com/claude/opus
+- Max plan details: https://support.claude.com/en/articles/11049741-what-is-the-max-plan

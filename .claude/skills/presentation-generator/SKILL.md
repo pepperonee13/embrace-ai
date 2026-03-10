@@ -63,9 +63,7 @@ When an author photo is provided, render it as a flex row using the `.author-row
 </div>
 ```
 
-Where `IMAGE_SRC` is either:
-- A **base64 data URI** (when the user provides a local file path — see below), or
-- A **remote URL** (when the user provides an `https://` URL — use it as-is)
+Where `IMAGE_SRC` is the value the user provided — a local file path or an `https://` URL. The embed script (run after writing the file) will convert any local path to a base64 data URI automatically.
 
 When no photo is provided, render only the name:
 
@@ -77,18 +75,14 @@ When no photo is provided, render only the name:
 
 The output must be a **single self-contained HTML file** — no external file references. When the user provides a local file path for the author photo:
 
-1. **Read** the image file from disk using the Read tool
-2. **Detect** the MIME type from the file extension (`.png` → `image/png`, `.jpg`/`.jpeg` → `image/jpeg`, `.gif` → `image/gif`, `.webp` → `image/webp`, `.svg` → `image/svg+xml`)
-3. **Encode** the raw bytes as base64
-4. **Embed** it inline: `src="data:MIME_TYPE;base64,BASE64_DATA"`
+1. **Write** the HTML file with `src="PHOTO_PATH"` using the actual file path as-is (absolute or relative)
+2. **Run** the embed script to replace the path with an inline base64 data URI:
 
-Example result:
-
-```html
-<img src="data:image/png;base64,iVBORw0KGgo..." alt="Jane Doe">
+```bash
+bash .claude/skills/presentation-generator/embed-images.sh path/to/output.html
 ```
 
-This ensures the HTML file is fully portable and can be shared as a single file without any companion assets.
+The script finds every local `src` reference in the file, reads the image from disk, and replaces it with `data:MIME;base64,...` — all without passing the binary data through Claude's context. Remote `https://` URLs and existing `data:` URIs are left untouched.
 
 Do **not** regenerate the CSS, design tokens, logo SVG, or Reveal.js setup — everything is already in `layout.html`.
 

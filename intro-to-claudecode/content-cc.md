@@ -9,12 +9,15 @@
 
 Claude Code is Anthropic's agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster through natural language commands. Unlike traditional AI chat assistants where you copy-paste code back and forth, Claude Code operates directly in your development environment — it can read files, edit code, run shell commands, manage git workflows, and connect to external services.
 
-It launched as a research preview in February 2025 and became generally available in May 2025. As of early 2026, approximately 4% of public GitHub commits (~135,000 per day) are authored by Claude Code.
+It launched as a research preview in February 2025 and became generally available in May 2025. The growth since has been extraordinary: as of February 2026, approximately 4% of all public GitHub commits (~135,000 per day) are authored by Claude Code — and at current growth rates, SemiAnalysis projects that figure will exceed 20% of all daily commits by end of 2026.
+
+[Personal note: "I'm one of those commits — and this talk is about why I got hooked."]
 
 **Sources:**
-- Official overview: https://code.claude.com/docs/en/overview
+- Official docs: https://code.claude.com/docs/en/overview
 - GitHub repo: https://github.com/anthropics/claude-code
-- Growth stats: https://blakecrosley.com/guides/claude-code (cites 4% of GitHub commits as of Feb 2026)
+- SemiAnalysis report (primary source for commit stats): https://newsletter.semianalysis.com/p/claude-code-is-the-inflection-point
+- Growth stats (secondary): https://blakecrosley.com/guides/claude-code
 - $1B revenue milestone & Bun acquisition: https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone
 
 ---

@@ -24,17 +24,12 @@ It launched as a research preview in February 2025 and became generally availabl
 
 ## 2. Where Can You Use It?
 
-Claude Code is available across multiple surfaces — it's not just a terminal tool anymore:
-
-- **Terminal CLI** — the original and full-featured interface. Install via Homebrew (macOS/Linux) or WinGet (Windows), then run `claude` in any project directory.
-- **VS Code / Cursor extension** — inline diffs, @-mentions, plan review, and conversation history directly in the editor.
-- **JetBrains plugin** — works with IntelliJ, PyCharm, WebStorm, and other JetBrains IDEs.
-- **Desktop app** — standalone app for reviewing diffs visually, running multiple sessions, scheduling tasks, and cloud sessions.
-- **Web (claude.ai/code)** — browser-based, no local setup needed. Run long tasks and check back later. Launched October 2025.
+Claude Code started as a terminal CLI and that remains its core, most full-featured interface. But it also meets you where you are — there are extensions for VS Code, Cursor, and JetBrains IDEs, a desktop app, and a browser-based version at claude.ai/code that requires no local setup at all.
+For installation and platform-specific setup, the official docs cover everything: https://code.claude.com/docs/en/setup
 
 **Sources:**
-- Official overview (lists all surfaces): https://code.claude.com/docs/en/overview
-- Web launch: https://mlq.ai/news/anthropic-launches-claude-code-on-the-web/ (October 20, 2025)
+- Official setup docs: https://code.claude.com/docs/en/setup
+- Official overview: https://code.claude.com/docs/en/overview
 
 ---
 
@@ -169,15 +164,20 @@ Announced February 20, 2026, Claude Code Security is a new capability that scans
 
 ## 10. Getting Started — Try It Now
 
-Quick start in under 2 minutes:
-1. Have a Pro/Max subscription or API key
-2. Install: `brew install claude-code` (macOS/Linux) or `winget install Anthropic.ClaudeCode` (Windows)
-3. Navigate to your project: `cd your-project`
-4. Run: `claude`
-5. Start talking: "Explain the architecture of this project" or "Write tests for the auth module"
+You need a Pro subscription ($20/month) or an API key — that's it. Claude Code is not available on the free tier, but the entry point is intentionally low, and most developers find Pro sufficient to get started.
 
-Or skip local setup entirely at **claude.ai/code**.
+macOS/Linux: `brew install --cask claude-code`
+Windows (recommended): `irm https://claude.ai/install.ps1 | iex` in PowerShell
+Windows (alternative): `winget install Anthropic.ClaudeCode`
+
+
+Note: the old `npm install -g @anthropic-ai/claude-code` method still circulates in older tutorials but is now deprecated — use one of the above instead.
+
+Navigate to your project, run claude, and start talking to your codebase.
+Or skip local setup entirely at `claude.ai/code`.
 
 **Sources:**
+
+- Official setup docs: https://code.claude.com/docs/en/setup
+- Plans & pricing: https://claude.com/pricing
 - Official overview / quickstart: https://code.claude.com/docs/en/overview
-- Cheatsheet for getting productive fast: https://shipyard.build/blog/claude-code-cheat-sheet/

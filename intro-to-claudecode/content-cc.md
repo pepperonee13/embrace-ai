@@ -33,25 +33,6 @@ For installation and platform-specific setup, the official docs cover everything
 
 ---
 
-## 3. How to Get Access (Pricing)
-
-Claude Code requires at least a Pro subscription or API credits — it's not available on the Free tier.
-
-- **Pro plan ($20/month):** Includes Claude Code with Sonnet model access. Good for learning and smaller projects, but you may hit usage limits during heavy coding sessions.
-- **Max 5x plan ($100/month):** 5x Pro usage, access to Opus 4.6, priority access during peak times.
-- **Max 20x plan ($200/month):** 20x Pro usage, effectively unlimited for most individual users. Near-zero latency priority.
-- **API (pay-as-you-go):** Sonnet 4.6 at $3/$15 per million tokens (input/output). Opus 4.6 at $5/$25 per million tokens. Average developer spend is roughly $6/day on API.
-- **Team & Enterprise plans** also available for organizations.
-
-**Sources:**
-- Plans & Pricing (official): https://claude.com/pricing
-- Max plan details: https://support.claude.com/en/articles/11049741-what-is-the-max-plan
-- Model pricing (official): https://platform.claude.com/docs/en/about-claude/pricing
-- Average developer cost stats: https://intuitionlabs.ai/articles/claude-pricing-plans-api-costs
-- Models overview (official): https://platform.claude.com/docs/en/about-claude/models/overview
-
----
-
 ## 4. Core Capabilities — What Can It Do?
 
 Describe what you want in plain language. Claude Code plans the approach, writes the code, and verifies it works.

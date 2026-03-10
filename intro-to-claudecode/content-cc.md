@@ -35,36 +35,73 @@ For installation and platform-specific setup, the official docs cover everything
 
 ## 3. Why Does It Work So Well?
 
-Most AI coding tools are built around a single interaction: you ask, it answers, you copy-paste. 
-Claude Code is built around a different idea entirely — it works *with* your environment, 
-not alongside it.
+> The secret to Claude Code's success isn't just what it can do — it's how deeply you can make it yours.
+
+Most AI coding tools are built around a single interaction: you ask, it answers, you
+copy-paste. Claude Code is built around a different idea entirely — it works *with* your
+environment, not alongside it.
 
 Two things set it apart:
 
 ### It actually understands your codebase
-Claude Code doesn't just read the file you point it at. It explores your project structure, 
-follows imports, understands patterns, and reasons about how components relate to each other. 
-Ask it to fix a bug or build a feature and it will find the relevant files itself, understand 
-the conventions already in place, and make changes that fit — not generic code dropped in 
+Claude Code doesn't just read the file you point it at. It explores your project structure,
+follows imports, understands patterns, and reasons about how components relate to each other.
+Ask it to fix a bug or build a feature and it will find the relevant files itself, understand
+the conventions already in place, and make changes that fit — not generic code dropped in
 from nowhere.
 
 ### It learns how you work
-This is where it gets interesting. Claude Code has a set of primitives that let you encode 
-your preferences, standards and workflow directly into the tool:
+This is where it gets interesting. Claude Code has a rich set of primitives that let you
+encode your preferences, standards, and workflow directly into the tool:
 
-- **CLAUDE.md** — a file in your project root that Claude reads automatically every session. 
-  Document your architecture, coding standards, tech stack, testing approach — and Claude 
-  will follow them without being reminded every time.
-- **Settings** — fine-grained control over what Claude can and cannot do in your environment.
-- **Custom commands** — repeatable workflows you define once and invoke by name.
-- **Skills** — reusable packages of instructions and scripts Claude loads dynamically for 
-  specialised tasks.
+- **CLAUDE.md** — a markdown file that Claude reads automatically every session. It exists
+  at multiple levels: global (`~/.claude/CLAUDE.md`) for your personal preferences across
+  all projects, project-level (`CLAUDE.md`) for shared team context checked into source
+  control, and local (`CLAUDE.local.md`) for personal project-specific overrides.
+- **Settings** — fine-grained control over permissions and tool behaviour via
+  `.claude/settings.json`. Follow the same scope hierarchy: user (global), shared project
+  (team, in source control), and local project (personal, gitignored).
+- **Custom commands** — repeatable prompt workflows you define once as markdown files and
+  invoke by name.
+- **Skills** — markdown files that teach Claude repeatable workflows, loaded dynamically
+  based on context. More powerful than commands — they can include scripts, resources,
+  and trigger automatically without being explicitly invoked.
+- **Hooks** — shell commands, HTTP endpoints, or prompts that fire automatically at
+  lifecycle events (pre-tool-use, post-tool-use, session start, etc.). For things that
+  *must* happen every time regardless of what the model decides — linting, formatting,
+  security checks.
+- **MCP (Model Context Protocol)** — an open standard for connecting Claude Code to
+  external services: GitHub, Sentry, Slack, databases, and hundreds of others. MCP servers
+  also follow the same scope model: local (private to you in this project), project (shared
+  via `.mcp.json` in source control), or user (available across all your projects).
+- **Plugins** — installable bundles that package skills, agents, hooks, and MCP configs
+  into a single distributable unit. Can be installed at user scope (personal, all projects),
+  project scope (shared with the team), or local scope (personal, this project only).
 
-The result is a tool that compounds in value the more you invest in it. It doesn't just get 
-better over time — it gets more *yours*.
+The scope system is worth emphasising: almost everything in Claude Code works at the right
+level simultaneously. Personal preferences stay personal. Team standards get shared via
+source control. Enterprise policies can be enforced from the top down and cannot be
+overridden. You never have to choose between configuring it for yourself or for your team
+— you do both.
 
-That combination — deep codebase understanding plus a configurable, persistent workflow — 
-is what makes it feel qualitatively different from anything that came before it.
+The result is a tool that compounds in value the more you invest in it. It doesn't just
+get better over time — it gets more *yours*, and more *your team's*.
+
+That combination — deep codebase understanding, a configurable and persistent workflow,
+and a scope system that works for individuals and organisations alike — is what makes it
+feel qualitatively different from anything that came before it. And it's almost certainly
+a big part of why it has grown so fast.
+
+**Sources:**
+- Extensibility overview: https://code.claude.com/docs/en/features-overview
+- Settings & scope hierarchy: https://code.claude.com/docs/en/settings
+- Hooks guide: https://code.claude.com/docs/en/hooks-guide
+- Hooks reference: https://code.claude.com/docs/en/hooks
+- MCP scopes: https://code.claude.com/docs/en/mcp
+- Plugins guide: https://code.claude.com/docs/en/plugins
+- Plugins reference: https://code.claude.com/docs/en/plugins-reference
+- Discover & install plugins: https://code.claude.com/docs/en/discover-plugins
+- MCP Registry: https://registry.modelcontextprotocol.io/
 
 ---
 

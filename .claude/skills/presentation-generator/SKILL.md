@@ -24,7 +24,7 @@ Produce a **single self-contained HTML file** by filling in the `layout.html` te
 Before producing any output, check the user's prompt for the following. If any are missing, **ask for them before proceeding**:
 
 1. **Author name** *(required)* — displayed on the title and thank you slides
-2. **Author photo** *(optional)* — a file path or URL to a portrait image; displayed as a circle on the title and thank you slides. If not provided, omit the avatar entirely — do not use a placeholder.
+2. **Author photo** *(optional)* — a file path or URL to a portrait image; displayed as a circle on the title and thank you slides. If not provided, omit the avatar entirely — do not use a placeholder. If a local file path is provided, you **must** read the file and embed it as a base64 data URI (see "Embedding author photo" below).
 3. **Source links** *(optional)* — URLs or references used to gather content for the slides. If provided:
    - Add a small inline source link at the bottom of each slide where the source is directly relevant, using this pattern:
      ```html
@@ -57,17 +57,38 @@ When an author photo is provided, render it as a flex row using the `.author-row
 ```html
 <div class="author-row">
   <div class="author-avatar">
-    <img src="PHOTO_PATH_OR_URL" alt="AUTHOR_NAME">
+    <img src="IMAGE_SRC" alt="AUTHOR_NAME">
   </div>
   <span class="author-name">by AUTHOR_NAME</span>
 </div>
 ```
+
+Where `IMAGE_SRC` is either:
+- A **base64 data URI** (when the user provides a local file path — see below), or
+- A **remote URL** (when the user provides an `https://` URL — use it as-is)
 
 When no photo is provided, render only the name:
 
 ```html
 <p class="author-name">by AUTHOR_NAME</p>
 ```
+
+## Embedding author photo
+
+The output must be a **single self-contained HTML file** — no external file references. When the user provides a local file path for the author photo:
+
+1. **Read** the image file from disk using the Read tool
+2. **Detect** the MIME type from the file extension (`.png` → `image/png`, `.jpg`/`.jpeg` → `image/jpeg`, `.gif` → `image/gif`, `.webp` → `image/webp`, `.svg` → `image/svg+xml`)
+3. **Encode** the raw bytes as base64
+4. **Embed** it inline: `src="data:MIME_TYPE;base64,BASE64_DATA"`
+
+Example result:
+
+```html
+<img src="data:image/png;base64,iVBORw0KGgo..." alt="Jane Doe">
+```
+
+This ensures the HTML file is fully portable and can be shared as a single file without any companion assets.
 
 Do **not** regenerate the CSS, design tokens, logo SVG, or Reveal.js setup — everything is already in `layout.html`.
 

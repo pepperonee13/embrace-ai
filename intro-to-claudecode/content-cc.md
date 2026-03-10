@@ -46,9 +46,11 @@ Claude Code requires at least a Pro subscription or API credits — it's not ava
 - **Team & Enterprise plans** also available for organizations.
 
 **Sources:**
+- Plans & Pricing (official): https://claude.com/pricing
 - Max plan details: https://support.claude.com/en/articles/11049741-what-is-the-max-plan
-- Pricing breakdown: https://claudelog.com/claude-code-pricing/
+- Model pricing (official): https://platform.claude.com/docs/en/about-claude/pricing
 - Average developer cost stats: https://intuitionlabs.ai/articles/claude-pricing-plans-api-costs
+- Models overview (official): https://platform.claude.com/docs/en/about-claude/models/overview
 
 ---
 

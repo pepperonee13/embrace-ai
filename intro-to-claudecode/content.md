@@ -1,7 +1,7 @@
 - what is a coding agent?
 - what is claude code and why should you care?
 - what is anthropic and why should you care?
-- what other platforms does claude have?
+- what other platforms does claude have (cli, web, mobile)?
 - models and usage scenarios
 - token costs
 - token limits

@@ -24,7 +24,7 @@ Produce a **single self-contained HTML file** by filling in the `layout.html` te
 Before producing any output, check the user's prompt for the following. If any are missing, **ask for them before proceeding**:
 
 1. **Author name** *(required)* — displayed on the title and thank you slides
-2. **Author photo** *(optional)* — a file path or URL to a portrait image; displayed as a circle on the title and thank you slides. If not provided, omit the avatar entirely — do not use a placeholder.
+2. **Author photo** *(optional)* — a file path or URL to a portrait image; displayed as a circle on the title and thank you slides. If not provided, omit the avatar entirely — do not use a placeholder. If a local file path is provided, you **must** read the file and embed it as a base64 data URI (see "Embedding author photo" below).
 3. **Source links** *(optional)* — URLs or references used to gather content for the slides. If provided:
    - Add a small inline source link at the bottom of each slide where the source is directly relevant, using this pattern:
      ```html
@@ -57,17 +57,32 @@ When an author photo is provided, render it as a flex row using the `.author-row
 ```html
 <div class="author-row">
   <div class="author-avatar">
-    <img src="PHOTO_PATH_OR_URL" alt="AUTHOR_NAME">
+    <img src="IMAGE_SRC" alt="AUTHOR_NAME">
   </div>
   <span class="author-name">by AUTHOR_NAME</span>
 </div>
 ```
+
+Where `IMAGE_SRC` is the value the user provided — a local file path or an `https://` URL. The embed script (run after writing the file) will convert any local path to a base64 data URI automatically.
 
 When no photo is provided, render only the name:
 
 ```html
 <p class="author-name">by AUTHOR_NAME</p>
 ```
+
+## Embedding author photo
+
+The output must be a **single self-contained HTML file** — no external file references. When the user provides a local file path for the author photo:
+
+1. **Write** the HTML file with `src="PHOTO_PATH"` using the actual file path as-is (absolute or relative)
+2. **Run** the embed script to replace the path with an inline base64 data URI:
+
+```bash
+bash .claude/skills/presentation-generator/embed-images.sh path/to/output.html
+```
+
+The script finds every local `src` reference in the file, reads the image from disk, and replaces it with `data:MIME;base64,...` — all without passing the binary data through Claude's context. Remote `https://` URLs and existing `data:` URIs are left untouched.
 
 Do **not** regenerate the CSS, design tokens, logo SVG, or Reveal.js setup — everything is already in `layout.html`.
 

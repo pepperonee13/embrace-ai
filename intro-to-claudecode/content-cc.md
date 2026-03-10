@@ -33,6 +33,41 @@ For installation and platform-specific setup, the official docs cover everything
 
 ---
 
+## 3. Why Does It Work So Well?
+
+Most AI coding tools are built around a single interaction: you ask, it answers, you copy-paste. 
+Claude Code is built around a different idea entirely — it works *with* your environment, 
+not alongside it.
+
+Two things set it apart:
+
+### It actually understands your codebase
+Claude Code doesn't just read the file you point it at. It explores your project structure, 
+follows imports, understands patterns, and reasons about how components relate to each other. 
+Ask it to fix a bug or build a feature and it will find the relevant files itself, understand 
+the conventions already in place, and make changes that fit — not generic code dropped in 
+from nowhere.
+
+### It learns how you work
+This is where it gets interesting. Claude Code has a set of primitives that let you encode 
+your preferences, standards and workflow directly into the tool:
+
+- **CLAUDE.md** — a file in your project root that Claude reads automatically every session. 
+  Document your architecture, coding standards, tech stack, testing approach — and Claude 
+  will follow them without being reminded every time.
+- **Settings** — fine-grained control over what Claude can and cannot do in your environment.
+- **Custom commands** — repeatable workflows you define once and invoke by name.
+- **Skills** — reusable packages of instructions and scripts Claude loads dynamically for 
+  specialised tasks.
+
+The result is a tool that compounds in value the more you invest in it. It doesn't just get 
+better over time — it gets more *yours*.
+
+That combination — deep codebase understanding plus a configurable, persistent workflow — 
+is what makes it feel qualitatively different from anything that came before it.
+
+---
+
 ## 4. Core Capabilities — What Can It Do?
 
 Describe what you want in plain language. Claude Code plans the approach, writes the code, and verifies it works.

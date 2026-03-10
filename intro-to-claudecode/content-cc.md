@@ -35,7 +35,8 @@ For installation and platform-specific setup, the official docs cover everything
 
 ## 3. Why Does It Work So Well?
 
-> The secret to Claude Code's success isn't just what it can do — it's how deeply you can make it yours.
+*The secret to Claude Code's success isn't just what it can do — it's how deeply you can
+make it yours.*
 
 Most AI coding tools are built around a single interaction: you ask, it answers, you
 copy-paste. Claude Code is built around a different idea entirely — it works *with* your
@@ -59,10 +60,11 @@ encode your preferences, standards, and workflow directly into the tool:
   all projects, project-level (`CLAUDE.md`) for shared team context checked into source
   control, and local (`CLAUDE.local.md`) for personal project-specific overrides.
 - **Settings** — fine-grained control over permissions and tool behaviour via
-  `.claude/settings.json`. Follow the same scope hierarchy: user (global), shared project
+  `.claude/settings.json`. Follows the same scope hierarchy: user (global), shared project
   (team, in source control), and local project (personal, gitignored).
-- **Custom commands** — repeatable prompt workflows you define once as markdown files and
-  invoke by name.
+- **Commands & slash commands** — built-in session commands like `/help`, `/cost`,
+  `/compact`, `/model`, and `/status`, plus custom commands you define once as markdown
+  files and invoke by name.
 - **Skills** — markdown files that teach Claude repeatable workflows, loaded dynamically
   based on context. More powerful than commands — they can include scripts, resources,
   and trigger automatically without being explicitly invoked.
@@ -72,11 +74,14 @@ encode your preferences, standards, and workflow directly into the tool:
   security checks.
 - **MCP (Model Context Protocol)** — an open standard for connecting Claude Code to
   external services: GitHub, Sentry, Slack, databases, and hundreds of others. MCP servers
-  also follow the same scope model: local (private to you in this project), project (shared
+  follow the same scope model: local (private to you in this project), project (shared
   via `.mcp.json` in source control), or user (available across all your projects).
 - **Plugins** — installable bundles that package skills, agents, hooks, and MCP configs
   into a single distributable unit. Can be installed at user scope (personal, all projects),
   project scope (shared with the team), or local scope (personal, this project only).
+- **Subagents** — Claude can spawn specialised agents with their own clean context windows
+  to handle focused tasks (exploration, planning, implementation), then return only
+  summaries to the main conversation. Prevents context bloat and keeps costs down.
 
 The scope system is worth emphasising: almost everything in Claude Code works at the right
 level simultaneously. Personal preferences stay personal. Team standards get shared via
@@ -101,8 +106,10 @@ a big part of why it has grown so fast.
 - Plugins guide: https://code.claude.com/docs/en/plugins
 - Plugins reference: https://code.claude.com/docs/en/plugins-reference
 - Discover & install plugins: https://code.claude.com/docs/en/discover-plugins
+- Subagents: https://code.claude.com/docs/en/sub-agents
+- CLI reference (slash commands): https://code.claude.com/docs/en/cli-reference
 - MCP Registry: https://registry.modelcontextprotocol.io/
-
+- 
 ---
 
 ## 4. Core Capabilities — What Can It Do?
@@ -143,29 +150,7 @@ Higher-order work where you stay in the loop:
 
 ---
 
-## 5. Key Concepts to Know
-
-### CLAUDE.md — Project Memory
-A special markdown file in your project root that Claude reads automatically. Use it to document coding standards, architecture, tech stack, file organization, and testing instructions. This is how you give Claude persistent context about your project across sessions.
-
-### Slash Commands
-Built-in commands you run during a session: `/help`, `/compact` (compress context), `/cost` (token usage), `/model` (switch models), `/status`, `/bug` (report issues), and more. You can also create custom commands as markdown files in `.claude/commands/`.
-
-### Subagents — Delegation
-Claude Code can spawn sub-agents with clean context windows to handle focused tasks (exploration, planning, implementation), then return only summaries to the main conversation. This prevents context bloat and keeps costs down.
-
-### Permission System
-Claude asks before performing potentially impactful actions (editing files, running commands). You can configure fine-grained permissions in `.claude/settings.json` to allow or block specific tools.
-
-**Sources:**
-- CLI reference and slash commands: https://code.claude.com/docs/en/cli-reference
-- CLAUDE.md and configuration: https://shipyard.build/blog/claude-code-cheat-sheet/
-- Architecture (core/delegation/extension layers): https://blakecrosley.com/guides/claude-code
-- Complete command guide: https://github.com/Cranot/claude-code-guide
-
----
-
-## 6. Extensibility — Hooks, MCP, and Skills
+## 5. Extensibility — Hooks, MCP, and Skills
 
 ### Hooks
 Shell commands that fire automatically at specific lifecycle events (pre-commit, post-tool-use, etc.). Use them for linting, formatting, security checks — anything that must run deterministically every time, not just when the model decides to.
@@ -184,7 +169,7 @@ Organized folders of instructions, scripts, and resources that Claude loads dyna
 
 ---
 
-## 7. CI/CD & Automation
+## 6. CI/CD & Automation
 
 Claude Code integrates with GitHub Actions and GitLab CI/CD pipelines. The official GitHub Action (`anthropics/claude-code-action`) lets you:
 
@@ -204,7 +189,7 @@ Setup is straightforward: run `/install-github-app` inside Claude Code, configur
 
 ---
 
-## 8. Security — Claude Code Security (New!)
+## 7. Security — Claude Code Security (New!)
 
 Announced February 20, 2026, Claude Code Security is a new capability that scans codebases for vulnerabilities and suggests targeted patches for human review. Key highlights:
 
@@ -220,7 +205,7 @@ Announced February 20, 2026, Claude Code Security is a new capability that scans
 
 ---
 
-## 9. The Bigger Picture — Where It's Heading
+## 8. The Bigger Picture — Where It's Heading
 
 - **Agent Teams (research preview, Feb 2026):** Multiple autonomous coding agents working in parallel on different components of a project.
 - **Claude Cowork:** Extending the "Claude Code magic" beyond developers to all knowledge workers — connecting to Google Drive, Gmail, DocuSign, and more.
@@ -236,7 +221,7 @@ Announced February 20, 2026, Claude Code Security is a new capability that scans
 
 ---
 
-## 10. Getting Started — The Cost of Entry is Low
+## 9. Getting Started — The Cost of Entry is Low
 
 You need a Pro subscription ($20/month) or an API key — Claude Code is not available on the free tier. But the entry point is intentionally low. Pro gives you access to all models including Opus 4.6 and is sufficient for most developers getting started. If you hit usage limits with heavy daily use, Max plans are available at $100/month (5x Pro usage) or $200/month (20x Pro usage) — the difference between tiers is purely usage volume, not model access.
 

@@ -58,7 +58,12 @@ encode your preferences, standards, and workflow directly into the tool:
 - **CLAUDE.md** — a markdown file that Claude reads automatically every session. It exists
   at multiple levels: global (`~/.claude/CLAUDE.md`) for your personal preferences across
   all projects, project-level (`CLAUDE.md`) for shared team context checked into source
-  control, and local (`CLAUDE.local.md`) for personal project-specific overrides.
+  control, and local (`CLAUDE.local.md`) for personal project-specific overrides. As your
+  instructions grow, you can split them into `.claude/rules/` — separate rule files that
+  keep CLAUDE.md concise. Rules can also be **path-specific**: a rule in
+  `.claude/rules/api.md` scoped to `src/api/` only activates when Claude is working in
+  that directory. Your frontend conventions don't bleed into your backend work, and vice
+  versa.
 - **Settings** — fine-grained control over permissions and tool behaviour via
   `.claude/settings.json`. Follows the same scope hierarchy: user (global), shared project
   (team, in source control), and local project (personal, gitignored).

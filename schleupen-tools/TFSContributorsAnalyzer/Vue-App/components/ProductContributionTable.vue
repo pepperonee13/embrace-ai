@@ -19,7 +19,7 @@
                 <span v-if="isExpanded(row.product)">▾</span>
                 <span v-else>▸</span>
               </button>
-              {{ row.product }}
+              <router-link :to="{ name: 'ProductDetail', params: { name: row.product } }" class="product-link">{{ row.product }}</router-link>
             </td>
             <td class="contrib-count">{{ totalContributors(row.product) }}</td>
             <td class="vcs-type"><span :class="vcsBadgeClass(row.product)">{{ vcsLabel(row.product) }}</span></td>
@@ -227,6 +227,13 @@ function contributorsFor(product) {
 }
 .product-name {
   font-weight: 600;
+}
+.product-link {
+  color: #1f77b4;
+  text-decoration: none;
+}
+.product-link:hover {
+  text-decoration: underline;
 }
 .expand-btn {
   margin-right: 0.5rem;

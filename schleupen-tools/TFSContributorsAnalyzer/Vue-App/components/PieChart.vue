@@ -23,7 +23,7 @@
 
           <!-- Centered title -->
           <div class="pie-title">
-            <span class="product-name" :title="product">{{ product }}</span>
+            <router-link :to="{ name: 'ProductDetail', params: { name: product } }" class="product-name" :title="product">{{ product }}</router-link>
           </div>
           <svg ref="svg" :viewBox="`0 0 ${width} ${height}`" preserveAspectRatio="xMidYMid meet">
             <foreignObject v-if="totalContributions > 0" :x="width / 2 - 70" :y="height / 2 - 40" :width="140" :height="80"
@@ -374,6 +374,12 @@ watch(
   @apply truncate;
   max-width: 90%;
   text-align: center;
+  color: inherit;
+  text-decoration: none;
+}
+.product-name:hover {
+  text-decoration: underline;
+  color: var(--brand-blue);
 }
 
 svg {

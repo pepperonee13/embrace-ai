@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import DashboardView from '../views/DashboardView.vue';
 import TimelineView from '../views/TimelineView.vue';
 import AdminView from '../views/AdminView.vue';
+import ProductDetailView from '../views/ProductDetailView.vue';
 
 const routes = [
   { path: '/', name: 'Dashboard', component: DashboardView },
@@ -17,7 +18,12 @@ const routes = [
     name: 'Admin',
     component: AdminView
   },
-  // Future: { path: '/product/:id', ... }, { path: '/author/:id', ... }
+  {
+    path: '/product/:name',
+    name: 'ProductDetail',
+    component: ProductDetailView,
+    props: true
+  },
 ];
 
 const router = createRouter({

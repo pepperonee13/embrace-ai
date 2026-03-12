@@ -64,9 +64,14 @@ encode your preferences, standards, and workflow directly into the tool:
   `.claude/rules/api.md` scoped to `src/api/` only activates when Claude is working in
   that directory. Your frontend conventions don't bleed into your backend work, and vice
   versa.
+    - **Auto memory** — Claude also learns on its own, without you writing anything.
+    As you work, it saves notes to itself: build commands, debugging insights,
+    architecture patterns, your code style preferences. These are loaded
+    automatically at the start of each session. Everything it saves is plain
+    markdown you can read, edit, or delete at any time via `/memory`.
 - **Settings** — fine-grained control over permissions and tool behaviour via
-  `.claude/settings.json`. Follows the same scope hierarchy: user (global), shared project
-  (team, in source control), and local project (personal, gitignored).
+`.claude/settings.json`. Follows the same scope hierarchy: user (global), shared project
+(team, in source control), and local project (personal, gitignored).
 - **Commands & slash commands** — built-in session commands like `/help`, `/cost`,
   `/compact`, `/model`, and `/status`, plus custom commands you define once as markdown
   files and invoke by name.
@@ -88,6 +93,10 @@ encode your preferences, standards, and workflow directly into the tool:
   to handle focused tasks (exploration, planning, implementation), then return only
   summaries to the main conversation. Prevents context bloat and keeps costs down.
 
+One honest note: Claude treats CLAUDE.md and auto memory as context, not strict enforcement.
+Specific, concise instructions work far better than vague ones — and if two rules
+contradict each other, Claude may pick one arbitrarily.
+
 The scope system is worth emphasising: almost everything in Claude Code works at the right
 level simultaneously. Personal preferences stay personal. Team standards get shared via
 source control. Enterprise policies can be enforced from the top down and cannot be
@@ -103,6 +112,7 @@ feel qualitatively different from anything that came before it. And it's almost 
 a big part of why it has grown so fast.
 
 **Sources:**
+- Memory & CLAUDE.md: https://code.claude.com/docs/en/memory
 - Extensibility overview: https://code.claude.com/docs/en/features-overview
 - Settings & scope hierarchy: https://code.claude.com/docs/en/settings
 - Hooks guide: https://code.claude.com/docs/en/hooks-guide
@@ -114,7 +124,7 @@ a big part of why it has grown so fast.
 - Subagents: https://code.claude.com/docs/en/sub-agents
 - CLI reference (slash commands): https://code.claude.com/docs/en/cli-reference
 - MCP Registry: https://registry.modelcontextprotocol.io/
-- 
+
 ---
 
 ## 4. Core Capabilities — What Can It Do?

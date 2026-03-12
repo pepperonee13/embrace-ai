@@ -44,8 +44,9 @@ Do not generate the presentation until you have at least the author name.
 3. **Plan** the slide structure based on the input content
 4. **Always include these structural slides — no exceptions:**
    - **Slide 1 — Title slide**: presentation title, optional subtitle/eyebrow, author name, and author photo (if provided) as a circle avatar
-   - **Slide 2 — Agenda slide**: list all main sections using `.agenda-list > .agenda-item` pattern
-   - **Second-to-last slide — Sources slide** *(only if source links were provided)*: list each source as a `.resource-item` row with icon, title, and URL
+   - **Slide 2 — Agenda slide**: list all main sections using `.agenda-list > .agenda-item` pattern. Include a `.section-label` eyebrow at the top.
+   - **Content slides**: every content slide should have a `.section-label` eyebrow identifying the section or topic, so context is clear regardless of which slide is viewed
+   - **Second-to-last slide — Sources slide** *(only if source links were provided)*: list each source as a `.resource-item` row with icon, title, and URL. Include a `.section-label` eyebrow.
    - **Last slide — Thank you slide**: closing message, author name, and author photo (if provided) as a circle avatar
 5. **Generate** only the `<section>` elements for each slide, using patterns from `styleguide.html` verbatim
 6. **Output** the complete file: take the full content of `layout.html`, replace `%%TITLE%%` with the presentation title and `<!-- %%SLIDES%% -->` with your generated `<section>` elements
@@ -130,6 +131,35 @@ The file `styleguide.html` (in this same skill folder) is the single source of t
 Full slide shell templates (title slide, content slide, two-col, three-col) are also provided in the styleguide — use them as the starting structure for each slide type.
 
 Maintain **strong visual consistency** across all slides.
+
+## Eyebrows (Section Labels)
+
+Every content slide should include a `.section-label` eyebrow at the top to establish context. This allows viewers to understand which section of the presentation they're in, regardless of which slide they're viewing.
+
+**Eyebrow naming strategy:**
+- Use broad section names for grouping slides (e.g., "Foundations", "The Secret Sauce", "Capabilities")
+- Reuse the same eyebrow name across multiple related slides
+- Keep eyebrows concise (1–3 words)
+- Use title case
+
+Example:
+```html
+<div class="section-label">Foundations</div>
+<h2 class="slide-title">What It Is & <span class="accent">Where You Use It</span></h2>
+```
+
+## Links & Interactivity
+
+**All links on slides must be:**
+- **Clickable** — wrap URLs in `<a href="..." target="_blank">` tags
+- **Without visited style** — override `:visited` pseudo-class to use the same accent color as default links, so visited links don't appear dimmed or differently colored
+
+Example CSS:
+```css
+a { color: var(--color-accent-secondary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:visited { color: var(--color-accent-secondary); }
+```
 
 Rules:
 

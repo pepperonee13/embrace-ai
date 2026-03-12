@@ -1,0 +1,28 @@
+node_modules
+report/warningsDB
+report/index.json
+
+Run-GenerateOwnershipReport.ps1
+TFSChanges.*.csv
+
+!Vue-App/package.json
+!Vue-App/package-lock.json
+
+# Adjusted to exclude JSON files with any environment string in their names
+team_mappings.*.json
+teamColors.*.json
+author_mappings.*.json
+ignored_authors.*.json
+RawOwnershipReport.*.csv
+TimelineData.*.csv
+
+# Ensure specific JSON files are still tracked
+!team_mappings.json
+!teamColors.json
+!author_mappings.json
+!ignored_authors.json
+!RawOwnershipReport.csv
+!TimelineData.csv
+
+dist
+

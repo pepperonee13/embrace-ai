@@ -1,0 +1,3 @@
+"Date","DateTime","Product","Author","ChangesetId","ChangeType","FilePath","Source"
+"2025-01-02","2025-01-02 14:44:58","prod.alpha","Alice Example","1266142","edit","$/CS3/kontinente/FW/REB/Baseline/Quellen/Services/BusinessCases.UnitTests/AutomatischeINVOICPruefung/INVOICAutomatischPruefenControllerTest.cs","TFS"
+"2025-01-03","2025-01-03 13:00:04","prod.gamma","Dana Test","1266397","delete, source rename","$/CS3/Kontinente/FW/ZM/Baseline/Quellen/ConfigurationScripts/3.6.015_Schleupen.CS.FW.ZM.DateiAblageAnlegen_4.0.ps1","TFS"

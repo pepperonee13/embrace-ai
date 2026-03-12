@@ -1,0 +1,1 @@
+I must present this application on a company wide all-hands meeting to demonstrate our progress in the EmbraceAI group. For that I would love to make the frontend design better so I can amaze my colleagues. Look at the current vue js app and its components structure and styling. 

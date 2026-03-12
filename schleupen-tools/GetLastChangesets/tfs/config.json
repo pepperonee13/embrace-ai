@@ -1,0 +1,9 @@
+{
+    "locale": "en",
+    "ProduktPfade": [
+        "$/CS3/CS2/FW/CS.FB/Baseline",
+        "$/CS3/CS2/FW/CS.FB/Features/Entw"
+    ],
+    "OutputFormat": "CSV",
+    "TfExePath": "c:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\Common7\\IDE\\CommonExtensions\\Microsoft\\TeamFoundation\\Team Explorer\\TF.exe"
+}

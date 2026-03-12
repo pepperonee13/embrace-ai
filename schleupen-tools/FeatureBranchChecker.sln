@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildWarningAnalyzer", "BuildWarningAnalyzer", "{72E5F9A5-06A4-EF66-14BE-D7E8DCDC4922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinlogWarningExtractor", "BuildWarningAnalyzer\BinlogWarningExtractor\BinlogWarningExtractor.csproj", "{9C9B6AE4-96FE-31BC-CC60-B790C78FCB2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C9B6AE4-96FE-31BC-CC60-B790C78FCB2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C9B6AE4-96FE-31BC-CC60-B790C78FCB2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C9B6AE4-96FE-31BC-CC60-B790C78FCB2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C9B6AE4-96FE-31BC-CC60-B790C78FCB2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C9B6AE4-96FE-31BC-CC60-B790C78FCB2F} = {72E5F9A5-06A4-EF66-14BE-D7E8DCDC4922}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6365E165-FDB1-43D2-A32A-588DB3FC2D2B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,1 @@
+As a UI/UX Expert give me suggestions to improve the TFSContributorsAnalyzer\Vue-App\components\ContributionZScoreChart.vue component based on the brand guidelines used in the frontend.

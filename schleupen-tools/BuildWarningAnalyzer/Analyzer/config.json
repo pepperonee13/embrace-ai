@@ -1,0 +1,58 @@
+{
+  "gitBaseDir": "E:\\git",
+  "outputBaseDir": "E:\\build-audit",
+  "remoteBaseUrl": "https://tfsprod/tfs/DefaultCollection/CS3/_git",
+
+  "msbuild": {
+    "exePath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe",
+    "configuration": "Release",
+    "extraArgs": ["/m", "/nologo", "/t:Rebuild"]
+  },
+
+  "solution": {
+    "relativePath": ""
+  },
+
+  "paket": {
+    "command": "dotnet paket install"
+  },
+
+  "binlog": {
+    "fileName": "build.binlog"
+  },
+
+  "converter": {
+    "workingDirRelativeToScript": ".\\BinlogWarningExtractor",
+    "command": "dotnet run --",
+    "producesJsonOnStdout": true
+  },
+
+  "_repositories": [
+    "cs-Schleupen.CS.FW.REB",
+    "cs-Schleupen.CS.hbu.sbs",
+    "cs-Schleupen.CS.zlm.gav"
+  ],
+
+  "repositories": [
+    "cs-Schleupen.CS.AP.SI.DWH.BST",
+    "cs-Schleupen.CS.AP.SI.DWH.CO",
+    "cs-Schleupen.CS.AP.SI.DWH.HB",
+    "cs-Schleupen.CS.bst.aus",
+    "cs-Schleupen.CS.bst.baf",
+    "cs-Schleupen.CS.bst.bav",
+    "cs-Schleupen.CS.FW.BST",
+    "cs-Schleupen.CS.FW.CO",
+    "cs-Schleupen.CS.FW.HB",
+    "cs-Schleupen.CS.HB.HBK",
+    "cs-Schleupen.CS.hbu.ext",
+    "cs-Schleupen.CS.hbu.sbs",
+    "cs-Schleupen.CS.FB_Elster",
+    "cs-Schleupen.CS.FW.REB",
+    "cs-Schleupen.CS.mlf.mar",
+    "cs-Schleupen.CS.vbm.reb",
+    "cs-Schleupen.CS.FW.ZM",
+    "cs-Schleupen.CS.zlm.gav",
+    "cs-Schleupen.CS.zlm.mzv",
+    "cs-Schleupen.CS.zlm.zba"
+  ]
+}

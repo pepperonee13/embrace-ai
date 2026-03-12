@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="db57d1b0-96e5-44cf-8d57-4335decf2a2f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/CLAUDE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Fetch-TFSContributors.ps1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Generate-CombinedOwnershipReport.ps1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/RawOwnershipReport.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/author_mappings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/components/AuthorDonutChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/components/ChartsPanel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/components/ContributionZScoreChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/components/FilterPanel.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/components/PieChart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/router/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/stores/useOwnershipStore.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/teamColors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/team_mappings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/utils/environment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/views/DashboardView.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/schleupen-tools/ContributionAnalyzer/Vue-App/vite.config.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "pepperonee13"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/pepperonee13/embrace-ai.git",
+    "accountId": "d5228f0b-22e7-4392-902b-5d365e445e87"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="3AppB6KrTiOLyOoX0zjOCgNOOpO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="db57d1b0-96e5-44cf-8d57-4335decf2a2f" name="Changes" comment="" />
+      <created>1773299227850</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773299227850</updated>
+      <workItem from="1773299229180" duration="347000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

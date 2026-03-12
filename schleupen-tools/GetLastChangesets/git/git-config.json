@@ -1,0 +1,32 @@
+{
+  "Organization": "https://tfsprod/tfs/DefaultCollection",
+  "Project": "CS3",
+  "MainBranchName": "main",
+  "FeatureBranchPrefix": "refs/heads/feature",
+  "OutputFormat": "CSV",
+  "Repositories": [
+    "cs-Schleupen.CS.AP.SI.DWH.BST",
+    "cs-Schleupen.CS.AP.SI.DWH.CO",
+    "cs-Schleupen.CS.AP.SI.DWH.HB",
+    "cs-Schleupen.CS.bst.aus",
+    "cs-Schleupen.CS.bst.baf",
+    "cs-Schleupen.CS.bst.bav",
+    "cs-Schleupen.CS.FW.BST",
+    "cs-Schleupen.CS.FW.CO",
+    "cs-Schleupen.CS.FW.HB",
+    "cs-Schleupen.CS.HB.HBK",
+    "cs-Schleupen.CS.hbu.ext",
+    "cs-Schleupen.CS.hbu.sbs",
+    "cs-Schleupen.CS.FB_Elster",
+    { "name": "cs-Schleupen.CS.FB.IOP.SBS.Mako", "featureBranch": "refs/heads/Entw" },
+    { "name": "cs-Schleupen.CS.FB.IOP.SBS.DLM", "featureBranch": "refs/heads/Entw" },
+    { "name": "cs-Schleupen.CS.FB.IOP.SBS.KSP", "featureBranch": "refs/heads/Entw" },
+    "cs-Schleupen.CS.FW.REB",
+    "cs-Schleupen.CS.mlf.mar",
+    "cs-Schleupen.CS.vbm.reb",
+    "cs-Schleupen.CS.FW.ZM",
+    "cs-Schleupen.CS.zlm.gav",
+    "cs-Schleupen.CS.zlm.mzv",
+    "cs-Schleupen.CS.zlm.zba"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+    "Domain": "SCHLEUPEN-AG",
+    "Servers": [
+        "gps23fw",
+        "gps24fw",
+        "gps25fw",
+        "gps26fw",
+        "gps27fw",
+        "gps28fw",
+        "gps29fw",
+        "gps30fw"
+    ],
+    "AdditionalFields": [
+        "System.Title",
+        "System.State"
+    ],
+    "OutputFormat": "CSV",
+    "IncludeBaselineProdukte": false
+}

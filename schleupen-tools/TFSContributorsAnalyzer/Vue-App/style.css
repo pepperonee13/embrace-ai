@@ -1,0 +1,152 @@
+@import './variables.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles for the dashboard app */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f8f9fa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* Typography Scale */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--brand-gray);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; margin: 1.5rem 0 1rem; }
+h4 { font-size: 1.5rem; margin: 1.25rem 0 0.75rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+/* Monospace font for data/numbers */
+.font-mono, code, pre, .stat-value {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, .pill, .card {
+  transition: all var(--transition-base);
+}
+
+/* Enhanced button states */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(34, 94, 169, 0.1);
+}
+
+/* Brand Button Base Classes */
+@layer components {
+  /* Primary Button - Brand Blue */
+  .btn-brand-primary {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    @apply bg-brand-blue text-white hover:bg-brand-blue-dark;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  /* Secondary Button - Brand Teal */
+  .btn-brand-secondary {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    @apply bg-brand-teal text-white hover:bg-brand-teal-dark;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  /* Accent Button - Brand Orange */
+  .btn-brand-accent {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    @apply bg-brand-orange text-white hover:bg-brand-orange-dark;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  /* Neutral Button - Gray */
+  .btn-brand-neutral {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    @apply bg-gray-500 text-white hover:bg-gray-600;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  /* Danger Button - Muted Red */
+  .btn-brand-danger {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    @apply bg-red-600 text-white hover:bg-red-700;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  /* Success Button - Muted Green with Brand Teal undertone */
+  .btn-brand-success {
+    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
+    @apply bg-teal-600 text-white hover:bg-teal-700;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  /* Disabled state for all brand buttons */
+  .btn-brand-primary:disabled,
+  .btn-brand-secondary:disabled,
+  .btn-brand-accent:disabled,
+  .btn-brand-neutral:disabled,
+  .btn-brand-danger:disabled,
+  .btn-brand-success:disabled {
+    @apply bg-gray-400 cursor-not-allowed opacity-60;
+    @apply hover:shadow-sm;
+  }
+
+  /* Small button variants */
+  .btn-brand-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  /* Large button variants */
+  .btn-brand-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  /* Icon-only button */
+  .btn-brand-icon {
+    @apply w-8 h-8 p-0 flex items-center justify-center;
+  }
+}

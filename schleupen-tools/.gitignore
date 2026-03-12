@@ -1,0 +1,15 @@
+**/*.xlsx
+
+!config.json
+!warnings.json
+
+node_modules
+report/warningsDB/
+report/index.json
+BuildWarningAnalyzer/BuildWarningAnalyzer-Vue/public/warningsDB/*
+GetInstalledFeatureBranches/InstalledFeatureBranches.csv
+BuildWarningAnalyzer/BuildWarningAnalyzer-Vue/public/index.json
+GetLastChangesets/**/*.csv
+
+# Exclude files related to Claude AI
+*claude*

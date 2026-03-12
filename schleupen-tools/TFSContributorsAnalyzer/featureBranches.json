@@ -1,0 +1,172 @@
+{
+  "hb.hbk": null,
+  "fw.hb": {
+    "Name": "713697-BSTNH55"
+  },
+  "fw.reb": [
+    {
+      "Name": "343908-U"
+    },
+    {
+      "Name": "565715"
+    },
+    {
+      "Name": "572472-U"
+    },
+    {
+      "Name": "581820-U"
+    },
+    {
+      "Name": "582046-F"
+    },
+    {
+      "Name": "602085-U"
+    },
+    {
+      "Name": "604030-U"
+    },
+    {
+      "Name": "608038-MSBVertragsstatus"
+    },
+    {
+      "Name": "634065-F"
+    },
+    {
+      "Name": "649894-U"
+    },
+    {
+      "Name": "653041-U"
+    },
+    {
+      "Name": "655357-F"
+    },
+    {
+      "Name": "658133-U"
+    },
+    {
+      "Name": "658133-U2"
+    },
+    {
+      "Name": "660894-F"
+    },
+    {
+      "Name": "660894-F1"
+    },
+    {
+      "Name": "661624-F"
+    },
+    {
+      "Name": "661839-U"
+    },
+    {
+      "Name": "663134-REB"
+    },
+    {
+      "Name": "664320-F"
+    },
+    {
+      "Name": "690061-U"
+    },
+    {
+      "Name": "716387-U"
+    },
+    {
+      "Name": "A_437439"
+    },
+    {
+      "Name": "AHE"
+    },
+    {
+      "Name": "AHEI"
+    },
+    {
+      "Name": "AKL"
+    },
+    {
+      "Name": "ALHE"
+    },
+    {
+      "Name": "DEN-EBDTest"
+    },
+    {
+      "Name": "HKR"
+    },
+    {
+      "Name": "JLO"
+    },
+    {
+      "Name": "JST"
+    },
+    {
+      "Name": "MAB-552541"
+    },
+    {
+      "Name": "MBR"
+    },
+    {
+      "Name": "MBR-481197"
+    },
+    {
+      "Name": "MBR-AlgInv"
+    },
+    {
+      "Name": "MTI"
+    },
+    {
+      "Name": "SWE"
+    },
+    {
+      "Name": "U-552774"
+    },
+    {
+      "Name": "U-583112"
+    },
+    {
+      "Name": "VRU"
+    },
+    {
+      "Name": "WHO"
+    }
+  ],
+  "bst.baf": [
+    {
+      "Name": "3_14_100"
+    },
+    {
+      "Name": "3_15"
+    },
+    {
+      "Name": "3_16"
+    },
+    {
+      "Name": "3_17"
+    },
+    {
+      "Name": "550436"
+    },
+    {
+      "Name": "684065-U"
+    },
+    {
+      "Name": "689059-F"
+    },
+    {
+      "Name": "ABA"
+    },
+    {
+      "Name": "DDA6"
+    },
+    {
+      "Name": "MBR-341578"
+    },
+    {
+      "Name": "MBR-HbvKorrektur"
+    },
+    {
+      "Name": "MTI"
+    }
+  ],
+  "fw.co": {
+    "Name": "713697-BSTNH55"
+  }
+}

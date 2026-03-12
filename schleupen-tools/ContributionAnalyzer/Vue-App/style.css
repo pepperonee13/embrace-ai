@@ -1,9 +1,0 @@
-/* Global styles for the dashboard app */
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f8f9fa;
-}
-#app {
-  min-height: 100vh;
-}

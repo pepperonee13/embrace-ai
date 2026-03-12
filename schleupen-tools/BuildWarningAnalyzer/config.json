@@ -1,0 +1,16 @@
+{
+  "repoBasePath": "E:\\git",
+  "binlogOutputPath": "E:\\build-logs\\binlogs",
+  "msbuildPath": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe",
+  "configuration": "Release",
+  "maxParallel": 4,
+  "msbuildArgs": [
+    "/nologo",
+    "/m",
+    "/t:Rebuild"
+  ],
+  "repositories": [
+    "cs-Schleupen.CS.mlf.mar"
+  ],
+  "BinlogWarningExtractorPath": "E:\\git\\FeatureBranchChecker\\BuildWarningAnalyzer\\BinlogWarningExtractor"
+}

@@ -615,32 +615,83 @@ description: Stage and commit changes
       </div>
     </section>
 
-    <!-- SLIDE 6: What Can It Do — Part 1 -->
+    <!-- SLIDE 6: What Can It Do -->
     <section>
       <div class="section-label">Capabilities</div>
       <h2 class="slide-title">What It Can <span class="accent">Do</span></h2>
       <div class="divider"></div>
-      <div class="two-col">
-        <div>
-          <h3 style="font-size: 1.1rem; color: var(--color-accent-warm); margin-bottom: 16px;">Claude Does It <strong>For</strong> You</h3>
-          <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 12px;">Routine work you'd rather skip:</p>
-          <ul style="font-size: 0.9rem;">
-            <li>Write tests & fix lint</li>
-            <li>Git workflows</li>
-            <li>Multi-file refactoring</li>
-            <li>Merge conflicts</li>
-          </ul>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px;">
+
+        <!-- For you -->
+        <div style="background: var(--color-bg-surface); border-radius: 8px; padding: 14px 18px; border-top: 3px solid var(--color-accent-warm);">
+          <div style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-warm); margin-bottom: 10px;">Claude does it for you</div>
+          <div style="display: flex; flex-direction: column; gap: 7px;">
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">🧪</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Write tests & fix lint</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Generate full test suites, fix lint errors in bulk</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">🔀</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Git workflows</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Stage, commit, branch, PR — from plain language</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">♻️</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Multi-file refactoring</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Rename, restructure, modernise across the whole codebase</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">⚡</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">CI auto-fix</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Monitor CI results and fix failing checks automatically</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <h3 style="font-size: 1.1rem; color: var(--color-accent-secondary); margin-bottom: 16px;">Claude Does It <strong>With</strong> You</h3>
-          <p style="color: var(--color-text-secondary); font-size: 0.95rem; margin-bottom: 12px;">Higher-order work where you stay in the loop:</p>
-          <ul style="font-size: 0.9rem;">
-            <li>Build features</li>
-            <li>Fix bugs</li>
-            <li>Understand code</li>
-            <li>Plan approaches</li>
-          </ul>
+
+        <!-- With you -->
+        <div style="background: var(--color-bg-surface); border-radius: 8px; padding: 14px 18px; border-top: 3px solid var(--color-accent-secondary);">
+          <div style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-secondary); margin-bottom: 10px;">Claude does it with you</div>
+          <div style="display: flex; flex-direction: column; gap: 7px;">
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">🏗️</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Build features</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Plans, finds files, follows conventions — you steer</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">🐛</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Fix bugs</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Traces errors through the codebase to root cause</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">🗺️</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Understand code</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Onboarding, code reviews, unfamiliar modules</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: var(--color-bg-card); border-radius: 5px; padding: 7px 10px;">
+              <span style="font-size: 1rem;">📋</span>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-primary);">Plan first</div>
+                <div style="font-size: 0.72rem; color: var(--color-text-muted);">Plan Mode maps the approach — you approve before it touches code</div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
 

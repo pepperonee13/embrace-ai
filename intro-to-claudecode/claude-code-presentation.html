@@ -404,6 +404,44 @@ p.author-name { margin-top: 1.5rem; }
       <p style="margin-top: 22px; font-size: 0.9375rem; color: var(--color-text-secondary);"><strong>Not a chat window you copy-paste from.</strong> It reads your files, edits them, runs commands, manages git — all directly in your environment.</p>
     </section>
 
+    <!-- SLIDE 3b: Models -->
+    <section>
+      <div class="section-label">Foundations</div>
+      <h2 class="slide-title">Choose Your <span class="accent">Model</span></h2>
+      <div class="divider"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Speed</th>
+            <th>Cost</th>
+            <th>Best for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Haiku 4.5</td>
+            <td><span class="badge badge-green">Fastest</span></td>
+            <td><span class="badge badge-green">Cheap</span></td>
+            <td>Quick edits, autocomplete, high-volume tasks</td>
+          </tr>
+          <tr>
+            <td>Sonnet 4.6</td>
+            <td><span class="badge badge-yellow">Balanced</span></td>
+            <td><span class="badge badge-yellow">Moderate</span></td>
+            <td>Day-to-day coding — default for most work</td>
+          </tr>
+          <tr>
+            <td>Opus 4.6</td>
+            <td><span class="badge badge-red">Deepest</span></td>
+            <td><span class="badge badge-red">Costly</span></td>
+            <td>Complex reasoning, architecture, security analysis</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 18px; color: var(--color-text-muted); font-size: 0.875rem;">Switch anytime with <code>/model</code>. Sonnet 4.6 is the default — reach for Opus when the problem needs it.</p>
+    </section>
+
     <!-- SLIDE 4: The Secret Sauce — Part 1 -->
     <section>
       <div class="section-label">The Secret Sauce</div>
@@ -446,6 +484,135 @@ p.author-name { margin-top: 1.5rem; }
         </div>
       </div>
       <p style="margin-top: 22px; color: var(--color-text-muted); font-style: italic;">Plus: MCP integrations, hooks, skills, plugins. Everything at user, project, or local scope.</p>
+    </section>
+
+    <!-- SLIDE 5b: CLAUDE.md Sample -->
+    <section>
+      <div class="section-label">The Secret Sauce</div>
+      <h2 class="slide-title">A Minimal <span class="accent">CLAUDE.md</span></h2>
+      <div class="divider"></div>
+      <div class="two-col" style="gap: 18px; align-items: start;">
+        <div>
+          <pre style="font-size: 0.72rem; line-height: 1.6; margin: 0;"># My Project
+
+## Stack
+- .NET 8 + C#, xUnit for tests
+- Conventional commits: feat|fix|chore
+
+## Code style
+- Pure functions where possible
+- No comments for self-evident code
+
+## Commands
+- Build: `dotnet build`
+- Test:  `dotnet test`</pre>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="card petrol">
+            <div class="card-title">Global scope</div>
+            <p style="font-size: 0.85rem; margin: 0;">Personal prefs — commit style, tone, editor habits. Lives in <code>~/.claude/CLAUDE.md</code>.</p>
+          </div>
+          <div class="card" style="border-left-color: var(--color-accent-warm);">
+            <div class="card-title" style="color: var(--color-accent-warm);">Project scope</div>
+            <p style="font-size: 0.85rem; margin: 0;">Team standards checked into source control. Everyone on the team gets the same context.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Local scope</div>
+            <p style="font-size: 0.85rem; margin: 0;">Personal overrides for this repo — gitignored, never shared.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5c: Skills Sample -->
+    <section>
+      <div class="section-label">The Secret Sauce</div>
+      <h2 class="slide-title">Reusable Workflows with <span class="accent">Skills</span></h2>
+      <div class="divider"></div>
+      <div class="two-col" style="gap: 18px; align-items: start;">
+        <div>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 6px;">.claude/skills/<strong style="color: var(--color-text-primary);">commit/SKILL.md</strong></p>
+          <pre style="font-size: 0.72rem; line-height: 1.6; margin: 0;">---
+name: commit
+description: Stage and commit changes
+  using semantic (conventional)
+  commit messages.
+---
+
+## Rules
+- Type: feat|fix|docs|chore|refactor
+- Subject: ≤50 chars, imperative mood
+- One logical change per commit
+
+## Steps
+1. `git diff --staged` — review changes
+2. Draft message following the rules
+3. `git commit -m "..."`</pre>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="card petrol">
+            <div class="card-title">What skills are</div>
+            <p style="font-size: 0.85rem; margin: 0;">Markdown files that teach Claude a repeatable workflow. Loaded dynamically — no manual invocation needed.</p>
+          </div>
+          <div class="card" style="border-left-color: var(--color-accent-warm);">
+            <div class="card-title" style="color: var(--color-accent-warm);">More than commands</div>
+            <p style="font-size: 0.85rem; margin: 0;">Skills can include scripts, external resources, and trigger automatically based on context.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Invoke with</div>
+            <p style="font-size: 0.85rem; margin: 0;"><code>/commit</code> &nbsp;—&nbsp; or let Claude pick it up automatically when the moment fits.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5d: Hooks Sample -->
+    <section>
+      <div class="section-label">The Secret Sauce</div>
+      <h2 class="slide-title">Deterministic Side-Effects with <span class="accent">Hooks</span></h2>
+      <div class="divider"></div>
+      <div class="two-col" style="gap: 18px; align-items: start;">
+        <div>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 6px;"><strong style="color: var(--color-text-primary);">.claude/settings.json</strong></p>
+          <pre style="font-size: 0.72rem; line-height: 1.6; margin: 0;">{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{
+        "type": "command",
+        "command": "dotnet format --include $FILE"
+      }]
+    }],
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "command",
+        "command": "security-check.sh $COMMAND"
+      }]
+    }]
+  }
+}</pre>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="card petrol">
+            <div class="card-title">What hooks are</div>
+            <p style="font-size: 0.85rem; margin: 0;">Shell commands that fire at lifecycle events — <em>not</em> left to the model's discretion. Always run, every time.</p>
+          </div>
+          <div class="card" style="border-left-color: var(--color-accent-warm);">
+            <div class="card-title" style="color: var(--color-accent-warm);">Lifecycle events</div>
+            <ul style="font-size: 0.82rem; margin: 0;">
+              <li>PreToolUse / PostToolUse</li>
+              <li>PreCompact</li>
+              <li>Notification</li>
+              <li>Stop</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Good uses</div>
+            <p style="font-size: 0.85rem; margin: 0;">Format on save, lint checks, security guards, audit logging — anything that <em>must</em> happen regardless of what the model decides.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SLIDE 6: What Can It Do — Part 1 -->

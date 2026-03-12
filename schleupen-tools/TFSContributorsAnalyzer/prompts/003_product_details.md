@@ -1,0 +1,1 @@
+When clicking on the title of a product in the "By product" view, I want to navigate to a new "Product Detail" page with some content about the product we have.

@@ -1,3 +1,8 @@
+---
+description: Stage all changes, derive a conventional commit message, and commit
+disable-model-invocation: true
+---
+
 # Skill: commit
 
 Stage all changes, derive a conventional commit message from the diff, and commit.

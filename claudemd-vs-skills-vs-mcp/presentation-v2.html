@@ -681,8 +681,15 @@ p.author-name { margin-top: 1.5rem; }
         <li>Can use tools: read files, run commands, ask follow-up questions</li>
         <li>Personal or checked into git — <strong>shared with the whole team</strong></li>
       </ul>
-      <div class="highlight-warm" style="margin-top: 20px;">
-        <p class="highlight-body"><strong>Skills aren't just shortcuts.</strong> They encode <em>your team's process</em>. A <code>/review-pr</code> skill with your team's specific checklist is better than any generic one.</p>
+      <div style="margin-top: 20px; display: flex; gap: 16px;">
+        <div class="card orange" style="flex: 1;">
+          <div class="card-title">disable-model-invocation: true</div>
+          <p class="highlight-body">User-only — Claude won't trigger it automatically. Use for side-effect actions like <code>/commit</code> or <code>/deploy</code>.</p>
+        </div>
+        <div class="card petrol" style="flex: 1;">
+          <div class="card-title">user-invocable: false</div>
+          <p class="highlight-body">Model-only — hidden from the <code>/</code> menu. Claude triggers it autonomously as background behaviour.</p>
+        </div>
       </div>
     </section>
 

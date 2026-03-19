@@ -26,6 +26,12 @@ export function listTodos(list: TodoList): string {
     .join("\n");
 }
 
+export function logInput(input: unknown): void {
+  console.log(input);
+}
+
+// some change
+
 // CLI entry point
 import * as readline from "readline";
 

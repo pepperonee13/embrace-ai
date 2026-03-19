@@ -72,18 +72,28 @@ When no photo is provided, render only the name:
 <p class="author-name">by AUTHOR_NAME</p>
 ```
 
-## Embedding author photo
+## Embedding images and SVGs
 
-The output must be a **single self-contained HTML file** — no external file references. When the user provides a local file path for the author photo:
+The output must be a **single self-contained HTML file** — no external file references. When the outline or content references a local image or SVG file:
 
-1. **Write** the HTML file with `src="PHOTO_PATH"` using the actual file path as-is (absolute or relative)
-2. **Run** the embed script to replace the path with an inline base64 data URI:
+1. **Write** the HTML file using the actual file path as-is (absolute or relative) in the `src` attribute
+2. **Run** the embed script to replace all local references:
 
 ```bash
 bash .claude/skills/presentation-generator/embed-images.sh path/to/output.html
 ```
 
-The script finds every local `src` reference in the file, reads the image from disk, and replaces it with `data:MIME;base64,...` — all without passing the binary data through Claude's context. Remote `https://` URLs and existing `data:` URIs are left untouched.
+The script handles two cases:
+- **SVG files** — inlined directly as `<svg>...</svg>` (no base64, cleaner and scalable)
+- **Raster images** (png, jpg, gif, webp) — replaced with `data:MIME;base64,...`
+
+Remote `https://` URLs and existing `data:` URIs are left untouched.
+
+**To include an SVG in a slide**, use a standard `<img>` tag — the embed script will inline it automatically:
+
+```html
+<img src="path/to/diagram.svg" style="max-width: 100%; height: auto;">
+```
 
 Do **not** regenerate the CSS, design tokens, logo SVG, or Reveal.js setup — everything is already in `layout.html`.
 

@@ -11,3 +11,10 @@ Add a quick helper function to replace the hardcoded command strings, use any ty
 
 Remember: I prefer TypeScript examples. I'm a visual learner — always show a diagram before code.
 ```
+
+
+```
+# Slide 11
+
+interview me about a new feature i would like to build: group todos together
+```

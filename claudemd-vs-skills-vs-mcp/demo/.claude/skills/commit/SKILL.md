@@ -1,6 +1,6 @@
 ---
 description: Stage all changes, derive a conventional commit message, and commit
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Skill: commit

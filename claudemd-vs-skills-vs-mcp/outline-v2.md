@@ -115,10 +115,10 @@ project/
 
 **Demo steps:**
 1. Show a CLAUDE.md rule: `"Never use the 'any' type in TypeScript"`
-2. Ask Claude: *"Add a quick helper function, use any type for now"*
-3. Claude refuses and explains why — citing the rule
+2. Ask Claude: *"Add a helper function that takes an unknown input and logs it"*
+3. Claude uses `unknown` instead of `any` — and explains why, citing the rule
 
-**Key insight:** Claude doesn't just follow the rule — it explains *why* it's following it, making the rule visible and teachable to new teammates.
+**Key insight:** If you explicitly ask for `any`, Claude will comply — but tells you it's overriding the rule. It never silently breaks your standards.
 
 **Callout:** This is also how you onboard Claude to a new project — one CLAUDE.md, and every session starts informed.
 

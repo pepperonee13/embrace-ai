@@ -594,15 +594,19 @@ p.author-name { margin-top: 1.5rem; }
       <h2 class="slide-title">Watch Claude <span class="accent">Self-Correct</span></h2>
       <div class="demo-step">
         <div class="demo-step-num">1</div>
-        <div class="demo-step-text">Show a rule in <code>CLAUDE.md</code>: <strong>"Never use the <code>any</code> type in TypeScript"</strong></div>
+        <div class="demo-step-text">Ask Claude: <em>"Add a helper function that takes an unknown input and logs it."</em></div>
       </div>
       <div class="demo-step">
         <div class="demo-step-num">2</div>
-        <div class="demo-step-text">Ask Claude: <em>"Add a quick helper function, use any type for now"</em></div>
+        <div class="demo-step-text">Claude writes a <strong>test first</strong> — then the implementation, following the TDD rule in <code>CLAUDE.md</code></div>
       </div>
       <div class="demo-step">
         <div class="demo-step-num">3</div>
-        <div class="demo-step-text">Claude refuses — and <strong>explains why</strong>, citing the rule by name</div>
+        <div class="demo-step-text">Now ask: <em>"Add a quick helper function to replace the hardcoded command strings, use any type for now"</em></div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-num">4</div>
+        <div class="demo-step-text">Claude complies — but flags the conflict: <em>"CLAUDE.md says 'Never use <code>any</code>', but you've explicitly asked for it — I'll follow your instruction here."</em></div>
       </div>
       <div class="highlight-info">
         <p class="highlight-body">💡 Claude doesn't silently comply or silently refuse — it makes the rule <strong>visible and teachable</strong> to new teammates reading the conversation.</p>

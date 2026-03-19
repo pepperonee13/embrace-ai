@@ -1,0 +1,1 @@
+Always check up-to-date claude code documentation.

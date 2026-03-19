@@ -5,3 +5,9 @@ Add a helper function that takes an unknown input and logs it.
 
 Add a quick helper function to replace the hardcoded command strings, use any type for now
 ```
+
+```
+# Slide 7 - Memory
+
+Remember: I prefer TypeScript examples. I'm a visual learner — always show a diagram before code.
+```

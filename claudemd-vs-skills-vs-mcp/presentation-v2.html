@@ -652,22 +652,22 @@ p.author-name { margin-top: 1.5rem; }
       <h2 class="slide-title">Claude Remembers <span class="accent">Who You Are</span></h2>
       <div class="demo-step">
         <div class="demo-step-num">1</div>
-        <div class="demo-step-text">Tell Claude: <em>"I'm a backend developer, I work on the API layer. Anna is our tech lead and reviews all PRs."</em></div>
+        <div class="demo-step-text">Tell Claude: <em>"Remember: I prefer TypeScript examples. I'm a visual learner — always show a diagram before code."</em></div>
       </div>
       <div class="demo-step">
         <div class="demo-step-num">2</div>
-        <div class="demo-step-text">Ask Claude to save this to memory</div>
+        <div class="demo-step-text">Claude saves to <code>~/.claude/projects/&lt;project&gt;/memory/</code> — memory is <strong>project-scoped</strong></div>
       </div>
       <div class="demo-step">
         <div class="demo-step-num">3</div>
-        <div class="demo-step-text"><strong>Start a new session</strong> — fresh context, blank slate</div>
+        <div class="demo-step-text"><strong>Start a new session</strong> in the same project — ask: <em>"How does async/await work?"</em></div>
       </div>
       <div class="demo-step">
         <div class="demo-step-num">4</div>
-        <div class="demo-step-text">Ask: <em>"Who should I ask to review this PR?"</em> — Claude recalls Anna</div>
+        <div class="demo-step-text">Claude opens with a diagram, uses TypeScript — without being told again</div>
       </div>
       <div class="highlight-info">
-        <p class="highlight-body">💡 This is the difference between a tool you <strong>configure once</strong> and one you re-explain forever.</p>
+        <p class="highlight-body">💡 For truly global preferences, use <code>~/.claude/CLAUDE.md</code> — that applies across all projects.</p>
       </div>
     </section>
 
